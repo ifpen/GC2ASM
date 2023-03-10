@@ -1,0 +1,568 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!-- edited with XMLSpy v2008 (http://www.altova.com) by Maciej Tokarski (Agilent Technologies Germany) -->
+<!-- edited with XMLSPY v5 rel. 4 U (http://www.xmlspy.com) by Reiner Lange (Agilent Technologies) -->
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified" attributeFormDefault="unqualified">
+	<xs:element name="ChemStationResult">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="Acquisition">
+					<xs:complexType>
+						<xs:complexContent>
+							<xs:extension base="AcquisitionType"/>
+						</xs:complexContent>
+					</xs:complexType>
+				</xs:element>
+				<xs:element name="ModuleInformation">
+					<xs:complexType>
+						<xs:sequence>
+							<xs:element name="Module" minOccurs="0" maxOccurs="unbounded">
+								<xs:complexType>
+									<xs:complexContent>
+										<xs:extension base="ModuleType"/>
+									</xs:complexContent>
+								</xs:complexType>
+							</xs:element>
+						</xs:sequence>
+					</xs:complexType>
+				</xs:element>
+				<xs:element name="SampleInformation">
+					<xs:complexType>
+						<xs:complexContent>
+							<xs:extension base="SampleInformationType"/>
+						</xs:complexContent>
+					</xs:complexType>
+				</xs:element>
+				<xs:element name="Chromatograms">
+					<xs:complexType>
+						<xs:sequence>
+							<xs:element name="Signal" minOccurs="0" maxOccurs="unbounded">
+								<xs:complexType>
+									<xs:complexContent>
+										<xs:extension base="SignalType"/>
+									</xs:complexContent>
+								</xs:complexType>
+							</xs:element>
+						</xs:sequence>
+					</xs:complexType>
+				</xs:element>
+				<xs:element name="CalibrationInformation" type="CalibrationInformationType" minOccurs="0"/>
+				<xs:element name="Results" type="ResultsType"/>
+				<xs:element name="FractionInformation" minOccurs="0">
+					<xs:complexType>
+						<xs:complexContent>
+							<xs:extension base="FractionInformationType"/>
+						</xs:complexContent>
+					</xs:complexType>
+				</xs:element>
+				<xs:element name="CustomResults">
+					<xs:complexType>
+						<xs:sequence>
+							<xs:element name="Info" minOccurs="0" maxOccurs="unbounded">
+								<xs:complexType>
+									<xs:complexContent>
+										<xs:extension base="InfoType"/>
+									</xs:complexContent>
+								</xs:complexType>
+							</xs:element>
+						</xs:sequence>
+					</xs:complexType>
+				</xs:element>
+			</xs:sequence>
+			<xs:attribute name="checksum" type="xs:string" use="required"/>
+		</xs:complexType>
+	</xs:element>
+	<xs:complexType name="AcquisitionType">
+		<xs:sequence>
+			<xs:element name="Version"/>
+			<xs:element name="InstrumentName"/>
+			<xs:element name="MethodPath"/>
+			<xs:element name="InjectionTime"/>
+			<xs:element name="MethodLastModifiedTime"/>
+			<xs:element name="MethodLastModifiedBy"/>
+			<xs:element name="MethodModifiedAtRun"/>
+      <xs:element name="BarCode"/>
+    </xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="IntegrationResultsType">
+		<xs:sequence>
+			<xs:element name="RetTime" type="Value"/>
+			<xs:element name="Area" type="Value"/>
+			<xs:element name="AreaPercent" type="Value"/>
+			<xs:element name="AreaSum" type="Value"/>
+			<xs:element name="Height" type="Value"/>
+			<xs:element name="HeightPercent" type="Value"/>
+			<xs:element name="HeightSum" type="Value"/>
+			<xs:element name="Width" type="Value"/>
+			<xs:element name="Symmetry" type="Value"/>
+			<xs:element name="Baseline" type="Value"/>
+			<xs:element name="TimeStart" type="Value"/>
+			<xs:element name="LevelStart" type="Value"/>
+			<xs:element name="BaselineStart" type="Value"/>
+			<xs:element name="TimeEnd" type="Value"/>
+			<xs:element name="LevelEnd" type="Value"/>
+			<xs:element name="BaselineEnd" type="Value"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="SampleInformationType">
+		<xs:sequence>
+			<xs:element name="Version"/>
+			<xs:element name="VialUnused"/>
+			<xs:element name="SequencePath"/>
+			<xs:element name="Dilution"/>
+			<xs:element name="InjVolume"/>
+			<xs:element name="ActInjVolume"/>
+			<xs:element name="AcqInstName"/>
+			<xs:element name="SeqLine"/>
+			<xs:element name="Location"/>
+			<xs:element name="Inj"/>
+			<xs:element name="Method"/>
+			<xs:element name="Operator"/>
+			<xs:element name="InjectionDateTime"/>
+			<xs:element name="SampleName"/>
+			<xs:element name="SampleInfo"/>
+			<xs:element name="IstdNum"/>
+			<xs:element name="InternalStandardAmount"/>
+			<xs:element name="SampleAmount"/>
+			<xs:element name="Multiplier"/>
+			<xs:element name="MethodInfo"/>
+			<xs:element name="CalMethod"/>
+			<xs:element name="ResModDateTime"/>
+			<xs:element name="LimsID" minOccurs="0"/>
+			<xs:element name="LimsKField2" minOccurs="0"/>
+			<xs:element name="LimsKField3" minOccurs="0"/>
+			<xs:element name="CustomField" type="CustomFieldType" minOccurs="0" maxOccurs="10"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="ModuleType">
+		<xs:sequence>
+			<xs:element name="Number"/>
+			<xs:element name="NumberInModule"/>
+			<xs:element name="ModuleName"/>
+			<xs:element name="SerialNumber"/>
+			<xs:element name="FirmwareRevision"/>
+			<xs:element name="BuildNumber" minOccurs="0"/>
+			<xs:element name="PartNumber" minOccurs="0"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="SignalType">
+		<xs:sequence>
+			<xs:element name="Title"/>
+			<xs:element name="Description"/>
+			<xs:element name="Detector"/>
+			<xs:element name="SignalId"/>
+			<xs:element name="Operator"/>
+			<xs:element name="DateTime"/>
+			<xs:element name="DerivOrder"/>
+			<xs:element name="RawdataFile"/>
+			<xs:element name="Start"/>
+			<xs:element name="End"/>
+			<xs:element name="XUnits"/>
+			<xs:element name="YUnits"/>
+			<xs:element name="Noise" minOccurs="0">
+				<xs:complexType>
+					<xs:sequence maxOccurs="unbounded">
+						<xs:element name="NoisePeriod" minOccurs="0">
+							<xs:complexType>
+								<xs:sequence>
+									<xs:element name="TimeFrom" type="Value"/>
+									<xs:element name="TimeTo" type="Value"/>
+									<xs:element name="Noise6SD" type="Value"/>
+									<xs:element name="NoisePToP" type="Value"/>
+									<xs:element name="NoiseASTM" type="Value"/>
+									<xs:element name="Wander" type="Value"/>
+									<xs:element name="Drift" type="Value"/>
+								</xs:sequence>
+							</xs:complexType>
+						</xs:element>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="IntegrationResults" type="IntegrationResultsType" minOccurs="0" maxOccurs="unbounded"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="CompoundType">
+		<xs:sequence>
+			<xs:element name="CompoundID" type="xs:integer" minOccurs="0"/>
+			<xs:element name="SignalDesc"/>
+			<xs:element name="PeakType" type="xs:anySimpleType"/>
+			<xs:element name="ExpRetTime" type="Value"/>
+			<xs:element name="MeasRetTime" type="Value"/>
+			<xs:element name="Area" type="Value"/>
+			<xs:element name="Height" type="Value"/>
+			<xs:element name="Width" type="Value"/>
+			<xs:element name="Symmetry" type="Value"/>
+			<xs:element name="Name"/>
+			<xs:element name="Amount" type="Value"/>
+			<xs:sequence minOccurs="0">
+				<xs:element name="kPrime" type="Value" nillable="1"/>
+				<xs:element name="PlatesHalfWidth" type="Value"/>
+				<xs:element name="ResolutionHalfWidth" type="Value"/>
+				<xs:element name="Selectivity" type="Value"/>
+				<xs:element name="SignalNoiseRatio" type="Value" minOccurs="0"/>
+				<xs:sequence minOccurs="0">
+					<xs:element name="Skew" type="Value"/>
+					<xs:element name="Excess" type="Value"/>
+					<xs:element name="WidthHalfHeight" type="Value"/>
+					<xs:element name="Width5Sigma" type="Value"/>
+					<xs:element name="WidthTangent" type="Value"/>
+					<xs:element name="WidthTailing" type="Value"/>
+					<xs:element name="USPTailing" type="Value"/>
+					<xs:element name="TimeIncrement" type="Value"/>
+					<xs:element name="DataPoints" type="Value"/>
+					<xs:element name="StatisticalMoment0" type="Value"/>
+					<xs:element name="StatisticalMoment1" type="Value"/>
+					<xs:element name="StatisticalMoment2" type="Value"/>
+					<xs:element name="StatisticalMoment3" type="Value"/>
+					<xs:element name="StatisticalMoment4" type="Value"/>
+					<xs:element name="PlatesTangent" type="Value"/>
+					<xs:element name="Plates5Sigma" type="Value"/>
+					<xs:element name="PlatesStatistical" type="Value"/>
+					<xs:element name="ResolutionTangent" type="Value"/>
+					<xs:element name="Resolution5Sigma" type="Value"/>
+					<xs:element name="ResolutionStatistical" type="Value"/>
+				</xs:sequence>
+			</xs:sequence>
+			<xs:element name="CustomField" type="CustomFieldType" minOccurs="0" maxOccurs="10"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="CustomResultsType">
+		<xs:sequence>
+			<xs:element name="Info" type="InfoType" minOccurs="0" maxOccurs="unbounded"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="InfoType">
+		<xs:sequence>
+			<xs:element name="Item"/>
+			<xs:element name="Text"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="ResultsType">
+		<xs:sequence>
+			<xs:element name="QuantCalc" type="xs:string"/>
+			<xs:element name="QuantBase" type="xs:string"/>
+			<xs:element name="ResultsGroup" minOccurs="0" maxOccurs="unbounded">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="ResultsGroupDescription"/>
+						<xs:element name="Peak" type="CompoundType" minOccurs="0" maxOccurs="unbounded"/>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="Value" mixed="1">
+		<xs:attribute name="Unit" type="xs:string" use="optional"/>
+		<xs:attribute name="Suitability" type="xs:string" use="optional"/>
+	</xs:complexType>
+	<xs:complexType name="FractionInformationType">
+		<xs:sequence>
+			<xs:element name="PurifyStudy" minOccurs="0"/>
+			<xs:element name="PurifyDataPath" minOccurs="0"/>
+			<xs:element name="Collection" type="CollectionType"/>
+			<xs:element name="Data" type="FractionDataType"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="CollectionType">
+		<xs:sequence>
+			<xs:element name="Type"/>
+			<xs:sequence maxOccurs="2">
+				<xs:element name="Criteria">
+					<xs:complexType>
+						<xs:sequence>
+							<xs:element name="Name"/>
+							<xs:element name="Value"/>
+						</xs:sequence>
+					</xs:complexType>
+				</xs:element>
+			</xs:sequence>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="FractionsType">
+		<xs:sequence minOccurs="0" maxOccurs="unbounded">
+			<xs:element name="Fraction">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="Frac"/>
+						<xs:element name="Well"/>
+						<xs:element name="Location"/>
+						<xs:element name="Volume"/>
+						<xs:element name="BeginTime"/>
+						<xs:element name="EndTime"/>
+						<xs:element name="Reason"/>
+						<xs:element name="Mass" minOccurs="0"/>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="RecoveryLocationsType">
+		<xs:sequence minOccurs="0" maxOccurs="unbounded">
+			<xs:element name="RecoveryLocation">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="Recovery"/>
+						<xs:element name="Location"/>
+						<xs:element name="Volume"/>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="FractionDataType">
+		<xs:sequence>
+			<xs:element name="Fractions" type="FractionsType"/>
+			<xs:element name="RecoveryLocations" type="RecoveryLocationsType"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="CalibrationInformationType">
+		<xs:sequence>
+			<xs:element name="Title" type="xs:string"/>
+			<xs:element name="PartialCalibrationIfPeaksMissing">
+				<xs:complexType>
+					<xs:simpleContent>
+						<xs:extension base="xs:boolean">
+							<xs:attribute name="correctallRTs" type="xs:boolean" use="optional" default="false"/>
+						</xs:extension>
+					</xs:simpleContent>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="UseMultiAndDilutFactorWithISTDs" type="xs:boolean"/>
+			<xs:element name="RecalibrationSettings">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="AverageResponse">
+							<xs:complexType>
+								<xs:simpleContent>
+									<xs:extension base="xs:string">
+										<xs:attribute name="Type" use="required">
+											<xs:simpleType>
+												<xs:restriction base="xs:string">
+													<xs:enumeration value="NOUPDATE"/>
+													<xs:enumeration value="AVERAGEALLCALIBRATIONS"/>
+													<xs:enumeration value="FLOATINGAVERAGENEW"/>
+												</xs:restriction>
+											</xs:simpleType>
+										</xs:attribute>
+									</xs:extension>
+								</xs:simpleContent>
+							</xs:complexType>
+						</xs:element>
+						<xs:element name="AverageRT">
+							<xs:complexType>
+								<xs:simpleContent>
+									<xs:extension base="xs:string">
+										<xs:attribute name="Type" use="required">
+											<xs:simpleType>
+												<xs:restriction base="xs:string">
+													<xs:enumeration value="NOUPDATE"/>
+													<xs:enumeration value="AVERAGEALLCALIBRATIONS"/>
+													<xs:enumeration value="FLOATINGAVERAGENEW"/>
+												</xs:restriction>
+											</xs:simpleType>
+										</xs:attribute>
+									</xs:extension>
+								</xs:simpleContent>
+							</xs:complexType>
+						</xs:element>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="ISTD" minOccurs="0" maxOccurs="unbounded">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="ISTDID" type="xs:integer"/>
+						<xs:element name="Amount" type="Value"/>
+						<xs:choice>
+							<xs:element name="CompoundID" type="xs:integer"/>
+							<xs:element name="GroupID" type="xs:integer"/>
+						</xs:choice>
+						<xs:element name="Name" type="xs:string"/>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="Signal" maxOccurs="unbounded">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="SignalID" type="xs:integer"/>
+						<xs:element name="SignalDesc">
+							<xs:complexType>
+								<xs:simpleContent>
+									<xs:extension base="xs:string"/>
+								</xs:simpleContent>
+							</xs:complexType>
+						</xs:element>
+						<xs:element name="UncalibratedPeaks" nillable="true">
+							<xs:complexType>
+								<xs:choice minOccurs="0">
+									<xs:element name="UsingCompound">
+										<xs:complexType>
+											<xs:sequence>
+												<xs:element name="CompoundID" type="xs:integer"/>
+												<xs:element name="CompoundName" type="xs:string"/>
+											</xs:sequence>
+										</xs:complexType>
+									</xs:element>
+									<xs:sequence>
+										<xs:element name="RspFactor" type="Value"/>
+										<xs:element name="UseISTD" minOccurs="0"/>
+									</xs:sequence>
+								</xs:choice>
+							</xs:complexType>
+						</xs:element>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="Compound" minOccurs="0" maxOccurs="unbounded">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="CompoundID" type="xs:integer"/>
+						<xs:element name="Name" type="xs:string"/>
+						<xs:element name="AmountLimitLow" type="Value"/>
+						<xs:element name="AmountLimitHigh" type="Value"/>
+						<xs:element name="Multiplier" type="Value"/>
+						<xs:element name="IsTimeReference" type="xs:boolean"/>
+						<xs:element name="IsISTD" type="xs:boolean"/>
+						<xs:element name="ISTDID" type="xs:integer" minOccurs="0"/>
+						<xs:element name="GroupID" type="xs:integer" minOccurs="0"/>
+						<xs:element name="CompoundSignal" maxOccurs="unbounded">
+							<xs:complexType>
+								<xs:sequence>
+									<xs:element name="SignalID" type="xs:integer"/>
+									<xs:element name="SignalDesc" type="xs:string"/>
+									<xs:element name="ExpRetTime" type="Value"/>
+									<xs:element name="RTWindowLow" type="Value"/>
+									<xs:element name="RTWindowHigh" type="Value"/>
+									<xs:element name="PeakUsage">
+										<xs:simpleType>
+											<xs:restriction base="xs:string">
+												<xs:enumeration value="MAIN"/>
+												<xs:enumeration value="QUALIFIER"/>
+												<xs:enumeration value="IGNORE"/>
+											</xs:restriction>
+										</xs:simpleType>
+									</xs:element>
+									<xs:element name="Curve" type="CalibrationCurveType"/>
+									<xs:element name="Level" maxOccurs="unbounded">
+										<xs:complexType>
+											<xs:sequence>
+												<xs:element name="LevelID" type="xs:integer"/>
+												<xs:element name="Amount" type="Value"/>
+												<xs:choice>
+													<xs:element name="Area" type="Value"/>
+													<xs:element name="Height" type="Value"/>
+												</xs:choice>
+												<xs:element name="ResponseFactor" type="Value"/>
+												<xs:element name="RefAmount" type="Value"/>
+												<xs:element name="RespPercent" type="Value"/>
+												<xs:element name="LevelWeight" type="Value" minOccurs="0"/>
+											</xs:sequence>
+										</xs:complexType>
+									</xs:element>
+								</xs:sequence>
+							</xs:complexType>
+						</xs:element>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="CalibrationCurveType">
+		<xs:sequence>
+			<xs:element name="Correlation" type="Value"/>
+			<xs:element name="Origin">
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:enumeration value="IGNORE"/>
+						<xs:enumeration value="INCLUDE"/>
+						<xs:enumeration value="FORCE"/>
+						<xs:enumeration value="CONNECT"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="Type">
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:enumeration value="PIECEWISE"/>
+						<xs:enumeration value="LINEAR"/>
+						<xs:enumeration value="QUADRATIC"/>
+						<xs:enumeration value="CUBIC"/>
+						<xs:enumeration value="EXPONENTIAL"/>
+						<xs:enumeration value="LOGARITHMIC"/>
+						<xs:enumeration value="POWER"/>
+						<xs:enumeration value="AVERAGE_RSP_AMNT"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="Formula" type="CalibrationCurveFormulaType"/>
+			<xs:element name="Weight">
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:enumeration value="EQUAL"/>
+						<xs:enumeration value="NOFCALIBRATIONS"/>
+						<xs:enumeration value="LINEAR_AMNT"/>
+						<xs:enumeration value="QUADRATIC_AMNT"/>
+						<xs:enumeration value="LINEAR_RESP"/>
+						<xs:enumeration value="QUADRATIC_RESP"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="CalibrationCurveFormulaType">
+		<xs:sequence>
+			<xs:element name="Text"/>
+			<xs:element name="Parameter" maxOccurs="unbounded">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="Symbol" type="xs:string"/>
+						<xs:element name="Value" type="Value"/>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="CustomFieldType" mixed="0">
+		<xs:simpleContent>
+			<xs:extension base="xs:string">
+				<xs:attribute name="name" type="xs:string" use="required">
+					<xs:annotation>
+						<xs:documentation>field's name, as defined in the ChemStation</xs:documentation>
+					</xs:annotation>
+				</xs:attribute>
+				<xs:attribute name="orderid" type="xs:int" use="required">
+					<xs:annotation>
+						<xs:documentation>orderid is a unique number in the scope of the current customfields group which can be interpreted as ordering (CustomField1, CustomField2, etc.)</xs:documentation>
+					</xs:annotation>
+				</xs:attribute>
+				<xs:attribute name="type" use="required">
+					<xs:annotation>
+						<xs:documentation>type as set up in the Chemstation (TEXT,NUMERIC,DATETIME)</xs:documentation>
+					</xs:annotation>
+					<xs:simpleType>
+						<xs:restriction base="xs:string">
+							<xs:enumeration value="TEXT"/>
+							<xs:enumeration value="NUMERIC"/>
+							<xs:enumeration value="DATETIME"/>
+						</xs:restriction>
+					</xs:simpleType>
+				</xs:attribute>
+				<xs:attribute name="namespace" use="required">
+					<xs:annotation>
+						<xs:documentation>COMPOUND or SAMPLE, as in ChemStation</xs:documentation>
+					</xs:annotation>
+					<xs:simpleType>
+						<xs:restriction base="xs:string">
+							<xs:enumeration value="COMPOUND"/>
+							<xs:enumeration value="SAMPLE"/>
+						</xs:restriction>
+					</xs:simpleType>
+				</xs:attribute>
+				<xs:attribute name="origin" type="xs:string" use="required">
+					<xs:annotation>
+						<xs:documentation>not defined yet, could be used to mark fields as coming from other source as the default CF engine</xs:documentation>
+					</xs:annotation>
+				</xs:attribute>
+			</xs:extension>
+		</xs:simpleContent>
+	</xs:complexType>
+</xs:schema>

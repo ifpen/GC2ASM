@@ -1,0 +1,1647 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ACAML xmlns="urn:schemas-agilent-com:acaml15" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+	<Checksum Algorithm="MD5">
+		<Value>43ZTZ/WKL0/bAakZLl21bA==</Value>
+	</Checksum>
+	<Doc ContentVersioned="false">
+		<DocID>b098176e-8045-480b-b1c8-41744a2078ea</DocID>
+		<DocInfo>
+			<Description>Method ACAML</Description>
+			<CreatedByUser>IFP1\R0521_gen</CreatedByUser>
+			<CreatedByApplication>
+				<AgilentApp>
+					<Name>ChemStation</Name>
+					<Version>2.202.0.0</Version>
+				</AgilentApp>
+			</CreatedByApplication>
+			<CreationDate>2022-05-12T15:24:01.832+02:00</CreationDate>
+			<ClientName>ISPCF362549</ClientName>
+		</DocInfo>
+		<Content>
+			<MethodConfiguration xsi:type="MethodConfigurationType" id="af8611b6-7c59-4845-ba25-844c2ef3be18" ver="0">
+				<MethodDescription>
+					<Name>Method Configuration</Name>
+					<ID>Method_Configuration</ID>
+					<Section>
+						<Name>Acquisition Method</Name>
+						<ID>Acquisition_Method</ID>
+						<Section>
+							<Name>Agilent 8890 (GC)</Name>
+							<ID>GC</ID>
+							<Section>
+								<Name>GC Summary</Name>
+								<ID>SUMMARY</ID>
+								<Parameter>
+									<Name>Run Time</Name>
+									<ID>RUN_TIME</ID>
+									<Unit>min</Unit>
+									<Value>239.47</Value>
+								</Parameter>
+								<Parameter>
+									<Name>Post Run Time</Name>
+									<ID>POSTRUN_TIME</ID>
+									<Unit>min</Unit>
+									<Value>0</Value>
+								</Parameter>
+							</Section>
+							<Section>
+								<Name>Oven</Name>
+								<ID>OVEN</ID>
+								<Section>
+									<Name>Temperature</Name>
+									<ID>TEMPERATURE</ID>
+									<Parameter>
+										<Name>Setpoint</Name>
+										<ID>STATE</ID>
+										<Value>On</Value>
+									</Parameter>
+									<Parameter>
+										<Name>(Initial)</Name>
+										<ID>INITIAL</ID>
+										<Unit>°C</Unit>
+										<Value>35</Value>
+									</Parameter>
+									<Parameter>
+										<Name>Hold Time</Name>
+										<ID>HOLD</ID>
+										<Unit>min</Unit>
+										<Value>10</Value>
+									</Parameter>
+									<Parameter>
+										<Name>Post Run</Name>
+										<ID>POSTRUN</ID>
+										<Unit>°C</Unit>
+										<Value>50</Value>
+									</Parameter>
+									<Table>
+										<Name>Program</Name>
+										<ID>RAMP</ID>
+										<Row>
+											<Parameter>
+												<Name>Rate</Name>
+												<ID>RATE</ID>
+												<Unit>°C/min</Unit>
+												<Value>1.1</Value>
+											</Parameter>
+											<Parameter>
+												<Name>Value</Name>
+												<ID>NEXT</ID>
+												<Unit>°C</Unit>
+												<Value>114</Value>
+											</Parameter>
+											<Parameter>
+												<Name>Hold Time</Name>
+												<ID>HOLD</ID>
+												<Unit>min</Unit>
+												<Value>0</Value>
+											</Parameter>
+										</Row>
+										<Row>
+											<Parameter>
+												<Name>Rate</Name>
+												<ID>RATE</ID>
+												<Unit>°C/min</Unit>
+												<Value>1.7</Value>
+											</Parameter>
+											<Parameter>
+												<Name>Value</Name>
+												<ID>NEXT</ID>
+												<Unit>°C</Unit>
+												<Value>280</Value>
+											</Parameter>
+											<Parameter>
+												<Name>Hold Time</Name>
+												<ID>HOLD</ID>
+												<Unit>min</Unit>
+												<Value>60</Value>
+											</Parameter>
+										</Row>
+									</Table>
+								</Section>
+								<Parameter>
+									<Name>Equilibration Time</Name>
+									<ID>EQUIL_TIME</ID>
+									<Unit>min</Unit>
+									<Value>5</Value>
+								</Parameter>
+								<Parameter>
+									<Name>Max Temperature</Name>
+									<ID>MAX_TEMPERATURE</ID>
+									<Unit>°C</Unit>
+									<Value>325</Value>
+								</Parameter>
+								<Parameter>
+									<Name>Maximum Temperature Override</Name>
+									<ID>MaxTempOverride</ID>
+									<Unit />
+									<Value>Disabled</Value>
+								</Parameter>
+								<Parameter>
+									<Name>Slow Fan</Name>
+									<ID>CR_SlowFan</ID>
+									<Unit />
+									<Value>Disabled</Value>
+								</Parameter>
+								<Parameter>
+									<Name>Cryo</Name>
+									<ID>CRYO</ID>
+									<Unit />
+									<Value>Off</Value>
+								</Parameter>
+								<Parameter>
+									<Name>Cryo Type</Name>
+									<ID>CR_CryoType</ID>
+									<Unit />
+									<Value>N2</Value>
+								</Parameter>
+							</Section>
+							<Section>
+								<Name>ALS</Name>
+								<ID>ALS</ID>
+								<Section>
+									<Name>Front Injector</Name>
+									<ID>FRONTINJ</ID>
+									<Parameter>
+										<Name>Syringe Size</Name>
+										<ID>SYRINGE_SIZE</ID>
+										<Unit>μL</Unit>
+										<Value>5</Value>
+									</Parameter>
+									<Parameter>
+										<Name>Injection Volume</Name>
+										<ID>INJ_VOL</ID>
+										<Unit>μL</Unit>
+										<Value>0.5</Value>
+									</Parameter>
+									<Parameter>
+										<Name>Solvent A Washes (PreInj)</Name>
+										<ID>SOLV_A_WASH_PRE</ID>
+										<Unit />
+										<Value>4</Value>
+									</Parameter>
+									<Parameter>
+										<Name>Solvent A Washes (PostInj)</Name>
+										<ID>SOLV_A_WASH_POST</ID>
+										<Unit />
+										<Value>2</Value>
+									</Parameter>
+									<Parameter>
+										<Name>Solvent A Volume</Name>
+										<ID>SOLV_A_VOL</ID>
+										<Unit>μL</Unit>
+										<Value>4</Value>
+									</Parameter>
+									<Parameter>
+										<Name>Solvent B Washes (PreInj)</Name>
+										<ID>SOLV_B_WASH_PRE</ID>
+										<Unit />
+										<Value>2</Value>
+									</Parameter>
+									<Parameter>
+										<Name>Solvent B Washes (PostInj)</Name>
+										<ID>SOLV_B_WASH_POST</ID>
+										<Unit />
+										<Value>4</Value>
+									</Parameter>
+									<Parameter>
+										<Name>Solvent B Volume</Name>
+										<ID>SOLV_B_VOL</ID>
+										<Unit>μL</Unit>
+										<Value>4</Value>
+									</Parameter>
+									<Parameter>
+										<Name>Sample Washes</Name>
+										<ID>SAMP_WASH</ID>
+										<Unit />
+										<Value>3</Value>
+									</Parameter>
+									<Parameter>
+										<Name>Sample Wash Volume</Name>
+										<ID>SAMP_WASH_VOL</ID>
+										<Unit>μL</Unit>
+										<Value>4</Value>
+									</Parameter>
+									<Parameter>
+										<Name>Sample Pumps</Name>
+										<ID>SAMP_PUMPS</ID>
+										<Unit />
+										<Value>6</Value>
+									</Parameter>
+									<Parameter>
+										<Name>Dwell Time (PreInj)</Name>
+										<ID>DWELL_TIME_PRE</ID>
+										<Unit>min</Unit>
+										<Value>0</Value>
+									</Parameter>
+									<Parameter>
+										<Name>Dwell Time (PostInj)</Name>
+										<ID>DWELL_TIME_POST</ID>
+										<Unit>min</Unit>
+										<Value>0</Value>
+									</Parameter>
+									<Parameter>
+										<Name>Solvent Wash Draw Speed</Name>
+										<ID>SOLV_DRAW_SPEED</ID>
+										<Unit>μL/min</Unit>
+										<Value>150</Value>
+									</Parameter>
+									<Parameter>
+										<Name>Solvent Wash Dispense Speed</Name>
+										<ID>SOLV_DISP_SPEED</ID>
+										<Unit>μL/min</Unit>
+										<Value>1500</Value>
+									</Parameter>
+									<Parameter>
+										<Name>Sample Wash Draw Speed</Name>
+										<ID>SAMP_DRAW_SPEED</ID>
+										<Unit>μL/min</Unit>
+										<Value>150</Value>
+									</Parameter>
+									<Parameter>
+										<Name>Sample Wash Dispense Speed</Name>
+										<ID>SAMP_DISP_SPEED</ID>
+										<Unit>μL/min</Unit>
+										<Value>1500</Value>
+									</Parameter>
+									<Parameter>
+										<Name>Injection Dispense Speed</Name>
+										<ID>INJ_DISP_SPEED</ID>
+										<Unit>μL/min</Unit>
+										<Value>3000</Value>
+									</Parameter>
+									<Parameter>
+										<Name>Viscosity Delay</Name>
+										<ID>VISCOSITY_DELAY</ID>
+										<Unit>sec</Unit>
+										<Value>0</Value>
+									</Parameter>
+									<Parameter>
+										<Name>Sample Depth</Name>
+										<ID>SAMP_DEPTH</ID>
+										<Unit />
+										<Value>Disabled</Value>
+									</Parameter>
+									<Parameter>
+										<Name>Injection Type</Name>
+										<ID>INJ_MODE</ID>
+										<Unit />
+										<Value>Standard</Value>
+									</Parameter>
+									<Parameter>
+										<Name>L1 Airgap</Name>
+										<ID>L1_AIRGAP</ID>
+										<Unit>μL</Unit>
+										<Value>0.1</Value>
+									</Parameter>
+									<Parameter>
+										<Name>Solvent Wash Mode</Name>
+										<ID>SOLV_WASHMODE</ID>
+										<Unit />
+										<Value>A, B</Value>
+									</Parameter>
+								</Section>
+								<Section>
+									<Name>Sample Overlap</Name>
+									<ID>SAMP_OVERLAP</ID>
+									<Parameter>
+										<Name>Mode</Name>
+										<ID>MODE</ID>
+										<Unit />
+										<Value>Sample overlap is not enabled</Value>
+									</Parameter>
+								</Section>
+							</Section>
+							<Section>
+								<Name>Front SS Inlet He</Name>
+								<ID>INLET1</ID>
+								<Parameter>
+									<Name>Mode</Name>
+									<ID>MODE</ID>
+									<Unit />
+									<Value>Split</Value>
+								</Parameter>
+								<Parameter>
+									<Name>Heater</Name>
+									<ID>HEATER</ID>
+									<Unit>°C</Unit>
+									<Value>On    280</Value>
+								</Parameter>
+								<Parameter>
+									<Name>Pressure</Name>
+									<ID>PRESSURE</ID>
+									<Unit>psi</Unit>
+									<Value>On    28.2</Value>
+								</Parameter>
+								<Parameter>
+									<Name>Total Flow</Name>
+									<ID>TOTAL_FLOW</ID>
+									<Unit>mL/min</Unit>
+									<Value>On    203.86</Value>
+								</Parameter>
+								<Parameter>
+									<Name>Septum Purge Flow</Name>
+									<ID>SEPTUM_PURGE_FLOW</ID>
+									<Unit>mL/min</Unit>
+									<Value>On    3</Value>
+								</Parameter>
+								<Parameter>
+									<Name>Pre-Run Flow Test</Name>
+									<ID>INLET_LEAK_TEST</ID>
+									<Unit />
+									<Value>Off</Value>
+								</Parameter>
+								<Parameter>
+									<Name>Gas Saver</Name>
+									<ID>GAS_SAVER</ID>
+									<Value>On    20 mL/min after 2 min</Value>
+								</Parameter>
+								<Parameter>
+									<Name>Split Ratio</Name>
+									<ID>SPLIT_RATIO</ID>
+									<Unit>:1</Unit>
+									<Value>233.85</Value>
+								</Parameter>
+								<Parameter>
+									<Name>Split Flow</Name>
+									<ID>SPLIT_FLOW</ID>
+									<Unit>mL/min</Unit>
+									<Value>200</Value>
+								</Parameter>
+								<Parameter>
+									<Name>Liner</Name>
+									<ID>LINER</ID>
+									<Unit />
+									<Value>A Liner has not been selected.</Value>
+								</Parameter>
+							</Section>
+							<Section>
+								<Name>Back COC Inlet He</Name>
+								<ID>INLET2</ID>
+								<Parameter>
+									<Name>Mode</Name>
+									<ID>MODE</ID>
+									<Unit />
+									<Value>Track Oven</Value>
+								</Parameter>
+								<Parameter>
+									<Name>Heater</Name>
+									<ID>HEATER</ID>
+									<Unit />
+									<Value>Off</Value>
+								</Parameter>
+								<Parameter>
+									<Name>Pressure</Name>
+									<ID>PRESSURE</ID>
+									<Unit />
+									<Value>Off</Value>
+								</Parameter>
+								<Parameter>
+									<Name>Septum Purge Flow</Name>
+									<ID>SEPTUM_PURGE_FLOW</ID>
+									<Unit>mL/min</Unit>
+									<Value>On    15</Value>
+								</Parameter>
+								<Parameter>
+									<Name>Pre-Run Flow Test</Name>
+									<ID>INLET_LEAK_TEST</ID>
+									<Unit />
+									<Value>Off</Value>
+								</Parameter>
+							</Section>
+							<Section>
+								<Name>Column</Name>
+								<ID>COLUMN</ID>
+								<Section>
+									<Name>Column #1</Name>
+									<ID>COLUMN1</ID>
+									<Section>
+										<Name>Pressure</Name>
+										<ID>PRESSURE</ID>
+										<Parameter>
+											<Name>Setpoint</Name>
+											<ID>STATE</ID>
+											<Value>On</Value>
+										</Parameter>
+										<Parameter>
+											<Name>(Initial)</Name>
+											<ID>INITIAL</ID>
+											<Unit>psi</Unit>
+											<Value>28.2</Value>
+										</Parameter>
+										<Parameter>
+											<Name>Post Run</Name>
+											<ID>POSTRUN</ID>
+											<Unit>psi</Unit>
+											<Value>28</Value>
+										</Parameter>
+									</Section>
+									<Parameter>
+										<Name>Column Information</Name>
+										<ID>INFO</ID>
+										<Value>Agilent 19091S-001</Value>
+									</Parameter>
+									<Parameter>
+										<Name>Description</Name>
+										<ID>DESCRIPTION</ID>
+										<Value>HP-PONA</Value>
+									</Parameter>
+									<Parameter>
+										<Name>Temperature Range</Name>
+										<ID>TEMPERATURERANGE</ID>
+										<Value>-60 °C—325 °C (350 °C)</Value>
+									</Parameter>
+									<Parameter>
+										<Name>Dimensions</Name>
+										<ID>DIMENSIONS</ID>
+										<Value>50 m x 200 μm x 0.5 μm (Uncalibrated)</Value>
+									</Parameter>
+									<Parameter>
+										<Name>Column lock</Name>
+										<ID>COLUMN_LOCKED</ID>
+										<Unit />
+										<Value>Unlocked</Value>
+									</Parameter>
+									<Parameter>
+										<Name>In</Name>
+										<ID>IN</ID>
+										<Unit />
+										<Value>Front SS Inlet He</Value>
+									</Parameter>
+									<Parameter>
+										<Name>Out</Name>
+										<ID>OUT</ID>
+										<Unit />
+										<Value>Front Detector FID</Value>
+									</Parameter>
+									<Parameter>
+										<Name>(Initial)</Name>
+										<ID>INITIAL</ID>
+										<Unit>°C</Unit>
+										<Value>35</Value>
+									</Parameter>
+									<Parameter>
+										<Name>Pressure</Name>
+										<ID>PRESSURE</ID>
+										<Unit>psi</Unit>
+										<Value>28.2</Value>
+									</Parameter>
+									<Parameter>
+										<Name>Flow</Name>
+										<ID>FLOW</ID>
+										<Unit>mL/min</Unit>
+										<Value>0.85524</Value>
+									</Parameter>
+									<Parameter>
+										<Name>Average Velocity</Name>
+										<ID>VELOCITY</ID>
+										<Unit>cm/sec</Unit>
+										<Value>22.384</Value>
+									</Parameter>
+									<Parameter>
+										<Name>Holdup Time</Name>
+										<ID>HOLDUPTIME</ID>
+										<Unit>min</Unit>
+										<Value>3.7229</Value>
+									</Parameter>
+									<Parameter>
+										<Name>Control Mode</Name>
+										<ID>CONTROL_MODE</ID>
+										<Unit />
+										<Value>Constant Pressure</Value>
+									</Parameter>
+								</Section>
+								<Parameter>
+									<Name>Column Outlet Pressure</Name>
+									<ID>ColumnOutletPressure</ID>
+									<Unit>psi</Unit>
+									<Value>0</Value>
+								</Parameter>
+							</Section>
+							<Section>
+								<Name>Front Detector FID</Name>
+								<ID>Detector 1</ID>
+								<Parameter>
+									<Name>Makeup</Name>
+									<ID>MAKEUP</ID>
+									<Unit />
+									<Value>He</Value>
+								</Parameter>
+								<Parameter>
+									<Name>Heater</Name>
+									<ID>Heater</ID>
+									<Unit>°C</Unit>
+									<Value>On    300</Value>
+								</Parameter>
+								<Parameter>
+									<Name>H2 Flow</Name>
+									<ID>H2 Flow</ID>
+									<Unit>mL/min</Unit>
+									<Value>On    30</Value>
+								</Parameter>
+								<Parameter>
+									<Name>Air Flow</Name>
+									<ID>Air Flow</ID>
+									<Unit>mL/min</Unit>
+									<Value>On    400</Value>
+								</Parameter>
+								<Parameter>
+									<Name>Makeup Flow</Name>
+									<ID>Makeup Flow</ID>
+									<Unit>mL/min</Unit>
+									<Value>On    25</Value>
+								</Parameter>
+								<Parameter>
+									<Name>Carrier Gas Flow Correction</Name>
+									<ID>CARRIER_GAS_CORRECTION</ID>
+									<Unit />
+									<Value>Constant Makeup and Fuel Flow</Value>
+								</Parameter>
+								<Parameter>
+									<Name>Flame</Name>
+									<ID>FLAME</ID>
+									<Unit />
+									<Value>On</Value>
+								</Parameter>
+								<Parameter>
+									<Name>Blank Evaluation Setpoints</Name>
+									<ID>BR_BLANK_RUN_SETPOINTS</ID>
+									<Unit />
+									<Value />
+								</Parameter>
+								<Parameter>
+									<Name>Perform Blank Evaluation Test</Name>
+									<ID>BR_PERFORM_BLANK_RUN_TEST</ID>
+									<Unit />
+									<Value>Off</Value>
+								</Parameter>
+								<Parameter>
+									<Name>Initial Baseline Minimum</Name>
+									<ID>BR_INITIAL_BASELINE_MIN</ID>
+									<Unit>pA</Unit>
+									<Value>2</Value>
+								</Parameter>
+								<Parameter>
+									<Name>Initial Baseline Maximum</Name>
+									<ID>BR_INITIAL_BASELINE_MAX</ID>
+									<Unit>pA</Unit>
+									<Value>20</Value>
+								</Parameter>
+								<Parameter>
+									<Name>Initial Baseline Noise</Name>
+									<ID>BR_INITIAL_BASELINE_NOISE</ID>
+									<Unit>pA</Unit>
+									<Value>0.3</Value>
+								</Parameter>
+								<Parameter>
+									<Name>Final Baseline Minimum</Name>
+									<ID>BR_FINAL_BASELINE_MIN</ID>
+									<Unit>pA</Unit>
+									<Value>2</Value>
+								</Parameter>
+								<Parameter>
+									<Name>Final Baseline Maximum</Name>
+									<ID>BR_FINAL_BASELINE_MAX</ID>
+									<Unit>pA</Unit>
+									<Value>40</Value>
+								</Parameter>
+								<Parameter>
+									<Name>Final Baseline Noise</Name>
+									<ID>BR_FINAL_BASELINE_NOISE</ID>
+									<Unit>pA</Unit>
+									<Value>0.6</Value>
+								</Parameter>
+								<Parameter>
+									<Name>Total Peak Area</Name>
+									<ID>BR_TOTAL_PEAK_AREA</ID>
+									<Unit>pA*sec</Unit>
+									<Value>100</Value>
+								</Parameter>
+								<Parameter>
+									<Name>Maximum Peak Height</Name>
+									<ID>BR_MAX_PEAK_HEIGHT</ID>
+									<Unit>pA</Unit>
+									<Value>3</Value>
+								</Parameter>
+								<Parameter>
+									<Name>Time Window Start</Name>
+									<ID>BR_TIME_WINDOW_START</ID>
+									<Unit>min</Unit>
+									<Value>0</Value>
+								</Parameter>
+								<Parameter>
+									<Name>Time Window End</Name>
+									<ID>BR_TIME_WINDOW_END</ID>
+									<Unit>min</Unit>
+									<Value>0.5333333333</Value>
+								</Parameter>
+							</Section>
+							<Section>
+								<Name>Back Detector FID</Name>
+								<ID>Detector 2</ID>
+								<Parameter>
+									<Name>Makeup</Name>
+									<ID>MAKEUP</ID>
+									<Unit />
+									<Value>He</Value>
+								</Parameter>
+								<Parameter>
+									<Name>Heater</Name>
+									<ID>Heater</ID>
+									<Unit />
+									<Value>Off</Value>
+								</Parameter>
+								<Parameter>
+									<Name>H2 Flow</Name>
+									<ID>H2 Flow</ID>
+									<Unit />
+									<Value>Off</Value>
+								</Parameter>
+								<Parameter>
+									<Name>Air Flow</Name>
+									<ID>Air Flow</ID>
+									<Unit />
+									<Value>Off</Value>
+								</Parameter>
+								<Parameter>
+									<Name>Makeup Flow</Name>
+									<ID>Makeup Flow</ID>
+									<Unit />
+									<Value>Off</Value>
+								</Parameter>
+								<Parameter>
+									<Name>Carrier Gas Flow Correction</Name>
+									<ID>CARRIER_GAS_CORRECTION</ID>
+									<Unit />
+									<Value>Constant Makeup and Fuel Flow</Value>
+								</Parameter>
+								<Parameter>
+									<Name>Flame</Name>
+									<ID>FLAME</ID>
+									<Unit />
+									<Value>Off</Value>
+								</Parameter>
+								<Parameter>
+									<Name>Blank Evaluation Setpoints</Name>
+									<ID>BR_BLANK_RUN_SETPOINTS</ID>
+									<Unit />
+									<Value />
+								</Parameter>
+								<Parameter>
+									<Name>Perform Blank Evaluation Test</Name>
+									<ID>BR_PERFORM_BLANK_RUN_TEST</ID>
+									<Unit />
+									<Value>Off</Value>
+								</Parameter>
+								<Parameter>
+									<Name>Initial Baseline Minimum</Name>
+									<ID>BR_INITIAL_BASELINE_MIN</ID>
+									<Unit>pA</Unit>
+									<Value>2</Value>
+								</Parameter>
+								<Parameter>
+									<Name>Initial Baseline Maximum</Name>
+									<ID>BR_INITIAL_BASELINE_MAX</ID>
+									<Unit>pA</Unit>
+									<Value>20</Value>
+								</Parameter>
+								<Parameter>
+									<Name>Initial Baseline Noise</Name>
+									<ID>BR_INITIAL_BASELINE_NOISE</ID>
+									<Unit>pA</Unit>
+									<Value>0.3</Value>
+								</Parameter>
+								<Parameter>
+									<Name>Final Baseline Minimum</Name>
+									<ID>BR_FINAL_BASELINE_MIN</ID>
+									<Unit>pA</Unit>
+									<Value>2</Value>
+								</Parameter>
+								<Parameter>
+									<Name>Final Baseline Maximum</Name>
+									<ID>BR_FINAL_BASELINE_MAX</ID>
+									<Unit>pA</Unit>
+									<Value>40</Value>
+								</Parameter>
+								<Parameter>
+									<Name>Final Baseline Noise</Name>
+									<ID>BR_FINAL_BASELINE_NOISE</ID>
+									<Unit>pA</Unit>
+									<Value>0.6</Value>
+								</Parameter>
+								<Parameter>
+									<Name>Total Peak Area</Name>
+									<ID>BR_TOTAL_PEAK_AREA</ID>
+									<Unit>pA*sec</Unit>
+									<Value>100</Value>
+								</Parameter>
+								<Parameter>
+									<Name>Maximum Peak Height</Name>
+									<ID>BR_MAX_PEAK_HEIGHT</ID>
+									<Unit>pA</Unit>
+									<Value>3</Value>
+								</Parameter>
+								<Parameter>
+									<Name>Time Window Start</Name>
+									<ID>BR_TIME_WINDOW_START</ID>
+									<Unit>min</Unit>
+									<Value>0</Value>
+								</Parameter>
+								<Parameter>
+									<Name>Time Window End</Name>
+									<ID>BR_TIME_WINDOW_END</ID>
+									<Unit>min</Unit>
+									<Value>0.5333333333</Value>
+								</Parameter>
+							</Section>
+							<Section>
+								<Name>Detector Evaluation</Name>
+								<ID>CA_HEADING</ID>
+								<Parameter>
+									<Name>Perform Detector Evaluation Test</Name>
+									<ID>CA_PERFORM_ANALYSIS</ID>
+									<Unit />
+									<Value>Off</Value>
+								</Parameter>
+								<Parameter>
+									<Name>Signal Selected</Name>
+									<ID>CA_SIGNALSELECTED</ID>
+									<Unit />
+									<Value>No Signal Selected</Value>
+								</Parameter>
+								<Parameter>
+									<Name>Checkout Sample</Name>
+									<ID>CA_CHECKOUTSAMPLE</ID>
+									<Unit />
+									<Value>None</Value>
+								</Parameter>
+							</Section>
+							<Section>
+								<Name>Signals</Name>
+								<ID>SIGNALS</ID>
+								<Section>
+									<Name>Signal #1:  Front Signal</Name>
+									<ID>SIGNAL1</ID>
+									<Parameter>
+										<Name>Description</Name>
+										<ID>DESCRIPTION</ID>
+										<Unit />
+										<Value>Front Signal</Value>
+									</Parameter>
+									<Parameter>
+										<Name>Details</Name>
+										<ID>DETAILS</ID>
+										<Unit />
+										<Value>Front Signal (FID)</Value>
+									</Parameter>
+									<Parameter>
+										<Name>Save</Name>
+										<ID>SAVE</ID>
+										<Unit />
+										<Value>On</Value>
+									</Parameter>
+									<Parameter>
+										<Name>Data Rate</Name>
+										<ID>DATA_RATE</ID>
+										<Unit>Hz</Unit>
+										<Value>5</Value>
+									</Parameter>
+									<Parameter>
+										<Name>Dual Injection Assignment</Name>
+										<ID>DUAL_ASSIGNMENT</ID>
+										<Value>Front Sample</Value>
+									</Parameter>
+								</Section>
+								<Section>
+									<Name>Signal #2: </Name>
+									<ID>SIGNAL2</ID>
+									<Parameter>
+										<Name>Description</Name>
+										<ID>DESCRIPTION</ID>
+										<Unit />
+										<Value>None</Value>
+									</Parameter>
+								</Section>
+								<Section>
+									<Name>Signal #3: </Name>
+									<ID>SIGNAL3</ID>
+									<Parameter>
+										<Name>Description</Name>
+										<ID>DESCRIPTION</ID>
+										<Unit />
+										<Value>None</Value>
+									</Parameter>
+								</Section>
+								<Section>
+									<Name>Signal #4: </Name>
+									<ID>SIGNAL4</ID>
+									<Parameter>
+										<Name>Description</Name>
+										<ID>DESCRIPTION</ID>
+										<Unit />
+										<Value>None</Value>
+									</Parameter>
+								</Section>
+								<Section>
+									<Name>Signal #5: </Name>
+									<ID>SIGNAL5</ID>
+									<Parameter>
+										<Name>Description</Name>
+										<ID>DESCRIPTION</ID>
+										<Unit />
+										<Value>None</Value>
+									</Parameter>
+								</Section>
+								<Section>
+									<Name>Signal #6: </Name>
+									<ID>SIGNAL6</ID>
+									<Parameter>
+										<Name>Description</Name>
+										<ID>DESCRIPTION</ID>
+										<Unit />
+										<Value>None</Value>
+									</Parameter>
+								</Section>
+								<Section>
+									<Name>Signal #7: </Name>
+									<ID>SIGNAL7</ID>
+									<Parameter>
+										<Name>Description</Name>
+										<ID>DESCRIPTION</ID>
+										<Unit />
+										<Value>None</Value>
+									</Parameter>
+								</Section>
+								<Section>
+									<Name>Signal #8: </Name>
+									<ID>SIGNAL8</ID>
+									<Parameter>
+										<Name>Description</Name>
+										<ID>DESCRIPTION</ID>
+										<Unit />
+										<Value>None</Value>
+									</Parameter>
+								</Section>
+							</Section>
+						</Section>
+						<Section>
+							<Name>Agilent 8890</Name>
+							<ID>Agilent8890</ID>
+							<Section>
+								<Name>GC</Name>
+								<ID>GC</ID>
+							</Section>
+							<Section>
+								<Name>GC Summary</Name>
+								<ID>GCSummary</ID>
+							</Section>
+							<Section>
+								<Name>Run Time                                     239.47 min</Name>
+								<ID>RunTime239.47min</ID>
+							</Section>
+							<Section>
+								<Name>Post Run Time                                0 min</Name>
+								<ID>PostRunTime0min</ID>
+							</Section>
+							<Section>
+								<Name>Oven</Name>
+								<ID>Oven</ID>
+							</Section>
+							<Section>
+								<Name>Temperature</Name>
+								<ID>Temperature</ID>
+							</Section>
+							<Section>
+								<Name>Setpoint                                     On</Name>
+								<ID>SetpointOn</ID>
+							</Section>
+							<Section>
+								<Name>(Initial)                                    35 °C</Name>
+								<ID>(Initial)35°C</ID>
+							</Section>
+							<Section>
+								<Name>Hold Time                                    10 min</Name>
+								<ID>HoldTime10min</ID>
+							</Section>
+							<Section>
+								<Name>Post Run                                     50 °C</Name>
+								<ID>PostRun50°C</ID>
+							</Section>
+							<Section>
+								<Name>Program</Name>
+								<ID>Program</ID>
+							</Section>
+							<Section>
+								<Name>#1 Rate                                      1.1 °C/min</Name>
+								<ID>#1Rate1.1°C/min</ID>
+							</Section>
+							<Section>
+								<Name>#1 Value                                     114 °C</Name>
+								<ID>#1Value114°C</ID>
+							</Section>
+							<Section>
+								<Name>#1 Hold Time                                 0 min</Name>
+								<ID>#1HoldTime0min</ID>
+							</Section>
+							<Section>
+								<Name>#2 Rate                                      1.7 °C/min</Name>
+								<ID>#2Rate1.7°C/min</ID>
+							</Section>
+							<Section>
+								<Name>#2 Value                                     280 °C</Name>
+								<ID>#2Value280°C</ID>
+							</Section>
+							<Section>
+								<Name>#2 Hold Time                                 60 min</Name>
+								<ID>#2HoldTime60min</ID>
+							</Section>
+							<Section>
+								<Name>Equilibration Time                           5 min</Name>
+								<ID>EquilibrationTime5min</ID>
+							</Section>
+							<Section>
+								<Name>Max Temperature                              325 °C</Name>
+								<ID>MaxTemperature325°C</ID>
+							</Section>
+							<Section>
+								<Name>Maximum Temperature Override                 Disabled</Name>
+								<ID>MaximumTemperatureOverrideDisabled</ID>
+							</Section>
+							<Section>
+								<Name>Slow Fan                                     Disabled</Name>
+								<ID>SlowFanDisabled</ID>
+							</Section>
+							<Section>
+								<Name>Cryo                                         Off</Name>
+								<ID>CryoOff</ID>
+							</Section>
+							<Section>
+								<Name>Cryo Type                                    N2</Name>
+								<ID>CryoTypeN2</ID>
+							</Section>
+							<Section>
+								<Name>ALS</Name>
+								<ID>ALS</ID>
+							</Section>
+							<Section>
+								<Name>Front Injector</Name>
+								<ID>FrontInjector</ID>
+							</Section>
+							<Section>
+								<Name>Syringe Size                                 5 μL</Name>
+								<ID>SyringeSize5μL</ID>
+							</Section>
+							<Section>
+								<Name>Injection Volume                             0.5 μL</Name>
+								<ID>InjectionVolume0.5μL</ID>
+							</Section>
+							<Section>
+								<Name>Solvent A Washes (PreInj)                    4</Name>
+								<ID>SolventAWashes(PreInj)4</ID>
+							</Section>
+							<Section>
+								<Name>Solvent A Washes (PostInj)                   2</Name>
+								<ID>SolventAWashes(PostInj)2</ID>
+							</Section>
+							<Section>
+								<Name>Solvent A Volume                             4 μL</Name>
+								<ID>SolventAVolume4μL</ID>
+							</Section>
+							<Section>
+								<Name>Solvent B Washes (PreInj)                    2</Name>
+								<ID>SolventBWashes(PreInj)2</ID>
+							</Section>
+							<Section>
+								<Name>Solvent B Washes (PostInj)                   4</Name>
+								<ID>SolventBWashes(PostInj)4</ID>
+							</Section>
+							<Section>
+								<Name>Solvent B Volume                             4 μL</Name>
+								<ID>SolventBVolume4μL</ID>
+							</Section>
+							<Section>
+								<Name>Sample Washes                                3</Name>
+								<ID>SampleWashes3</ID>
+							</Section>
+							<Section>
+								<Name>Sample Wash Volume                           4 μL</Name>
+								<ID>SampleWashVolume4μL</ID>
+							</Section>
+							<Section>
+								<Name>Sample Pumps                                 6</Name>
+								<ID>SamplePumps6</ID>
+							</Section>
+							<Section>
+								<Name>Dwell Time (PreInj)                          0 min</Name>
+								<ID>DwellTime(PreInj)0min</ID>
+							</Section>
+							<Section>
+								<Name>Dwell Time (PostInj)                         0 min</Name>
+								<ID>DwellTime(PostInj)0min</ID>
+							</Section>
+							<Section>
+								<Name>Solvent Wash Draw Speed                      150 μL/min</Name>
+								<ID>SolventWashDrawSpeed150μL/min</ID>
+							</Section>
+							<Section>
+								<Name>Solvent Wash Dispense Speed                  1500 μL/min</Name>
+								<ID>SolventWashDispenseSpeed1500μL/min</ID>
+							</Section>
+							<Section>
+								<Name>Sample Wash Draw Speed                       150 μL/min</Name>
+								<ID>SampleWashDrawSpeed150μL/min</ID>
+							</Section>
+							<Section>
+								<Name>Sample Wash Dispense Speed                   1500 μL/min</Name>
+								<ID>SampleWashDispenseSpeed1500μL/min</ID>
+							</Section>
+							<Section>
+								<Name>Injection Dispense Speed                     3000 μL/min</Name>
+								<ID>InjectionDispenseSpeed3000μL/min</ID>
+							</Section>
+							<Section>
+								<Name>Viscosity Delay                              0 sec</Name>
+								<ID>ViscosityDelay0sec</ID>
+							</Section>
+							<Section>
+								<Name>Sample Depth                                 Disabled</Name>
+								<ID>SampleDepthDisabled</ID>
+							</Section>
+							<Section>
+								<Name>Injection Type                               Standard</Name>
+								<ID>InjectionTypeStandard</ID>
+							</Section>
+							<Section>
+								<Name>L1 Airgap                                    0.1 μL</Name>
+								<ID>L1Airgap0.1μL</ID>
+							</Section>
+							<Section>
+								<Name>Solvent Wash Mode                            A, B</Name>
+								<ID>SolventWashModeA,B</ID>
+							</Section>
+							<Section>
+								<Name>Sample Overlap</Name>
+								<ID>SampleOverlap</ID>
+							</Section>
+							<Section>
+								<Name>Mode                                         Sample overlap is not enabled</Name>
+								<ID>ModeSampleoverlapisnotenabled</ID>
+							</Section>
+							<Section>
+								<Name>Front SS Inlet He</Name>
+								<ID>FrontSSInletHe</ID>
+							</Section>
+							<Section>
+								<Name>Mode                                         Split</Name>
+								<ID>ModeSplit</ID>
+							</Section>
+							<Section>
+								<Name>Heater                                       On    280 °C</Name>
+								<ID>HeaterOn280°C</ID>
+							</Section>
+							<Section>
+								<Name>Pressure                                     On    28.2 psi</Name>
+								<ID>PressureOn28.2psi</ID>
+							</Section>
+							<Section>
+								<Name>Total Flow                                   On    203.86 mL/min</Name>
+								<ID>TotalFlowOn203.86mL/min</ID>
+							</Section>
+							<Section>
+								<Name>Septum Purge Flow                            On    3 mL/min</Name>
+								<ID>SeptumPurgeFlowOn3mL/min</ID>
+							</Section>
+							<Section>
+								<Name>Pre-Run Flow Test                            Off</Name>
+								<ID>Pre-RunFlowTestOff</ID>
+							</Section>
+							<Section>
+								<Name>Gas Saver                                    On    20 mL/min after 2 min</Name>
+								<ID>GasSaverOn20mL/minafter2min</ID>
+								<Parameter>
+									<Name>Split Ratio                                  233.85</Name>
+									<ID>SplitRatio233.85</ID>
+									<Unit />
+									<Value>1</Value>
+								</Parameter>
+								<Parameter>
+									<Name />
+									<ID>SplitRatio233.85:1</ID>
+									<Unit />
+									<Value>Split Ratio                                  233.85 :1</Value>
+								</Parameter>
+							</Section>
+							<Section>
+								<Name>Split Flow                                   200 mL/min</Name>
+								<ID>SplitFlow200mL/min</ID>
+							</Section>
+							<Section>
+								<Name>Liner                                        A Liner has not been selected.</Name>
+								<ID>LinerALinerhasnotbeenselected.</ID>
+							</Section>
+							<Section>
+								<Name>Back COC Inlet He</Name>
+								<ID>BackCOCInletHe</ID>
+							</Section>
+							<Section>
+								<Name>Mode                                         Track Oven</Name>
+								<ID>ModeTrackOven</ID>
+							</Section>
+							<Section>
+								<Name>Heater                                       Off</Name>
+								<ID>HeaterOff</ID>
+							</Section>
+							<Section>
+								<Name>Pressure                                     Off</Name>
+								<ID>PressureOff</ID>
+							</Section>
+							<Section>
+								<Name>Septum Purge Flow                            On    15 mL/min</Name>
+								<ID>SeptumPurgeFlowOn15mL/min</ID>
+							</Section>
+							<Section>
+								<Name>Pre-Run Flow Test                            Off</Name>
+								<ID>Pre-RunFlowTestOff</ID>
+							</Section>
+							<Section>
+								<Name>Column</Name>
+								<ID>Column</ID>
+							</Section>
+							<Section>
+								<Name>Column #1</Name>
+								<ID>Column#1</ID>
+							</Section>
+							<Section>
+								<Name>Pressure</Name>
+								<ID>Pressure</ID>
+							</Section>
+							<Section>
+								<Name>Setpoint                                     On</Name>
+								<ID>SetpointOn</ID>
+							</Section>
+							<Section>
+								<Name>(Initial)                                    28.2 psi</Name>
+								<ID>(Initial)28.2psi</ID>
+							</Section>
+							<Section>
+								<Name>Post Run                                     28 psi</Name>
+								<ID>PostRun28psi</ID>
+							</Section>
+							<Section>
+								<Name>Column Information                           Agilent 19091S-001</Name>
+								<ID>ColumnInformationAgilent19091S-001</ID>
+							</Section>
+							<Section>
+								<Name>Description                                  HP-PONA</Name>
+								<ID>DescriptionHP-PONA</ID>
+							</Section>
+							<Section>
+								<Name>Temperature Range                            -60 °C—325 °C (350 °C)</Name>
+								<ID>TemperatureRange-60°C—325°C(350°C)</ID>
+							</Section>
+							<Section>
+								<Name>Dimensions                                   50 m x 200 μm x 0.5 μm (Uncalibrated)</Name>
+								<ID>Dimensions50mx200μmx0.5μm(Uncalibrated)</ID>
+							</Section>
+							<Section>
+								<Name>Column lock                                  Unlocked</Name>
+								<ID>ColumnlockUnlocked</ID>
+							</Section>
+							<Section>
+								<Name>In                                           Front SS Inlet He</Name>
+								<ID>InFrontSSInletHe</ID>
+							</Section>
+							<Section>
+								<Name>Out                                          Front Detector FID</Name>
+								<ID>OutFrontDetectorFID</ID>
+							</Section>
+							<Section>
+								<Name>(Initial)                                    35 °C</Name>
+								<ID>(Initial)35°C</ID>
+							</Section>
+							<Section>
+								<Name>Pressure                                     28.2 psi</Name>
+								<ID>Pressure28.2psi</ID>
+							</Section>
+							<Section>
+								<Name>Flow                                         0.85524 mL/min</Name>
+								<ID>Flow0.85524mL/min</ID>
+							</Section>
+							<Section>
+								<Name>Average Velocity                             22.384 cm/sec</Name>
+								<ID>AverageVelocity22.384cm/sec</ID>
+							</Section>
+							<Section>
+								<Name>Holdup Time                                  3.7229 min</Name>
+								<ID>HoldupTime3.7229min</ID>
+							</Section>
+							<Section>
+								<Name>Control Mode                                 Constant Pressure</Name>
+								<ID>ControlModeConstantPressure</ID>
+							</Section>
+							<Section>
+								<Name>Column Outlet Pressure                       0 psi</Name>
+								<ID>ColumnOutletPressure0psi</ID>
+							</Section>
+							<Section>
+								<Name>Front Detector FID</Name>
+								<ID>FrontDetectorFID</ID>
+							</Section>
+							<Section>
+								<Name>Makeup                                       He</Name>
+								<ID>MakeupHe</ID>
+							</Section>
+							<Section>
+								<Name>Heater                                       On    300 °C</Name>
+								<ID>HeaterOn300°C</ID>
+							</Section>
+							<Section>
+								<Name>H2 Flow                                      On    30 mL/min</Name>
+								<ID>H2FlowOn30mL/min</ID>
+							</Section>
+							<Section>
+								<Name>Air Flow                                     On    400 mL/min</Name>
+								<ID>AirFlowOn400mL/min</ID>
+							</Section>
+							<Section>
+								<Name>Makeup Flow                                  On    25 mL/min</Name>
+								<ID>MakeupFlowOn25mL/min</ID>
+							</Section>
+							<Section>
+								<Name>Carrier Gas Flow Correction                  Constant Makeup and Fuel Flow</Name>
+								<ID>CarrierGasFlowCorrectionConstantMakeupandFuelFlow</ID>
+							</Section>
+							<Section>
+								<Name>Flame                                        On</Name>
+								<ID>FlameOn</ID>
+							</Section>
+							<Section>
+								<Name>Blank Evaluation Setpoints</Name>
+								<ID>BlankEvaluationSetpoints</ID>
+							</Section>
+							<Section>
+								<Name>Perform Blank Evaluation Test                Off</Name>
+								<ID>PerformBlankEvaluationTestOff</ID>
+							</Section>
+							<Section>
+								<Name>Initial Baseline Minimum                     2 pA</Name>
+								<ID>InitialBaselineMinimum2pA</ID>
+							</Section>
+							<Section>
+								<Name>Initial Baseline Maximum                     20 pA</Name>
+								<ID>InitialBaselineMaximum20pA</ID>
+							</Section>
+							<Section>
+								<Name>Initial Baseline Noise                       0.3 pA</Name>
+								<ID>InitialBaselineNoise0.3pA</ID>
+							</Section>
+							<Section>
+								<Name>Final Baseline Minimum                       2 pA</Name>
+								<ID>FinalBaselineMinimum2pA</ID>
+							</Section>
+							<Section>
+								<Name>Final Baseline Maximum                       40 pA</Name>
+								<ID>FinalBaselineMaximum40pA</ID>
+							</Section>
+							<Section>
+								<Name>Final Baseline Noise                         0.6 pA</Name>
+								<ID>FinalBaselineNoise0.6pA</ID>
+							</Section>
+							<Section>
+								<Name>Total Peak Area                              100 pA*sec</Name>
+								<ID>TotalPeakArea100pA*sec</ID>
+							</Section>
+							<Section>
+								<Name>Maximum Peak Height                          3 pA</Name>
+								<ID>MaximumPeakHeight3pA</ID>
+							</Section>
+							<Section>
+								<Name>Time Window Start                            0 min</Name>
+								<ID>TimeWindowStart0min</ID>
+							</Section>
+							<Section>
+								<Name>Time Window End                              0.5333333333 min</Name>
+								<ID>TimeWindowEnd0.5333333333min</ID>
+							</Section>
+							<Section>
+								<Name>Back Detector FID</Name>
+								<ID>BackDetectorFID</ID>
+							</Section>
+							<Section>
+								<Name>Makeup                                       He</Name>
+								<ID>MakeupHe</ID>
+							</Section>
+							<Section>
+								<Name>Heater                                       Off</Name>
+								<ID>HeaterOff</ID>
+							</Section>
+							<Section>
+								<Name>H2 Flow                                      Off</Name>
+								<ID>H2FlowOff</ID>
+							</Section>
+							<Section>
+								<Name>Air Flow                                     Off</Name>
+								<ID>AirFlowOff</ID>
+							</Section>
+							<Section>
+								<Name>Makeup Flow                                  Off</Name>
+								<ID>MakeupFlowOff</ID>
+							</Section>
+							<Section>
+								<Name>Carrier Gas Flow Correction                  Constant Makeup and Fuel Flow</Name>
+								<ID>CarrierGasFlowCorrectionConstantMakeupandFuelFlow</ID>
+							</Section>
+							<Section>
+								<Name>Flame                                        Off</Name>
+								<ID>FlameOff</ID>
+							</Section>
+							<Section>
+								<Name>Blank Evaluation Setpoints</Name>
+								<ID>BlankEvaluationSetpoints</ID>
+							</Section>
+							<Section>
+								<Name>Perform Blank Evaluation Test                Off</Name>
+								<ID>PerformBlankEvaluationTestOff</ID>
+							</Section>
+							<Section>
+								<Name>Initial Baseline Minimum                     2 pA</Name>
+								<ID>InitialBaselineMinimum2pA</ID>
+							</Section>
+							<Section>
+								<Name>Initial Baseline Maximum                     20 pA</Name>
+								<ID>InitialBaselineMaximum20pA</ID>
+							</Section>
+							<Section>
+								<Name>Initial Baseline Noise                       0.3 pA</Name>
+								<ID>InitialBaselineNoise0.3pA</ID>
+							</Section>
+							<Section>
+								<Name>Final Baseline Minimum                       2 pA</Name>
+								<ID>FinalBaselineMinimum2pA</ID>
+							</Section>
+							<Section>
+								<Name>Final Baseline Maximum                       40 pA</Name>
+								<ID>FinalBaselineMaximum40pA</ID>
+							</Section>
+							<Section>
+								<Name>Final Baseline Noise                         0.6 pA</Name>
+								<ID>FinalBaselineNoise0.6pA</ID>
+							</Section>
+							<Section>
+								<Name>Total Peak Area                              100 pA*sec</Name>
+								<ID>TotalPeakArea100pA*sec</ID>
+							</Section>
+							<Section>
+								<Name>Maximum Peak Height                          3 pA</Name>
+								<ID>MaximumPeakHeight3pA</ID>
+							</Section>
+							<Section>
+								<Name>Time Window Start                            0 min</Name>
+								<ID>TimeWindowStart0min</ID>
+							</Section>
+							<Section>
+								<Name>Time Window End                              0.5333333333 min</Name>
+								<ID>TimeWindowEnd0.5333333333min</ID>
+							</Section>
+							<Section>
+								<Name>Detector Evaluation</Name>
+								<ID>DetectorEvaluation</ID>
+							</Section>
+							<Section>
+								<Name>Perform Detector Evaluation Test             Off</Name>
+								<ID>PerformDetectorEvaluationTestOff</ID>
+							</Section>
+							<Section>
+								<Name>Signal Selected                              No Signal Selected</Name>
+								<ID>SignalSelectedNoSignalSelected</ID>
+							</Section>
+							<Section>
+								<Name>Checkout Sample                              None</Name>
+								<ID>CheckoutSampleNone</ID>
+							</Section>
+							<Section>
+								<Name>Signals</Name>
+								<ID>Signals</ID>
+								<Parameter>
+									<Name>Signal #1</Name>
+									<ID>Signal#1</ID>
+									<Unit />
+									<Value>Front Signal</Value>
+								</Parameter>
+								<Parameter>
+									<Name />
+									<ID>Signal#1:FrontSignal</ID>
+									<Unit />
+									<Value>Signal #1:  Front Signal</Value>
+								</Parameter>
+							</Section>
+							<Section>
+								<Name>Description                                  Front Signal</Name>
+								<ID>DescriptionFrontSignal</ID>
+							</Section>
+							<Section>
+								<Name>Details                                      Front Signal (FID)</Name>
+								<ID>DetailsFrontSignal(FID)</ID>
+							</Section>
+							<Section>
+								<Name>Save                                         On</Name>
+								<ID>SaveOn</ID>
+							</Section>
+							<Section>
+								<Name>Data Rate                                    5 Hz</Name>
+								<ID>DataRate5Hz</ID>
+							</Section>
+							<Section>
+								<Name>Dual Injection Assignment                    Front Sample</Name>
+								<ID>DualInjectionAssignmentFrontSample</ID>
+								<Parameter>
+									<Name>Signal #2</Name>
+									<ID>Signal#2</ID>
+									<Unit />
+									<Value />
+								</Parameter>
+								<Parameter>
+									<Name />
+									<ID>Signal#2:</ID>
+									<Unit />
+									<Value>Signal #2:</Value>
+								</Parameter>
+							</Section>
+							<Section>
+								<Name>Description                                  None</Name>
+								<ID>DescriptionNone</ID>
+								<Parameter>
+									<Name>Signal #3</Name>
+									<ID>Signal#3</ID>
+									<Unit />
+									<Value />
+								</Parameter>
+								<Parameter>
+									<Name />
+									<ID>Signal#3:</ID>
+									<Unit />
+									<Value>Signal #3:</Value>
+								</Parameter>
+							</Section>
+							<Section>
+								<Name>Description                                  None</Name>
+								<ID>DescriptionNone</ID>
+								<Parameter>
+									<Name>Signal #4</Name>
+									<ID>Signal#4</ID>
+									<Unit />
+									<Value />
+								</Parameter>
+								<Parameter>
+									<Name />
+									<ID>Signal#4:</ID>
+									<Unit />
+									<Value>Signal #4:</Value>
+								</Parameter>
+							</Section>
+							<Section>
+								<Name>Description                                  None</Name>
+								<ID>DescriptionNone</ID>
+								<Parameter>
+									<Name>Signal #5</Name>
+									<ID>Signal#5</ID>
+									<Unit />
+									<Value />
+								</Parameter>
+								<Parameter>
+									<Name />
+									<ID>Signal#5:</ID>
+									<Unit />
+									<Value>Signal #5:</Value>
+								</Parameter>
+							</Section>
+							<Section>
+								<Name>Description                                  None</Name>
+								<ID>DescriptionNone</ID>
+								<Parameter>
+									<Name>Signal #6</Name>
+									<ID>Signal#6</ID>
+									<Unit />
+									<Value />
+								</Parameter>
+								<Parameter>
+									<Name />
+									<ID>Signal#6:</ID>
+									<Unit />
+									<Value>Signal #6:</Value>
+								</Parameter>
+							</Section>
+							<Section>
+								<Name>Description                                  None</Name>
+								<ID>DescriptionNone</ID>
+								<Parameter>
+									<Name>Signal #7</Name>
+									<ID>Signal#7</ID>
+									<Unit />
+									<Value />
+								</Parameter>
+								<Parameter>
+									<Name />
+									<ID>Signal#7:</ID>
+									<Unit />
+									<Value>Signal #7:</Value>
+								</Parameter>
+							</Section>
+							<Section>
+								<Name>Description                                  None</Name>
+								<ID>DescriptionNone</ID>
+								<Parameter>
+									<Name>Signal #8</Name>
+									<ID>Signal#8</ID>
+									<Unit />
+									<Value />
+								</Parameter>
+								<Parameter>
+									<Name />
+									<ID>Signal#8:</ID>
+									<Unit />
+									<Value>Signal #8:</Value>
+								</Parameter>
+							</Section>
+							<Parameter>
+								<Name>Module Type</Name>
+								<ID>ModuleType</ID>
+								<Unit />
+								<Value>GC</Value>
+							</Parameter>
+							<Parameter>
+								<Name>Module Name</Name>
+								<ID>ModuleName</ID>
+								<Unit />
+								<Value>Agilent 8890</Value>
+							</Parameter>
+						</Section>
+						<Section>
+							<Name>Column(s)</Name>
+							<ID>Column(s)</ID>
+							<Parameter>
+								<Name>Column Description</Name>
+								<ID>ColumnDescription</ID>
+								<Unit />
+								<Value>HP-PONA</Value>
+							</Parameter>
+							<Parameter>
+								<Name>Inventory#</Name>
+								<ID>Inventory#</ID>
+								<Unit />
+								<Value>autoID-1</Value>
+							</Parameter>
+							<Parameter>
+								<Name>Model#</Name>
+								<ID>Model#</ID>
+								<Unit />
+								<Value>19091S-001</Value>
+							</Parameter>
+							<Parameter>
+								<Name>Manufacturer</Name>
+								<ID>Manufacturer</ID>
+								<Unit />
+								<Value>Agilent</Value>
+							</Parameter>
+							<Parameter>
+								<Name>Diameter</Name>
+								<ID>Diameter</ID>
+								<Unit>µm</Unit>
+								<Value>200.0</Value>
+							</Parameter>
+							<Parameter>
+								<Name>Length</Name>
+								<ID>Length</ID>
+								<Unit>m</Unit>
+								<Value>50.0</Value>
+							</Parameter>
+							<Parameter>
+								<Name>Film thickness</Name>
+								<ID>Filmthickness</ID>
+								<Unit>µm</Unit>
+								<Value>0.50</Value>
+							</Parameter>
+							<Parameter>
+								<Name>Void time</Name>
+								<ID>Voidtime</ID>
+								<Unit>min</Unit>
+								<Value>3.723</Value>
+							</Parameter>
+							<Parameter>
+								<Name>Maximum Temperature</Name>
+								<ID>MaximumTemperature</ID>
+								<Unit>°C</Unit>
+								<Value>325.0</Value>
+							</Parameter>
+							<Parameter>
+								<Name>Comment</Name>
+								<ID>Comment</ID>
+								<Unit />
+								<Value />
+							</Parameter>
+						</Section>
+					</Section>
+				</MethodDescription>
+			</MethodConfiguration>
+		</Content>
+	</Doc>
+</ACAML>

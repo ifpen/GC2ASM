@@ -8,8 +8,9 @@ import org.w3c.dom.Element;
 
 import java.io.File;
 import java.io.IOException;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
+import java.time.LocalDateTime;
+import java.time.ZoneOffset;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
@@ -17,13 +18,18 @@ import java.util.Locale;
 import static fr.ifpen.allotropeconverters.gc.chemstation.ChromatogramDataCubeMapper.readChromatogramDataCube;
 
 public class ChemStationToAllotropeMapper {
+    private final PeakMapper peakMapper;
+    private final ColumnInformationMapper columnInformationMapper;
+    private final ZoneOffset timeZone;
 
-    private ChemStationToAllotropeMapper() {
-        throw new IllegalStateException("Utility class");
+    public ChemStationToAllotropeMapper(ZoneOffset timeZone) {
+        this.timeZone = timeZone;
+        this.peakMapper = new PeakMapper();
+        this.columnInformationMapper = new ColumnInformationMapper();
     }
 
-    public static GasChromatographyTabularEmbedSchema mapToGasChromatographySchema(
-            String folderPath) throws JAXBException, IOException, ParseException {
+    public GasChromatographyTabularEmbedSchema mapToGasChromatographySchema(
+            String folderPath) throws JAXBException, IOException {
         ChemStationResult chemStationResult = parseXmlResult(folderPath);
 
         GasChromatographyTabularEmbedSchema schema = new GasChromatographyTabularEmbedSchema();
@@ -42,7 +48,7 @@ public class ChemStationToAllotropeMapper {
                 ((Element) chemStationResult.sampleInformation.method).getTextContent());
 
         ChromatographyColumnDocument chromatographyColumnDocument =
-                ColumnInformationMapper.readColumnDocumentFromFile(folderPath);
+                columnInformationMapper.readColumnDocumentFromFile(folderPath);
         gasChromatographyDocument.setChromatographyColumnDocument(chromatographyColumnDocument);
 
         DetectorControlAggregateDocument detectorControlAggregateDocument = new DetectorControlAggregateDocument();
@@ -65,9 +71,12 @@ public class ChemStationToAllotropeMapper {
 
         InjectionDocument injectionDocument = new InjectionDocument();
         String injectionTimeString = ((Element) chemStationResult.sampleInformation.injectionDateTime).getTextContent();
-        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd-MMM-yy, hh:mm:ss", Locale.US);
         injectionDocument.setInjectionTime(
-            simpleDateFormat.parse(injectionTimeString).toInstant());
+                LocalDateTime.parse(
+                        injectionTimeString,
+                        DateTimeFormatter.ofPattern("dd-MMM-yy, hh:mm:ss", Locale.US))
+                                .atZone(timeZone).toInstant()
+        );
         injectionDocument.setInjectionIdentifier(
                 ((Element) chemStationResult.sampleInformation.inj).getTextContent());
 
@@ -90,7 +99,7 @@ public class ChemStationToAllotropeMapper {
 
         List<Peak> peaks = new ArrayList<>();
         for(CompoundType compoundType: chemStationResult.results.resultsGroup.get(0).peak){
-            peaks.add(PeakMapper.mapPeakFromCompound(compoundType));
+            peaks.add(peakMapper.mapPeakFromCompound(compoundType));
         }
         PeakList peakList = new PeakList();
         peakList.setPeak(peaks);
@@ -107,7 +116,7 @@ public class ChemStationToAllotropeMapper {
         return schema;
     }
 
-    private static String getDetectorType(String detectorRawType){
+    private String getDetectorType(String detectorRawType){
         if(detectorRawType.toLowerCase().contains("fid")) {
             return "Flame Ionization";
         } else {
@@ -115,7 +124,7 @@ public class ChemStationToAllotropeMapper {
         }
     }
 
-    private static ChemStationResult parseXmlResult(String folderPath) throws JAXBException {
+    private ChemStationResult parseXmlResult(String folderPath) throws JAXBException {
         final String resultFileName = "Result.xml";
 
         File file = new File(folderPath, resultFileName);

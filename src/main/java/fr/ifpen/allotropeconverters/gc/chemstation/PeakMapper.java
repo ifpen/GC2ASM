@@ -4,9 +4,9 @@ import fr.ifpen.allotropeconverters.gc.schema.*;
 
 public class PeakMapper {
 
-    private PeakMapper(){}
+    PeakMapper(){}
 
-    public static Peak mapPeakFromCompound(CompoundType compoundType) {
+    public Peak mapPeakFromCompound(CompoundType compoundType) {
         Peak peak = new Peak();
         peak.setIdentifier(
                 compoundType.getCompoundID().toString());
@@ -60,7 +60,7 @@ public class PeakMapper {
         return peak;
     }
 
-        private static String formatUnitAsSI(String unit){
+        private String formatUnitAsSI(String unit){
             return unit.replace("*", ".");
         }
     }

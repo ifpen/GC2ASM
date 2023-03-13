@@ -10,12 +10,31 @@ import fr.ifpen.allotropeconverters.gc.schema.GasChromatographyTabularEmbedSchem
 import jakarta.xml.bind.JAXBException;
 
 import java.io.IOException;
-import java.text.ParseException;
+import java.time.ZoneOffset;
 
 public class GcToAllotropeJsonConverter {
-    public ObjectNode convertFile(String filePath) throws JAXBException, IOException, ParseException {
+
+
+    private final ZoneOffset defaultTimeZone;
+    private ChemStationToAllotropeMapper chemstationMapper;
+
+    public GcToAllotropeJsonConverter(){
+        defaultTimeZone = ZoneOffset.UTC;
+        this.createMapper();
+    }
+
+    public GcToAllotropeJsonConverter(ZoneOffset defaultTimeZone){
+        this.defaultTimeZone = defaultTimeZone;
+        this.createMapper();
+    }
+
+    private void createMapper(){
+        chemstationMapper = new ChemStationToAllotropeMapper(defaultTimeZone);
+    }
+
+    public ObjectNode convertFile(String filePath) throws JAXBException, IOException {
             GasChromatographyTabularEmbedSchema embedSchema =
-                    ChemStationToAllotropeMapper.mapToGasChromatographySchema(filePath);
+                    chemstationMapper.mapToGasChromatographySchema(filePath);
 
             ObjectMapper objectMapper = JsonMapper.builder().addModule(new JavaTimeModule()).build();
 

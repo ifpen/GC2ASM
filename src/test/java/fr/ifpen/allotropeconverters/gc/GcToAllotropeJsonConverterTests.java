@@ -25,6 +25,7 @@ import java.net.URI;
 import java.nio.file.Paths;
 import java.text.ParseException;
 import java.time.Instant;
+import java.time.ZoneId;
 import java.time.ZoneOffset;
 import java.util.Set;
 
@@ -38,8 +39,8 @@ class GcToAllotropeJsonConverterTests {
 
             GasChromatographyTabularEmbedSchema embedSchema;
 
-                ZoneOffset zoneOffset = ZoneOffset.of("Europe/Paris");
-                ChemStationToAllotropeMapper mapper = new ChemStationToAllotropeMapper(zoneOffset);
+                ZoneId zoneId = ZoneId.of("Europe/Paris");
+                ChemStationToAllotropeMapper mapper = new ChemStationToAllotropeMapper(zoneId);
 
                 embedSchema = mapper.mapToGasChromatographySchema(
                         Paths.get(uri).toString());
@@ -61,8 +62,8 @@ class GcToAllotropeJsonConverterTests {
             URI uri;
             uri = new File("src/test/resources/V179.D").toURI();
 
-            ZoneOffset zoneOffset = ZoneOffset.of("Europe/Paris");
-            ChemStationToAllotropeMapper mapper = new ChemStationToAllotropeMapper(zoneOffset);
+        ZoneId zoneId = ZoneId.of("Europe/Paris");
+        ChemStationToAllotropeMapper mapper = new ChemStationToAllotropeMapper(zoneId);
 
             GasChromatographyTabularEmbedSchema embedSchema = mapper.mapToGasChromatographySchema(
                     Paths.get(uri).toString());

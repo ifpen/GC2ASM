@@ -10,12 +10,13 @@ import fr.ifpen.allotropeconverters.gc.schema.GasChromatographyTabularEmbedSchem
 import jakarta.xml.bind.JAXBException;
 
 import java.io.IOException;
+import java.time.ZoneId;
 import java.time.ZoneOffset;
 
 public class GcToAllotropeJsonConverter {
 
 
-    private final ZoneOffset defaultTimeZone;
+    private final ZoneId defaultTimeZone;
     private ChemStationToAllotropeMapper chemstationMapper;
 
     public GcToAllotropeJsonConverter(){
@@ -23,7 +24,7 @@ public class GcToAllotropeJsonConverter {
         this.createMapper();
     }
 
-    public GcToAllotropeJsonConverter(ZoneOffset defaultTimeZone){
+    public GcToAllotropeJsonConverter(ZoneId defaultTimeZone){
         this.defaultTimeZone = defaultTimeZone;
         this.createMapper();
     }

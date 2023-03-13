@@ -9,7 +9,7 @@ import org.w3c.dom.Element;
 import java.io.File;
 import java.io.IOException;
 import java.time.LocalDateTime;
-import java.time.ZoneOffset;
+import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
@@ -20,9 +20,9 @@ import static fr.ifpen.allotropeconverters.gc.chemstation.ChromatogramDataCubeMa
 public class ChemStationToAllotropeMapper {
     private final PeakMapper peakMapper;
     private final ColumnInformationMapper columnInformationMapper;
-    private final ZoneOffset timeZone;
+    private final ZoneId timeZone;
 
-    public ChemStationToAllotropeMapper(ZoneOffset timeZone) {
+    public ChemStationToAllotropeMapper(ZoneId timeZone) {
         this.timeZone = timeZone;
         this.peakMapper = new PeakMapper();
         this.columnInformationMapper = new ColumnInformationMapper();
@@ -74,7 +74,7 @@ public class ChemStationToAllotropeMapper {
         injectionDocument.setInjectionTime(
                 LocalDateTime.parse(
                         injectionTimeString,
-                        DateTimeFormatter.ofPattern("dd-MMM-yy, hh:mm:ss", Locale.US))
+                        DateTimeFormatter.ofPattern("dd-MMM-yy, HH:mm:ss", Locale.US))
                                 .atZone(timeZone).toInstant()
         );
         injectionDocument.setInjectionIdentifier(

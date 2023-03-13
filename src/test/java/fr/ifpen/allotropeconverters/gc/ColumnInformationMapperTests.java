@@ -16,7 +16,9 @@ class ColumnInformationMapperTests {
             URI uri;
             uri = new File("src/test/resources/V179.D").toURI();
 
-            ChromatographyColumnDocument chromatographyColumnDocument = ColumnInformationMapper.readColumnDocumentFromFile(
+            ColumnInformationMapper columnInformationMapper = new ColumnInformationMapper();
+
+            ChromatographyColumnDocument chromatographyColumnDocument = columnInformationMapper.readColumnDocumentFromFile(
                     Paths.get(uri).toString());
 
             Assertions.assertEquals("19091S-001", chromatographyColumnDocument.getChromatographyColumnPartNumber());

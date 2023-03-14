@@ -17,9 +17,7 @@ public final class ColumnInformationMapper {
 
     private static final Pattern COLUMN_NAME_PATTERN = Pattern.compile(".*:");
 
-    private ColumnInformationMapper() {}
-
-    public static ChromatographyColumnDocument readColumnDocumentFromFile(String folderPath) throws IOException {
+    public ChromatographyColumnDocument readColumnDocumentFromFile(String folderPath) throws IOException {
         ChromatographyColumnDocument columnDocument = new ChromatographyColumnDocument();
 
         File file = new File(folderPath,"acq.txt");
@@ -75,7 +73,7 @@ public final class ColumnInformationMapper {
         }
     }
 
-    private static void skipToColumnInformation(Scanner acquisitionScanner){
+    private void skipToColumnInformation(Scanner acquisitionScanner){
                 /* Looking for pattern
         =====================================================================
                           Column(s)

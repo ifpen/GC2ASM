@@ -25,6 +25,8 @@ import java.net.URI;
 import java.nio.file.Paths;
 import java.text.ParseException;
 import java.time.Instant;
+import java.time.ZoneId;
+import java.time.ZoneOffset;
 import java.util.Set;
 
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
@@ -37,7 +39,10 @@ class GcToAllotropeJsonConverterTests {
 
             GasChromatographyTabularEmbedSchema embedSchema;
 
-                embedSchema = ChemStationToAllotropeMapper.mapToGasChromatographySchema(
+                ZoneId zoneId = ZoneId.of("Europe/Paris");
+                ChemStationToAllotropeMapper mapper = new ChemStationToAllotropeMapper(zoneId);
+
+                embedSchema = mapper.mapToGasChromatographySchema(
                         Paths.get(uri).toString());
 
                 JsonSchema referenceSchema = getJsonSchemaFromClasspath();
@@ -57,7 +62,10 @@ class GcToAllotropeJsonConverterTests {
             URI uri;
             uri = new File("src/test/resources/V179.D").toURI();
 
-            GasChromatographyTabularEmbedSchema embedSchema = ChemStationToAllotropeMapper.mapToGasChromatographySchema(
+        ZoneId zoneId = ZoneId.of("Europe/Paris");
+        ChemStationToAllotropeMapper mapper = new ChemStationToAllotropeMapper(zoneId);
+
+            GasChromatographyTabularEmbedSchema embedSchema = mapper.mapToGasChromatographySchema(
                     Paths.get(uri).toString());
 
             Assertions.assertEquals("GC65",
@@ -78,7 +86,7 @@ class GcToAllotropeJsonConverterTests {
     }
 
     @Test
-    void IntegrationTest() throws JAXBException, IOException, ParseException {
+    void IntegrationTest() throws JAXBException, IOException {
         String filePath = Paths.get(new File("src/test/resources/V179.D").toURI()).toString();
         GcToAllotropeJsonConverter converter = new GcToAllotropeJsonConverter();
         ObjectNode result = converter.convertFile(filePath);

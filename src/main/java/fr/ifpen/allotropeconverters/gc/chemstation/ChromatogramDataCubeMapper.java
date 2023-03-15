@@ -12,13 +12,9 @@ import java.io.IOException;
 import java.util.Arrays;
 import java.util.List;
 
-public class ChromatogramDataCubeMapper {
+class ChromatogramDataCubeMapper {
 
-    private ChromatogramDataCubeMapper() {
-        throw new IllegalStateException("Utility class");
-    }
-
-    public static ChromatogramDataCube readChromatogramDataCube(String chFilePath) throws IOException {
+    ChromatogramDataCube readChromatogramDataCube(String chFilePath) throws IOException {
         ChFileFactory chFileFactory = new ChFileFactory();
         ChFile chFile = chFileFactory.getChFile(chFilePath);
 
@@ -29,7 +25,7 @@ public class ChromatogramDataCubeMapper {
         return chromatogramDataCube;
     }
 
-    private static CubeStructure getCubeStructure() {
+    private CubeStructure getCubeStructure() {
         CubeStructure cubeStructure = new CubeStructure();
 
         Dimension firstDimension = new Dimension();
@@ -48,10 +44,10 @@ public class ChromatogramDataCubeMapper {
         return cubeStructure;
     }
 
-    private static AllotropeData createAllotropeDataFromChFile(ChFile chFile){
+    private AllotropeData createAllotropeDataFromChFile(ChFile chFile){
         AllotropeData allotropeData = new AllotropeData();
 
-        Double[] xValues = interpolate(chFile.getStartTime(), chFile.getEndTime(), chFile.getValues().size());
+        Double[] xValues = this.interpolate(chFile.getStartTime(), chFile.getEndTime(), chFile.getValues().size());
 
         allotropeData.setDimensions(List.of(Arrays.asList(xValues)));
         allotropeData.setMeasures(List.of(chFile.getValues()));
@@ -66,7 +62,7 @@ public class ChromatogramDataCubeMapper {
      * @param count count of output interpolated numbers
      * @return array of interpolated number with specified count
      */
-    public static Double[] interpolate(double start, double end, int count) {
+    private Double[] interpolate(double start, double end, int count) {
         if (count < 2) {
             throw new IllegalArgumentException("interpolate: illegal count!");
         }

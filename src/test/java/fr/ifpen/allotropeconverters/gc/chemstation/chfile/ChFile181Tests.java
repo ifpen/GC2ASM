@@ -1,4 +1,4 @@
-package fr.ifpen.allotropeconverters.gc;
+package fr.ifpen.allotropeconverters.gc.chemstation.chfile;
 
 import fr.ifpen.allotropeconverters.gc.chemstation.chfile.ChFile;
 import fr.ifpen.allotropeconverters.gc.chemstation.chfile.ChFile181;

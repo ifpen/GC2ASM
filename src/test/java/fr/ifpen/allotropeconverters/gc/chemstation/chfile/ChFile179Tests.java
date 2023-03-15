@@ -1,7 +1,5 @@
-package fr.ifpen.allotropeconverters.gc;
+package fr.ifpen.allotropeconverters.gc.chemstation.chfile;
 
-import fr.ifpen.allotropeconverters.gc.chemstation.chfile.ChFile;
-import fr.ifpen.allotropeconverters.gc.chemstation.chfile.ChFile179;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 

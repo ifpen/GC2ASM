@@ -15,17 +15,18 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 
-import static fr.ifpen.allotropeconverters.gc.chemstation.ChromatogramDataCubeMapper.readChromatogramDataCube;
 
 public class ChemStationToAllotropeMapper {
     private final PeakMapper peakMapper;
     private final ColumnInformationMapper columnInformationMapper;
+    private final ChromatogramDataCubeMapper chromatogramDataCubeMapper;
     private final ZoneId timeZone;
 
     public ChemStationToAllotropeMapper(ZoneId timeZone) {
         this.timeZone = timeZone;
         this.peakMapper = new PeakMapper();
         this.columnInformationMapper = new ColumnInformationMapper();
+        this.chromatogramDataCubeMapper = new ChromatogramDataCubeMapper();
     }
 
     public GasChromatographyTabularEmbedSchema mapToGasChromatographySchema(
@@ -94,7 +95,7 @@ public class ChemStationToAllotropeMapper {
         measurementDocument.setDetectionType(
                 ((Element) chemStationResult.chromatograms.signal.get(0).detector).getTextContent());
         measurementDocument.setChromatogramDataCube(
-                readChromatogramDataCube(new File(folderPath,"FID1A.ch").getPath())
+                chromatogramDataCubeMapper.readChromatogramDataCube(new File(folderPath,"FID1A.ch").getPath())
         );
 
         List<Peak> peaks = new ArrayList<>();

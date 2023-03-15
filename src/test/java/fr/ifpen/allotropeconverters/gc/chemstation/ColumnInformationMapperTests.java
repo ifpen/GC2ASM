@@ -1,4 +1,4 @@
-package fr.ifpen.allotropeconverters.gc;
+package fr.ifpen.allotropeconverters.gc.chemstation;
 
 import fr.ifpen.allotropeconverters.gc.chemstation.ColumnInformationMapper;
 import fr.ifpen.allotropeconverters.gc.schema.ChromatographyColumnDocument;

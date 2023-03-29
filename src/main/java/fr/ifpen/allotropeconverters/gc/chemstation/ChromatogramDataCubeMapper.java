@@ -1,6 +1,6 @@
 package fr.ifpen.allotropeconverters.gc.chemstation;
 
-import fr.ifpen.allotropeconverters.gc.AllotropeData;
+import fr.ifpen.allotropeconverters.allotropeutils.AllotropeData;
 import fr.ifpen.allotropeconverters.gc.chemstation.chfile.ChFile;
 import fr.ifpen.allotropeconverters.gc.chemstation.chfile.ChFileFactory;
 import fr.ifpen.allotropeconverters.gc.schema.ChromatogramDataCube;
@@ -45,14 +45,8 @@ class ChromatogramDataCubeMapper {
     }
 
     private AllotropeData createAllotropeDataFromChFile(ChFile chFile){
-        AllotropeData allotropeData = new AllotropeData();
-
         Double[] xValues = this.interpolate(chFile.getStartTime(), chFile.getEndTime(), chFile.getValues().size());
-
-        allotropeData.setDimensions(List.of(Arrays.asList(xValues)));
-        allotropeData.setMeasures(List.of(chFile.getValues()));
-
-        return allotropeData;
+        return new AllotropeData(List.of(Arrays.asList(xValues)), List.of(chFile.getValues()));
     }
 
     /***

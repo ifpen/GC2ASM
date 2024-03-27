@@ -58,7 +58,7 @@ class GcToAllotropeJsonConverterTests {
     }
 
     @Test
-    void returnsCorrectDeviceInfo() throws Exception {
+    void returnsCorrectDeviceInfo_179() throws Exception {
             URI uri;
             uri = new File("src/test/resources/V179.D").toURI();
 
@@ -78,6 +78,27 @@ class GcToAllotropeJsonConverterTests {
             Assertions.assertEquals(expectedInjectionDate,embedSchema.getGasChromatographyAggregateDocument().getGasChromatographyDocument().get(0).getInjectionDocument().getInjectionTime());
     }
 
+    @Test
+    void returnsCorrectDeviceInfo_81() throws Exception {
+        URI uri;
+        uri = new File("src/test/resources/V81.D").toURI();
+
+        ZoneId zoneId = ZoneId.of("Europe/Paris");
+        ChemStationToAllotropeMapper mapper = new ChemStationToAllotropeMapper(zoneId);
+
+        GasChromatographyTabularEmbedSchema embedSchema = mapper.mapToGasChromatographySchema(
+                Paths.get(uri).toString());
+
+        Assertions.assertEquals("HP G1530A",
+                embedSchema.getGasChromatographyAggregateDocument()
+                        .getDeviceSystemDocument()
+                        .getAssetManagementIdentifier());
+
+        Instant expectedInjectionDate = Instant.parse("2019-10-20T19:28:54Z");
+
+        Assertions.assertEquals(expectedInjectionDate,embedSchema.getGasChromatographyAggregateDocument().getGasChromatographyDocument().get(0).getInjectionDocument().getInjectionTime());
+    }
+
     private JsonSchema getJsonSchemaFromClasspath() {
         JsonSchemaFactory factory = JsonSchemaFactory.getInstance(SpecVersion.VersionFlag.V201909);
         InputStream is = Thread.currentThread().getContextClassLoader()
@@ -86,8 +107,16 @@ class GcToAllotropeJsonConverterTests {
     }
 
     @Test
-    void IntegrationTest() throws JAXBException, IOException {
+    void IntegrationTest_179() throws JAXBException, IOException {
         String filePath = Paths.get(new File("src/test/resources/V179.D").toURI()).toString();
+        GcToAllotropeJsonConverter converter = new GcToAllotropeJsonConverter();
+        ObjectNode result = converter.convertFile(filePath);
+        Assertions.assertFalse(result.isNull());
+    }
+
+    @Test
+    void IntegrationTest_81() throws JAXBException, IOException {
+        String filePath = Paths.get(new File("src/test/resources/V81.D").toURI()).toString();
         GcToAllotropeJsonConverter converter = new GcToAllotropeJsonConverter();
         ObjectNode result = converter.convertFile(filePath);
         Assertions.assertFalse(result.isNull());

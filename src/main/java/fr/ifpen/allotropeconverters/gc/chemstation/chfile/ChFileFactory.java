@@ -14,6 +14,8 @@ public class ChFileFactory {
         String version = readString(input, false);
 
         switch (version){
+            case "81":
+                return new ChFile81(input);
             case "179":
                 return new ChFile179(input);
             case "181":

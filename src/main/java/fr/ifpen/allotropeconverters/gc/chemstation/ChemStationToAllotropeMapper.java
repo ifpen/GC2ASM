@@ -1,5 +1,7 @@
 package fr.ifpen.allotropeconverters.gc.chemstation;
 
+import fr.ifpen.allotropeconverters.gc.chemstation.chfile.ChFile;
+import fr.ifpen.allotropeconverters.gc.chemstation.chfile.ChFileFactory;
 import fr.ifpen.allotropeconverters.gc.schema.*;
 import jakarta.xml.bind.JAXBContext;
 import jakarta.xml.bind.JAXBException;
@@ -7,6 +9,7 @@ import jakarta.xml.bind.Unmarshaller;
 import org.w3c.dom.Element;
 
 import java.io.File;
+import java.io.FilenameFilter;
 import java.io.IOException;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
@@ -30,11 +33,21 @@ public class ChemStationToAllotropeMapper {
     }
 
     public GasChromatographyTabularEmbedSchema mapToGasChromatographySchema(
-            String folderPath) throws JAXBException, IOException {
+            String folderPath) throws IOException {
+
         ChemStationResult chemStationResult = parseXmlResult(folderPath);
 
+        if(chemStationResult != null){
+            return createSchemaFromXml(chemStationResult, folderPath);
+        } else {
+            return createSchemaFromChFile(folderPath);
+        }
+    }
+
+    private GasChromatographyTabularEmbedSchema createSchemaFromXml(ChemStationResult chemStationResult, String folderPath) throws IOException {
         GasChromatographyTabularEmbedSchema schema = new GasChromatographyTabularEmbedSchema();
         GasChromatographyAggregateDocument document = new GasChromatographyAggregateDocument();
+
 
         DeviceSystemDocument deviceSystemDocument = new DeviceSystemDocument();
         deviceSystemDocument.setAssetManagementIdentifier(
@@ -74,9 +87,9 @@ public class ChemStationToAllotropeMapper {
         String injectionTimeString = ((Element) chemStationResult.sampleInformation.injectionDateTime).getTextContent();
         injectionDocument.setInjectionTime(
                 LocalDateTime.parse(
-                        injectionTimeString,
-                        DateTimeFormatter.ofPattern("dd-MMM-yy, HH:mm:ss", Locale.US))
-                                .atZone(timeZone).toInstant()
+                                injectionTimeString,
+                                DateTimeFormatter.ofPattern("dd-MMM-yy, HH:mm:ss", Locale.US))
+                        .atZone(timeZone).toInstant()
         );
         injectionDocument.setInjectionIdentifier(
                 ((Element) chemStationResult.sampleInformation.inj).getTextContent());
@@ -95,7 +108,7 @@ public class ChemStationToAllotropeMapper {
         measurementDocument.setDetectionType(
                 ((Element) chemStationResult.chromatograms.signal.get(0).detector).getTextContent());
         measurementDocument.setChromatogramDataCube(
-                chromatogramDataCubeMapper.readChromatogramDataCube(new File(folderPath,"FID1A.ch").getPath())
+                chromatogramDataCubeMapper.readChromatogramDataCube(new File(folderPath,getChFileName(folderPath)).getPath())
         );
 
         List<Peak> peaks = new ArrayList<>();
@@ -117,6 +130,54 @@ public class ChemStationToAllotropeMapper {
         return schema;
     }
 
+    private GasChromatographyTabularEmbedSchema createSchemaFromChFile(String folderPath) throws IOException {
+        ChFileFactory chFileFactory = new ChFileFactory();
+        ChFile chFile = chFileFactory.getChFile(new File(folderPath,getChFileName(folderPath)).getPath());
+
+        GasChromatographyTabularEmbedSchema schema = new GasChromatographyTabularEmbedSchema();
+        GasChromatographyAggregateDocument document = new GasChromatographyAggregateDocument();
+
+
+        DeviceSystemDocument deviceSystemDocument = new DeviceSystemDocument();
+        deviceSystemDocument.setAssetManagementIdentifier(chFile.getDetector());
+
+        GasChromatographyDocument gasChromatographyDocument = new GasChromatographyDocument();
+        gasChromatographyDocument.setAnalyst(chFile.getAnalyst());
+        gasChromatographyDocument.setSubmitter(chFile.getAnalyst());
+        gasChromatographyDocument.setDeviceMethodIdentifier(chFile.getMethod());
+
+        SampleDocument sampleDocument = new SampleDocument();
+        sampleDocument.setSampleIdentifier(chFile.getSampleName());
+        sampleDocument.setWrittenName(chFile.getSampleName());
+        gasChromatographyDocument.setSampleDocument(sampleDocument);
+
+        InjectionDocument injectionDocument = new InjectionDocument();
+        injectionDocument.setInjectionTime(LocalDateTime.parse(
+                        chFile.getInjectionTime().RawTime().trim(),
+                        DateTimeFormatter.ofPattern(chFile.getInjectionTime().Format(), Locale.US))
+                .atZone(timeZone).toInstant());
+
+        gasChromatographyDocument.setInjectionDocument(injectionDocument);
+
+
+
+        MeasurementAggregateDocument measurementAggregateDocument = new MeasurementAggregateDocument();
+        MeasurementDocument measurementDocument = new MeasurementDocument();
+        measurementDocument.setChromatogramDataCube(
+                chromatogramDataCubeMapper.readChromatogramDataCube(new File(folderPath,getChFileName(folderPath)).getPath())
+        );
+
+        measurementAggregateDocument.setMeasurementDocument(List.of(measurementDocument));
+        gasChromatographyDocument.setMeasurementAggregateDocument(measurementAggregateDocument);
+
+        document.setDeviceSystemDocument(deviceSystemDocument);
+        document.setGasChromatographyDocument(List.of(gasChromatographyDocument));
+
+
+        schema.setGasChromatographyAggregateDocument(document);
+        return schema;
+    }
+
     private String getDetectorType(String detectorRawType){
         if(detectorRawType.toLowerCase().contains("fid")) {
             return "Flame Ionization";
@@ -125,15 +186,44 @@ public class ChemStationToAllotropeMapper {
         }
     }
 
-    private ChemStationResult parseXmlResult(String folderPath) throws JAXBException {
+    private ChemStationResult parseXmlResult(String folderPath) {
         final String resultFileName = "Result.xml";
 
         File file = new File(folderPath, resultFileName);
 
-        JAXBContext jaxbContext   = JAXBContext.newInstance( ChemStationResult.class );
-        Unmarshaller jaxbUnmarshaller = jaxbContext.createUnmarshaller();
-        jaxbUnmarshaller.setEventHandler(new jakarta.xml.bind.helpers.DefaultValidationEventHandler());
+        if (file.exists()){
+            try {
+                JAXBContext jaxbContext = JAXBContext.newInstance(ChemStationResult.class);
+                Unmarshaller jaxbUnmarshaller = jaxbContext.createUnmarshaller();
+                jaxbUnmarshaller.setEventHandler(new jakarta.xml.bind.helpers.DefaultValidationEventHandler());
 
-        return (ChemStationResult) jaxbUnmarshaller.unmarshal(file);
+                return (ChemStationResult) jaxbUnmarshaller.unmarshal(file);
+            } catch (JAXBException e) {
+                return null;
+            }
+        } else {
+            return null;
+        }
+    }
+
+    private String getChFileName(String folderPath){
+        File dir = new File(folderPath);
+        if ( dir.isDirectory() )
+        {
+            String[] list = dir.list(new FilenameFilter()
+            {
+                @Override
+                public boolean accept(File f, String s )
+                {
+                    return s.toLowerCase().endsWith(".ch");
+                }
+            });
+
+            if ( list.length > 0 )
+            {
+                return list[0];
+            }
+        }
+        return null;
     }
 }

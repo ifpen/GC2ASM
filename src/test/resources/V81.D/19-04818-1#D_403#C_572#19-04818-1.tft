@@ -1,0 +1,483 @@
+CARBURANE - Version:	       3.3.1
+                FICHIER TRANSFERT DE REFERENCE
+
+  11 PARAMETRES ANALYSE  
+  12 TEST                : 0
+  13 EDITION DU          : 29/10/2019 2:25:16 PM
+  14 FICHIER FAMILLES    : E9481801.idn
+  15 FICHIER RESULTAT    : E9481801.txt
+  16 DATE DE L'INJECTION : 20/10/2019 21:28:54                  Inj :   1
+  17 NOM DE L'ECHANTILLON: 19-04818-1
+  18 NUMERO DE GESTION   : 19-04818-1#D_403
+  19 RESULTAT DISTILLATION SIMULEE   
+  20 *411000*	 0.5% :     53.9 : °C
+  21 *411001*	   1% :     55.3 : °C
+  22 *411002*	   2% :     55.3 : °C
+  23 *411003*	   3% :     55.3 : °C
+  24 *411004*	   4% :     61.1 : °C
+  25 *411005*	   5% :     61.1 : °C
+  26 *411006*	   6% :     63.5 : °C
+  27 *411007*	   7% :     69.0 : °C
+  28 *411008*	   8% :     69.9 : °C
+  29 *411009*	   9% :     70.4 : °C
+  30 *411010*	  10% :     73.3 : °C
+  31 *411011*	  11% :     74.9 : °C
+  32 *411012*	  12% :     74.9 : °C
+  33 *411013*	  13% :     74.9 : °C
+  34 *411014*	  14% :     80.8 : °C
+  35 *411015*	  15% :     80.9 : °C
+  36 *411016*	  16% :     83.6 : °C
+  37 *411017*	  17% :     86.6 : °C
+  38 *411018*	  18% :     86.6 : °C
+  39 *411019*	  19% :     87.0 : °C
+  40 *411020*	  20% :     89.4 : °C
+  41 *411021*	  21% :     89.4 : °C
+  42 *411022*	  22% :     91.4 : °C
+  43 *411023*	  23% :     92.3 : °C
+  44 *411024*	  24% :     93.3 : °C
+  45 *411025*	  25% :     98.0 : °C
+  46 *411026*	  26% :     98.5 : °C
+  47 *411027*	  27% :    100.2 : °C
+  48 *411028*	  28% :    102.6 : °C
+  49 *411029*	  29% :    102.6 : °C
+  50 *411030*	  30% :    106.1 : °C
+  51 *411031*	  31% :    109.9 : °C
+  52 *411032*	  32% :    111.8 : °C
+  53 *411033*	  33% :    111.8 : °C
+  54 *411034*	  34% :    111.8 : °C
+  55 *411035*	  35% :    111.8 : °C
+  56 *411036*	  36% :    111.8 : °C
+  57 *411037*	  37% :    111.8 : °C
+  58 *411038*	  38% :    115.7 : °C
+  59 *411039*	  39% :    115.7 : °C
+  60 *411040*	  40% :    117.9 : °C
+  61 *411041*	  41% :    117.9 : °C
+  62 *411042*	  42% :    121.2 : °C
+  63 *411043*	  43% :    123.3 : °C
+  64 *411044*	  44% :    126.0 : °C
+  65 *411045*	  45% :    127.3 : °C
+  66 *411046*	  46% :    131.7 : °C
+  67 *411047*	  47% :    134.9 : °C
+  68 *411048*	  48% :    137.2 : °C
+  69 *411049*	  49% :    137.8 : °C
+  70 *411050*	  50% :    139.5 : °C
+  71 *411051*	  51% :    139.5 : °C
+  72 *411052*	  52% :    139.5 : °C
+  73 *411053*	  53% :    139.5 : °C
+  74 *411054*	  54% :    139.7 : °C
+  75 *411055*	  55% :    139.7 : °C
+  76 *411056*	  56% :    142.0 : °C
+  77 *411057*	  57% :    143.6 : °C
+  78 *411058*	  58% :    145.0 : °C
+  79 *411059*	  59% :    145.0 : °C
+  80 *411060*	  60% :    145.4 : °C
+  81 *411061*	  61% :    150.4 : °C
+  82 *411062*	  62% :    153.8 : °C
+  83 *411063*	  63% :    158.2 : °C
+  84 *411064*	  64% :    161.3 : °C
+  85 *411065*	  65% :    161.7 : °C
+  86 *411066*	  66% :    161.7 : °C
+  87 *411067*	  67% :    163.5 : °C
+  88 *411068*	  68% :    164.0 : °C
+  89 *411069*	  69% :    165.5 : °C
+  90 *411070*	  70% :    167.6 : °C
+  91 *411071*	  71% :    169.1 : °C
+  92 *411072*	  72% :    169.1 : °C
+  93 *411073*	  73% :    169.1 : °C
+  94 *411074*	  74% :    172.1 : °C
+  95 *411075*	  75% :    175.1 : °C
+  96 *411076*	  76% :    177.4 : °C
+  97 *411077*	  77% :    181.2 : °C
+  98 *411078*	  78% :    182.2 : °C
+  99 *411079*	  79% :    183.7 : °C
+ 100 *411080*	  80% :    187.8 : °C
+ 101 *411081*	  81% :    188.1 : °C
+ 102 *411082*	  82% :    189.4 : °C
+ 103 *411083*	  83% :    191.3 : °C
+ 104 *411084*	  84% :    196.3 : °C
+ 105 *411085*	  85% :    197.1 : °C
+ 106 *411086*	  86% :    200.5 : °C
+ 107 *411087*	  87% :    202.6 : °C
+ 108 *411088*	  88% :    204.2 : °C
+ 109 *411089*	  89% :    207.1 : °C
+ 110 *411090*	  90% :    208.5 : °C
+ 111 *411091*	  91% :    210.6 : °C
+ 112 *411092*	  92% :    213.0 : °C
+ 113 *411093*	  93% :    218.1 : °C
+ 114 *411094*	  94% :    222.2 : °C
+ 115 *411095*	  95% :    226.0 : °C
+ 116 *411096*	  96% :    230.0 : °C
+ 117 *411097*	  97% :    230.0 : °C
+ 118 *411098*	  98% :    235.0 : °C
+ 119 *411099*	  99% :    245.1 : °C
+ 120 *411100*	99.5% :    251.7 : °C
+ 121 RESULTAT ANALYSE DE BASE ( % m/m ): 
+ 123 N.PARAFFINE
+ 124 *10206000*N.HEXANE                                   :   1.5219 : %m/m
+ 125 *10207000*N.HEPTANE                                  :   0.9047 : %m/m
+ 126 *10208000*N.OCTANE                                   :   1.0826 : %m/m
+ 127 *10209000*N.NONANE                                   :   0.4468 : %m/m
+ 128 *10210000*N.DECANE                                   :   0.3517 : %m/m
+ 129 *10211000*N.UNDECANE                                 :   0.2808 : %m/m
+ 130 *10212000*N.DODECANE                                 :   0.2684 : %m/m
+ 131 *10213000*N.TRIDECANE                                :   0.1912 : %m/m
+ 132 *10214000*N.TETRADECANE                              :   0.1672 : %m/m
+ 133 *10215000*N.PENTADECANE                              :   0.0073 : %m/m
+ 135 ISO.PARAFFINE
+ 136 *10306004*2,3-DIMETHYLBUTANE                         :   0.5868 : %m/m
+ 137 *10306001*2-METHYLPENTANE                            :   3.0151 : %m/m
+ 138 *10306002*3-METHYLPENTANE                            :   2.0236 : %m/m
+ 139 *10307054*2,4-DIMETHYLPENTANE                        :   0.5557 : %m/m
+ 140 *10307001*2-METHYLHEXANE                             :   2.2771 : %m/m
+ 141 *10307053*2,3-DIMETHYLPENTANE                        :   0.6023 : %m/m
+ 142 *10307002*3-METHYLHEXANE                             :   2.1207 : %m/m
+ 143 *10307051*3-ETHYLPENTANE                             :   0.2336 : %m/m
+ 144 *10308052*2,2-DIMETHYLHEXANE                         :   0.1791 : %m/m
+ 145 *10308055*2,5-DIMETHYLHEXANE                         :   0.3366 : %m/m
+ 146 *10308054*2,4-DIMETHYLHEXANE                         :   0.4332 : %m/m
+ 147 *10308053*2,3-DIMETHYLHEXANE                         :   0.3066 : %m/m
+ 148 *10308001*2-METHYLHEPTANE                            :   1.1941 : %m/m
+ 149 *10308003*4-METHYLHEPTANE                            :   0.4718 : %m/m
+ 150 *10308057*3,4-DIMETHYLHEXANE                         :   0.2730 : %m/m
+ 151 *10308002*3-METHYLHEPTANE                            :   1.3158 : %m/m
+ 152 *10308051*3-ETHYLHEXANE                              :   0.4684 : %m/m
+ 153 *10309055*2,4-DIMETHYLHEPTANE                        :   0.2798 : %m/m
+ 154 *10309057*2,6-DIMETHYLHEPTANE                        :   0.1559 : %m/m
+ 155 *10309056*2,5-DIMETHYLHEPTANE                        :   0.4773 : %m/m
+ 156 *10309060*3,5-DIMETHYLHEPTANE                        :   0.0825 : %m/m
+ 157 *10309052*4-ETHYLHEPTANE                             :   0.1624 : %m/m
+ 158 *10309003*4-METHYLOCTANE                             :   0.4761 : %m/m
+ 159 *10309001*2-METHYLOCTANE                             :   0.6777 : %m/m
+ 160 *10309051*3-ETHYLHEPTANE                             :   0.1841 : %m/m
+ 161 *10309002*3-METHYLOCTANE                             :   0.7136 : %m/m
+ 162 *10310061*3,5-DIMETHYLOCTANE                         :   0.3234 : %m/m
+ 163 *10310058*2,7-DIMETHYLOCTANE                         :   0.0860 : %m/m
+ 164 *10310057*2,6-DIMETHYLOCTANE                         :   0.2073 : %m/m
+ 165 *10310004*5-METHYLNONANE                             :   0.1770 : %m/m
+ 166 *10310001*2-METHYLNONANE                             :   0.4207 : %m/m
+ 167 *10310002*3-METHYLNONANE                             :   0.4517 : %m/m
+ 168 *10310000*C10-ISOPARAFFINE                           :   0.9095 : %m/m
+ 169 *10311004*5-METHYLDECANE                             :   0.1967 : %m/m
+ 170 *10311001*2-METHYLDECANE                             :   0.2450 : %m/m
+ 171 *10311002*3-METHYLDECANE                             :   0.2444 : %m/m
+ 172 *10311000*C11-ISOPARAFFINE                           :   0.7501 : %m/m
+ 173 *10312057*2,5-DIMETHYLDECANE                         :   0.0675 : %m/m
+ 174 *10312004*5-METHYLUNDECANE                           :   0.1127 : %m/m
+ 175 *10312003*4-METHYLUNDECANE                           :   0.3119 : %m/m
+ 176 *10312001*2-METHYLUNDECANE                           :   0.1881 : %m/m
+ 177 *10312002*3-METHYLUNDECANE                           :   0.2457 : %m/m
+ 178 *10312000*C12-ISOPARAFFINE                           :   0.3301 : %m/m
+ 179 *10313004*5-METHYLDODECANE                           :   0.1139 : %m/m
+ 180 *10313003*4-METHYLDODECANE                           :   0.1024 : %m/m
+ 181 *10313001*2-METHYLDODECANE                           :   0.0720 : %m/m
+ 182 *10313000*C13-ISOPARAFFINE                           :   0.1154 : %m/m
+ 183 *10314000*C14-ISOPARAFFINE                           :   0.1372 : %m/m
+ 185 NAPHTENE
+ 186 *10506001*1-METHYLCYCLOPENTANE                       :   2.4965 : %m/m
+ 187 *10506000*CYCLOHEXANE                                :   0.2277 : %m/m
+ 188 *10507052*1,1-DIMETHYLCYCLOPENTANE                   :   0.0453 : %m/m
+ 189 *10507055*1,C-3-DIMETHYLCYCLOPENTANE                 :   0.9496 : %m/m
+ 190 *10507056*1,T-3-DIMETHYLCYCLOPENTANE                 :   0.7814 : %m/m
+ 191 *10507054*1,T-2-DIMETHYLCYCLOPENTANE                 :   0.5338 : %m/m
+ 192 *10507053*1,C-2-DIMETHYLCYCLOPENTANE                 :   0.5311 : %m/m
+ 193 *10507001*1-METHYLCYCLOHEXANE                        :   1.0726 : %m/m
+ 194 *10507051*1-ETHYLCYCLOPENTANE                        :   0.5406 : %m/m
+ 195 *10508215*1,T2,C4-TRIMETHYLCYCLOPENTANE              :   0.3435 : %m/m
+ 196 *10508212*1,T2,C3-TRIMETHYLCYCLOPENTANE              :   0.2249 : %m/m
+ 197 *10508208*1,1,2-TRIMETHYLCYCLOPENTANE                :   0.0484 : %m/m
+ 198 *10508214*1,C2,T4-TRIMETHYLCYCLOPENTANE              :   0.0501 : %m/m
+ 199 *10508055*1,C-3-DIMETHYLCYCLOHEXANE                  :   0.0863 : %m/m
+ 200 *10508058*1,T-4-DIMETHYLCYCLOHEXANE                  :   0.1549 : %m/m
+ 201 *10508211*1,C2,T3-TRIMETHYLCYCLOPENTANE              :   0.0114 : %m/m
+ 202 *10508052*1,1-DIMETHYLCYCLOHEXANE                    :   0.0189 : %m/m
+ 203 *10508207*1-METHYL-T-3-ETHYLCYCLOPENTANE             :   0.4287 : %m/m
+ 204 *10508206*1-METHYL-C-3-ETHYLCYCLOPENTANE             :   0.3041 : %m/m
+ 205 *10508205*1-METHYL-T-2-ETHYLCYCLOPENTANE             :   0.1433 : %m/m
+ 206 *10508054*1,T-2-DIMETHYLCYCLOHEXANE                  :   0.2080 : %m/m
+ 207 *10508203*1-METHYL-1-ETHYLCYCLOPENTANE               :   0.1741 : %m/m
+ 208 *10508000*C8-NAPHTENE                                :   0.0354 : %m/m
+ 209 *10508051*1-ETHYLCYCLOHEXANE                         :   0.3389 : %m/m
+ 210 *10509000*C9-NAPHTENE                                :   0.7876 : %m/m
+ 211 *10510000*C10-NAPHTENE                               :   0.3274 : %m/m
+ 212 *10511000*C11-NAPHTENE                               :   0.4494 : %m/m
+ 213 *10512000*C12-NAPHTENE                               :   0.3989 : %m/m
+ 214 *10513000*C13-NAPHTENE                               :   0.1962 : %m/m
+ 216 AROMATIQUE
+ 217 *11806001*BENZENE                                    :   1.2700 : %m/m
+ 218 *11807001*TOLUENE                                    :   5.1274 : %m/m
+ 219 *11808051*ETHYLBENZENE                               :   1.2319 : %m/m
+ 220 *11808053*META-XYLENE                                :   4.3441 : %m/m
+ 221 *11808054*PARA-XYLENE                                :   1.4440 : %m/m
+ 222 *11808052*ORTHO-XYLENE                               :   2.1206 : %m/m
+ 223 *11809202*ISOPROPYLBENZENE                           :   0.0904 : %m/m
+ 224 *11809201*N.PROPYLBENZENE                            :   0.4455 : %m/m
+ 225 *11809204*1-METHYL-3-ETHYLBENZENE                    :   2.0312 : %m/m
+ 226 *11809205*1-METHYL-4-ETHYLBENZENE                    :   0.7462 : %m/m
+ 227 *11809208*1,3,5-TRIMETHYLBENZENE                     :   1.0814 : %m/m
+ 228 *11809203*1-METHYL-2-ETHYLBENZENE                    :   0.8753 : %m/m
+ 229 *11809207*1,2,4-TRIMETHYLBENZENE                     :   3.3499 : %m/m
+ 230 *11809206*1,2,3-TRIMETHYLBENZENE                     :   0.8351 : %m/m
+ 231 *11810510*1-METHYL-4-ISOPROPYLBENZENE                :   0.1332 : %m/m
+ 232 *11810509*1-METHYL-3-ISOPROPYLBENZENE                :   0.0671 : %m/m
+ 233 *12009001*INDANE                                     :   0.6710 : %m/m
+ 234 *11810508*1-METHYL-2-ISOPROPYLBENZENE                :   0.1043 : %m/m
+ 235 *11810512*1,3-DIETHYLBENZENE                         :   0.2958 : %m/m
+ 236 *11810506*1-METHYL-3-N-PROPYLBENZENE                 :   0.6808 : %m/m
+ 237 *11810507*1-METHYL-4-N-PROPYLBENZENE                 :   0.4142 : %m/m
+ 238 *11810000*C10-AROMATIQUE                             :   0.1227 : %m/m
+ 239 *11810518*1,3-DIMETHYL-5-ETHYLBENZENE                :   0.6614 : %m/m
+ 240 *11810505*1-METHYL-2-N-PROPYLBENZENE                 :   0.2114 : %m/m
+ 241 *11810519*1,4-DIMETHYL-2-ETHYLBENZENE                :   0.7016 : %m/m
+ 242 *11810517*1,3-DIMETHYL-4-ETHYLBENZENE                :   0.5430 : %m/m
+ 243 *12010001*1-METHYLINDANE                             :   0.4749 : %m/m
+ 244 *11810515*1,2-DIMETHYL-4-ETHYLBENZENE                :   0.7245 : %m/m
+ 245 *11810514*1,2-DIMETHYL-3-ETHYLBENZENE                :   0.3089 : %m/m
+ 246 *11810522*1,2,4,5-TETRAMETHYLBENZENE                 :   0.5005 : %m/m
+ 247 *11810521*1,2,3,5-TETRAMETHYLBENZENE                 :   0.6496 : %m/m
+ 248 *30408000*BENZOTHIOPHENE                             :   0.0487 : %m/m
+ 249 *12010004*5-METHYLINDANE                             :   0.5508 : %m/m
+ 250 *12010003*4-METHYLINDANE                             :   0.9172 : %m/m
+ 251 *11810520*1,2,3,4-TETRAMETHYLBENZENE                 :   0.2283 : %m/m
+ 252 *12310001*NAPHTALENE                                 :   0.6576 : %m/m
+ 253 *12011051*C2-INDANE                                  :   0.5159 : %m/m
+ 254 *11811000*C11-AROMATIQUE                             :   1.1858 : %m/m
+ 255 *11812000*C12-AROMATIQUE                             :   1.3739 : %m/m
+ 256 *12311002*2-METHYLNAPHTALENE                         :   1.0555 : %m/m
+ 257 *12311001*1-METHYLNAPHTALENE                         :   0.5107 : %m/m
+ 258 *12412000*DIPHENYL                                   :   0.0391 : %m/m
+ 259 *12012201*C3-INDANE                                  :   1.7706 : %m/m
+ 260 *30409001*C1-BENZOTHIOPHENE                          :   0.0921 : %m/m
+ 261 *12312051*C2-NAPHTALENE                              :   0.0870 : %m/m
+ 262 *12013501*C4-INDANE                                  :   0.3553 : %m/m
+ 263 *11814000*C14-AROMATIQUE                             :   0.0343 : %m/m
+ 264 *12313201*C3-NAPHTALENE                              :   0.0086 : %m/m
+ 266 OLEFINE
+ 267 *11006003*4-METHYL-1-PENTENE                         :   0.0260 : %m/m
+ 268 *11006002*3-METHYL-1-PENTENE                         :   0.0465 : %m/m
+ 269 *11006052*2,3-DIMETHYL-1-BUTENE                      :   0.0000 : %m/m
+ 270 *11006007*4-METHYL-CIS-2-PENTENE                     :   0.0349 : %m/m
+ 271 *11006008*4-METHYL-TRANS-2-PENTENE                   :   0.0000 : %m/m
+ 272 *11006001*2-METHYL-1-PENTENE                         :   0.2637 : %m/m
+ 273 *10906001*1-HEXENE                                   :   0.0500 : %m/m
+ 274 *11006051*2-ETHYL-1-BUTENE                           :   0.0442 : %m/m
+ 275 *10906005*TRANS-3-HEXENE                             :   0.2315 : %m/m
+ 276 *10906004*CIS-3-HEXENE                               :   0.0620 : %m/m
+ 277 *10906003*TRANS-2-HEXENE                             :   0.5028 : %m/m
+ 278 *11006004*2-METHYL-2-PENTENE                         :   0.6532 : %m/m
+ 279 *11106002*3-METHYLCYCLOPENTENE                       :   0.0843 : %m/m
+ 280 *11006005*3-METHYL-CIS-2-PENTENE                     :   0.5145 : %m/m
+ 281 *11007058*4,4-DIMETHYL-1-PENTENE                     :   0.0537 : %m/m
+ 282 *10906002*CIS-2-HEXENE                               :   0.2365 : %m/m
+ 283 *11006006*3-METHYL-TRANS-2-PENTENE                   :   0.8506 : %m/m
+ 284 *11006000*C6-OLEFINE                                 :   0.0546 : %m/m
+ 285 *11007055*2,4-DIMETHYL-1-PENTENE                     :   0.0294 : %m/m
+ 286 *11106001*1-METHYLCYCLOPENTENE                       :   0.6289 : %m/m
+ 287 *11007002*3-METHYL-1-HEXENE                          :   0.0100 : %m/m
+ 288 *11007012*2-METHYL-CIS-3-HEXENE                      :   0.0620 : %m/m
+ 289 *11007013*2-METHYL-TRANS-3-HEXENE                    :   0.0307 : %m/m
+ 290 *11007014*3-METHYL-CIS-3-HEXENE                      :   0.1393 : %m/m
+ 291 *11106004*CYCLOHEXENE                                :   0.0948 : %m/m
+ 292 *11007011*5-METHYL-TRANS-2-HEXENE                    :   0.0562 : %m/m
+ 293 *11007004*5-METHYL-1-HEXENE                          :   0.0218 : %m/m
+ 294 *10907001*1-HEPTENE                                  :   0.0553 : %m/m
+ 295 *11007015*3-METHYL-TRANS-3-HEXENE                    :   0.1147 : %m/m
+ 296 *10907004*CIS-3-HEPTENE                              :   0.4299 : %m/m
+ 297 *11107061*4,4-DIMETHYLCYCLOPENTENE                   :   0.2232 : %m/m
+ 298 *11007005*2-METHYL-2-HEXENE                          :   0.4643 : %m/m
+ 299 *11107057*1,5-DIMETHYLCYCLOPENTENE                   :   0.1845 : %m/m
+ 300 *10907003*TRANS-2-HEPTENE                            :   0.1342 : %m/m
+ 301 *11007059*3-ETHYL-2-PENTENE                          :   0.1057 : %m/m
+ 302 *11007052*3-ETHYL-1-PENTENE                          :   0.4492 : %m/m
+ 303 *10907002*CIS-2-HEPTENE                              :   0.1838 : %m/m
+ 304 *11007000*C7-OLEFINE                                 :   0.1648 : %m/m
+ 305 *11107002*3-METHYLCYCLOHEXENE                        :   0.6665 : %m/m
+ 306 *11108052*ETHYLCYCLOHEXENE                           :   0.1238 : %m/m
+ 307 *11008019*4-METHYL-CIS-3-HEPTENE                     :   0.0821 : %m/m
+ 308 *10908001*1-OCTENE                                   :   0.0684 : %m/m
+ 309 *11107001*1-METHYLCYCLOHEXENE                        :   0.2013 : %m/m
+ 310 *11008006*2-METHYL-2-HEPTENE                         :   0.0465 : %m/m
+ 311 *11008009*4-METHYL-CIS-2-HEPTENE                     :   0.0851 : %m/m
+ 312 *10908007*TRANS-4-OCTENE                             :   0.1123 : %m/m
+ 313 *10908006*CIS-4-OCTENE                               :   0.0753 : %m/m
+ 314 *10908005*TRANS-3-OCTENE                             :   0.2210 : %m/m
+ 315 *10908004*CIS-3-OCTENE                               :   0.0770 : %m/m
+ 316 *10908003*TRANS-2-OCTENE                             :   0.0824 : %m/m
+ 317 *11108053*TRIMETHYLCYCLOPENTENE                      :   0.3984 : %m/m
+ 318 *11008007*3-METHYL-CIS-2-HEPTENE                     :   0.1936 : %m/m
+ 319 *10908002*CIS-2-OCTENE                               :   0.0352 : %m/m
+ 320 *11108051*DIMETHYLCYCLOHEXENE                        :   0.0822 : %m/m
+ 321 *11008000*C8-OLEFINE                                 :   0.5780 : %m/m
+ 322 *11009000*C9-OLEFINE                                 :   2.3081 : %m/m
+ 323 *11010000*C10-OLEFINE                                :   1.5754 : %m/m
+ 324 *11011000*C11-OLEFINE                                :   0.5276 : %m/m
+ 325 *11012000*C12-OLEFINE                                :   0.6450 : %m/m
+ 326 *11013000*C13-OLEFINE                                :   0.2018 : %m/m
+ 327 *11014000*C14-OLEFINE                                :   0.0814 : %m/m
+ 328 *11015000*C15-OLEFINE                                :   0.0080 : %m/m
+ 330 SATURE C15+
+ 331 RESULTATS PAR FAMILLES
+ 332 *10100000*INCONNUS                                   :   0.0000 : %m/m
+ 333 *10200000*N.PARAFFINE                                :   5.2226 : %m/m
+ 334 *10300000*ISO.PARAFFINE                              :  25.4118 : %m/m
+ 335 *10400000*NAPHTENE                                   :  11.9088 : %m/m
+ 336 *11700000*AROMATIQUE                                 :  41.6891 : %m/m
+ 337 *10800000*OLEFINE                                    :  15.7677 : %m/m
+ 338 TABLEAU FAMILLE CARBONE
+ 339 FAMILLE AROMATIQUE :
+ 340 *11706000*C6  :   1.2700 : %m/m
+ 341 *11707000*C7  :   5.1274 : %m/m
+ 342 *11708000*C8  :   9.1894 : %m/m
+ 343 *11709000*C9  :  10.2180 : %m/m
+ 344 *11710000*C10 :   8.9477 : %m/m
+ 345 *11711000*C11 :   3.2678 : %m/m
+ 346 *11712000*C12 :   3.2705 : %m/m
+ 347 *11713000*C13 :   0.3639 : %m/m
+ 348 *11714000*C14 :   0.0343 : %m/m
+ 349 *11715000*C15 :   0.0000 : %m/m
+ 350 FAMILLE ISO.PARAFFINE :
+ 351 *10306000*C6  :   5.6256 : %m/m
+ 352 *10307000*C7  :   5.7895 : %m/m
+ 353 *10308000*C8  :   4.9786 : %m/m
+ 354 *10309998*C9  :   3.2095 : %m/m
+ 355 *10310998*C10 :   2.5755 : %m/m
+ 356 *10311998*C11 :   1.4362 : %m/m
+ 357 *10312998*C12 :   1.2560 : %m/m
+ 358 *10313998*C13 :   0.4037 : %m/m
+ 359 *10314998*C14 :   0.1372 : %m/m
+ 360 *10315998*C15 :   0.0000 : %m/m
+ 361 FAMILLE N.PARAFFINE :
+ 362 *10206001*C6  :   1.5219 : %m/m
+ 363 *10207001*C7  :   0.9047 : %m/m
+ 364 *10208001*C8  :   1.0826 : %m/m
+ 365 *10209001*C9  :   0.4468 : %m/m
+ 366 *10210001*C10 :   0.3517 : %m/m
+ 367 *10211001*C11 :   0.2808 : %m/m
+ 368 *10212001*C12 :   0.2684 : %m/m
+ 369 *10213001*C13 :   0.1912 : %m/m
+ 370 *10214001*C14 :   0.1672 : %m/m
+ 371 *10215001*C15 :   0.0073 : %m/m
+ 372 FAMILLE NAPHTENE :
+ 373 *10406998*C6  :   2.7241 : %m/m
+ 374 *10407998*C7  :   4.4544 : %m/m
+ 375 *10408998*C8  :   2.5709 : %m/m
+ 376 *10409998*C9  :   0.7876 : %m/m
+ 377 *10410998*C10 :   0.3274 : %m/m
+ 378 *10411998*C11 :   0.4494 : %m/m
+ 379 *10412998*C12 :   0.3989 : %m/m
+ 380 *10413998*C13 :   0.1962 : %m/m
+ 381 *10414998*C14 :   0.0000 : %m/m
+ 382 *10415998*C15 :   0.0000 : %m/m
+ 383 FAMILLE OLEFINE :
+ 384 *10806000*C6  :   4.3790 : %m/m
+ 385 *10807000*C7  :   3.7802 : %m/m
+ 386 *10808000*C8  :   2.2613 : %m/m
+ 387 *10809000*C9  :   2.3081 : %m/m
+ 388 *10810000*C10 :   1.5754 : %m/m
+ 389 *10811000*C11 :   0.5276 : %m/m
+ 390 *10812000*C12 :   0.6450 : %m/m
+ 391 *10813000*C13 :   0.2018 : %m/m
+ 392 *10814000*C14 :   0.0814 : %m/m
+ 393 *10815000*C15 :   0.0080 : %m/m
+ 394 FAMILLE INCONNUS :
+ 395 *10100006*C6  :   0.0000 : %m/m
+ 396 *10100007*C7  :   0.0000 : %m/m
+ 397 *10100008*C8  :   0.0000 : %m/m
+ 398 *10100009*C9  :   0.0000 : %m/m
+ 399 *10100010*C10 :   0.0000 : %m/m
+ 400 *10100011*C11 :   0.0000 : %m/m
+ 401 *10100012*C12 :   0.0000 : %m/m
+ 402 *10100013*C13 :   0.0000 : %m/m
+ 403 *10100014*C14 :   0.0000 : %m/m
+ 404 *10100015*C15 :   0.0000 : %m/m
+ 405 SOMME :
+ 406 *10006000*C6  :  15.5205 : %m/m
+ 407 *10007000*C7  :  20.0561 : %m/m
+ 408 *10008000*C8  :  20.0829 : %m/m
+ 409 *10009000*C9  :  16.9700 : %m/m
+ 410 *10010000*C10 :  13.7777 : %m/m
+ 411 *10011000*C11 :   5.9619 : %m/m
+ 412 *10012000*C12 :   5.8389 : %m/m
+ 413 *10013000*C13 :   1.3567 : %m/m
+ 414 *10014000*C14 :   0.4201 : %m/m
+ 415 *10015000*C15 :   0.0153 : %m/m
+ 416 PROPRIETES PHYSIQUES
+ 417 *9210*Densité (15°C)                 :      0.7862 : AUCUNE
+ 418 *9211*Masse molaire                  :    111.4323 : g/mol
+ 419 *9212*Tension de vapeur              :    114.0784 : hPa
+ 420 *9213*Pouvoir calorifique            :  45215.7875 : kJ/kg
+ 421 *9201*Teneur en carbone              :     87.1705 : % m/m
+ 422 *9202*Teneur en hydrogène            :     12.7979 : % m/m
+ 423 *9204*Carbone paraffinique           :     54.1503 : % m/m
+ 424 *9205*Carbone naphténique            :     11.5832 : % m/m
+ 425 *9207*Carbone oléfinique             :      5.0446 : % m/m
+ 426 *9206*Carbone aromatique             :     29.2219 : % m/m
+ 427 *9216*RON_NonLineaire                :     86.5914 : AUCUNE
+ 428 *9217*MON_NonLineaire                :     78.2948 : AUCUNE
+ 429 AVERTISSEMENT: PROPRIETES
+ 430 Densité (15°C)                  : 0 : AUCUNE
+ 431 Masse molaire                   : 0 : AUCUNE
+ 432 Tension de vapeur               : 0 : AUCUNE
+ 433 Pouvoir calorifique             : 0 : AUCUNE
+ 434 Teneur en carbone               : 0 : AUCUNE
+ 435 Teneur en hydrogène             : 0 : AUCUNE
+ 436 Teneur en oxygène               : 0 : AUCUNE
+ 437 Teneur en soufre                : 0 : AUCUNE
+ 438 Teneur en azote                 : 0 : AUCUNE
+ 439 Carbone paraffinique            : 0 : AUCUNE
+ 440 Carbone naphténique             : 0 : AUCUNE
+ 441 Carbone oléfinique              : 0 : AUCUNE
+ 442 Carbone aromatique              : 0 : AUCUNE
+ 443 Masse Molaire Inverse           : 0 : AUCUNE
+ 444 Densité Inverse (15°C)          : 0 : AUCUNE
+ 445 RON_A1                          : 0 : AUCUNE
+ 446 RON_A2                          : 0 : AUCUNE
+ 447 RON_A3                          : 0 : AUCUNE
+ 448 RON_A4                          : 0 : AUCUNE
+ 449 RON_A5                          : 0 : AUCUNE
+ 450 RON_A6                          : 0 : AUCUNE
+ 451 RON_A7                          : 0 : AUCUNE
+ 452 RON_A8                          : 0 : AUCUNE
+ 453 RON_A9                          : 0 : AUCUNE
+ 454 RON_A10                         : 0 : AUCUNE
+ 455 RON_A11                         : 0 : AUCUNE
+ 456 RON_A12                         : 0 : AUCUNE
+ 457 RON_A13                         : 0 : AUCUNE
+ 458 RON_A14                         : 0 : AUCUNE
+ 459 RON_A15                         : 0 : AUCUNE
+ 460 RON_A16                         : 0 : AUCUNE
+ 461 RON_A17                         : 0 : AUCUNE
+ 462 RON_A18                         : 0 : AUCUNE
+ 463 RON_A19                         : 0 : AUCUNE
+ 464 RON_A20                         : 0 : AUCUNE
+ 465 RON_A21                         : 0 : AUCUNE
+ 466 RON_A22                         : 0 : AUCUNE
+ 467 Satures                         : 0 : AUCUNE
+ 468 Olefine                         : 0 : AUCUNE
+ 469 Aromatiques                     : 0 : AUCUNE
+ 470 RON_A23                         : 0 : AUCUNE
+ 471 RON_NonLineaire                 : 0 : AUCUNE
+ 472 Naphtenes                       : 0 : AUCUNE
+ 473 MON_A1                          : 0 : AUCUNE
+ 474 MON_A2                          : 0 : AUCUNE
+ 475 MON_A3                          : 0 : AUCUNE
+ 476 MON_A4                          : 0 : AUCUNE
+ 477 MON_A5                          : 0 : AUCUNE
+ 478 MON_A6                          : 0 : AUCUNE
+ 479 MON_A7                          : 0 : AUCUNE
+ 480 MON_A8                          : 0 : AUCUNE
+ 481 MON_A9                          : 0 : AUCUNE
+ 482 MON_A10                         : 0 : AUCUNE
+ 483 MON_A11                         : 0 : AUCUNE
+ 484 MON_A12                         : 0 : AUCUNE
+ 485 MON_A13                         : 0 : AUCUNE
+ 486 MON_A14                         : 1 : AUCUNE
+ 487 MON_A15                         : 0 : AUCUNE
+ 488 MON_A16                         : 0 : AUCUNE
+ 489 MON_A17                         : 0 : AUCUNE
+ 490 MON_A18                         : 0 : AUCUNE
+ 491 MON_A19                         : 0 : AUCUNE
+ 492 MON_A20                         : 0 : AUCUNE
+ 493 MON_A21                         : 0 : AUCUNE
+ 494 MON_A22                         : 0 : AUCUNE
+ 495 MON_A23                         : 0 : AUCUNE
+ 496 MON_NonLineaire                 : 0 : AUCUNE

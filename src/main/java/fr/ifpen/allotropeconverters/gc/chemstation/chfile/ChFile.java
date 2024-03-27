@@ -15,6 +15,10 @@ public abstract class ChFile {
     protected Double yScaling;
     protected Double yOffset;
     protected String detector;
+    protected String analyst;
+    protected String method;
+    protected String sampleName;
+    protected TimeWithFormat injectionTime;
 
     int dataStart;
     int startTimePosition;
@@ -22,14 +26,39 @@ public abstract class ChFile {
     int yOffsetPosition;
     int yScalingPosition;
     int detectorPosition;
+    int analystPosition;
+    int methodPosition;
+    int sampleNamePosition;
+    int injectionTimePosition;
+    Boolean isUtf16;
+    String timeFormat;
 
-    protected ChFile(RandomAccessFile input, int dataStart, int startTimePosition, int endTimePosition, int yOffsetPosition, int yScalingPosition, int detectorPosition) throws IOException {
+    protected ChFile(
+            RandomAccessFile input,
+            int dataStart,
+            int startTimePosition,
+            int endTimePosition,
+            int yOffsetPosition,
+            int yScalingPosition,
+            int detectorPosition,
+            int analystPosition,
+            int methodPosition,
+            int sampleNamePosition,
+            int injectionTimePosition,
+            Boolean isUtf16,
+            String timeFormat) throws IOException {
         this.dataStart = dataStart;
         this.startTimePosition = startTimePosition;
         this.endTimePosition = endTimePosition;
         this.yOffsetPosition = yOffsetPosition;
         this.yScalingPosition = yScalingPosition;
         this.detectorPosition = detectorPosition;
+        this.analystPosition = analystPosition;
+        this.methodPosition = methodPosition;
+        this.sampleNamePosition = sampleNamePosition;
+        this.injectionTimePosition = injectionTimePosition;
+        this.isUtf16 = isUtf16;
+        this.timeFormat = timeFormat;
 
         readMetadata(input);
         parseData(input);
@@ -69,6 +98,34 @@ public abstract class ChFile {
         this.detector = detector;
     }
 
+    public String getAnalyst(){return analyst;}
+
+    private void setAnalyst(String analyst){
+        this.analyst = analyst;
+    }
+
+    public String getMethod() {return method;}
+
+    private void setMethod(String method) {
+        this.method = method;
+    }
+
+    public String getSampleName() {
+        return sampleName;
+    }
+
+    private void setSampleName(String sampleName) {
+        this.sampleName = sampleName;
+    }
+
+    public TimeWithFormat getInjectionTime() {
+        return injectionTime;
+    }
+
+    private void setInjectionTime(TimeWithFormat injectionTime) {
+        this.injectionTime = injectionTime;
+    }
+
     protected void readMetadata(RandomAccessFile input) throws IOException {
         setStartTime(readMetadataTime(input, startTimePosition));
         setEndTime(readMetadataTime(input, endTimePosition));
@@ -79,6 +136,16 @@ public abstract class ChFile {
         input.seek(yScalingPosition);
         yScaling = input.readDouble();
 
-        setDetector(readStringAtPosition(input, detectorPosition, true));
+        setDetector(readStringAtPosition(input, detectorPosition, isUtf16));
+
+        setAnalyst(readStringAtPosition(input, analystPosition, isUtf16));
+
+        setMethod(readStringAtPosition(input, methodPosition, isUtf16));
+
+        setSampleName(readStringAtPosition(input, sampleNamePosition, isUtf16));
+
+        setInjectionTime(new TimeWithFormat(
+                readStringAtPosition(input, injectionTimePosition, isUtf16),
+                timeFormat));
     }
 }

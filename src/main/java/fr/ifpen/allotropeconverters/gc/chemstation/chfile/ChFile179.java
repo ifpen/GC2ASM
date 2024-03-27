@@ -12,9 +12,23 @@ class ChFile179 extends ChFile {
     private static final int Y_OFFSET_POSITION = 4724;
     private static final int Y_SCALING_POSITION = 4732;
     private static final int DETECTOR_POSITION = 4213;
+    private static final int ANALYST_POSITION = 1880;
 
     ChFile179(RandomAccessFile input) throws IOException {
-        super(input, DATA_START, START_TIME_POSITION, END_TIME_POSITION, Y_OFFSET_POSITION, Y_SCALING_POSITION, DETECTOR_POSITION);
+        super(
+                input,
+                DATA_START,
+                START_TIME_POSITION,
+                END_TIME_POSITION,
+                Y_OFFSET_POSITION,
+                Y_SCALING_POSITION,
+                DETECTOR_POSITION,
+                ANALYST_POSITION,
+                0,
+                0,
+                0,
+                true,
+                "");
     }
 
 

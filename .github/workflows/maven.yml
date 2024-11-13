@@ -13,6 +13,8 @@ on:
     branches: [ "public" ]
   pull_request:
     branches: [ "public" ]
+  pull_request_target:
+    branches: [ "public" ]
 
 jobs:
   build:

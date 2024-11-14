@@ -88,7 +88,7 @@
             <plugin>
                 <groupId>org.jsonschema2pojo</groupId>
                 <artifactId>jsonschema2pojo-maven-plugin</artifactId>
-                <version>1.1.2</version>
+                <version>1.2.2</version>
                 <configuration>
                     <sourcePaths>
                         <sourcePath>src/main/resources/gas-chromatography.tabular.embed.schema.json</sourcePath>

@@ -5,75 +5,108 @@ import fr.ifpen.allotropeconverters.gc.schema.ChromatographyColumnFilmThickness;
 import fr.ifpen.allotropeconverters.gc.schema.ChromatographyColumnLength;
 import fr.ifpen.allotropeconverters.gc.schema.ColumnInnerDiameter;
 
-import java.io.*;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.io.InputStreamReader;
 import java.util.InputMismatchException;
+import java.util.LinkedHashMap;
 import java.util.Locale;
+import java.util.Map;
+import java.util.NoSuchElementException;
 import java.util.Scanner;
+import java.util.regex.MatchResult;
 import java.util.regex.Pattern;
 
 import static java.nio.charset.StandardCharsets.UTF_16;
 
 public final class ColumnInformationMapper {
 
-    private static final Pattern COLUMN_NAME_PATTERN = Pattern.compile(".*:");
+
+    private static final String COLON_REGEX = "\\s*:\\s*";
+    private static final String SEPARATOR_REGEX = "\\s*";
+    private static final String TEXT_REGEX = "(\\S+)";
+    private static final String NUMBER_REGEX = "([\\d.]+)";
+    private static final String COLUMN_SEPARATOR_REGEX = "(?>\\s+|\\n+)";
+
+    private static final Map<String, Boolean> COLUMN_NAMES_MAP = new LinkedHashMap<>();
+
+    static {
+        COLUMN_NAMES_MAP.put("Model#", true);
+        COLUMN_NAMES_MAP.put("Manufacturer", true);
+        COLUMN_NAMES_MAP.put("Diameter", false);
+        COLUMN_NAMES_MAP.put("Length", false);
+        COLUMN_NAMES_MAP.put("Film thickness", false);
+    }
+
+    private static final Pattern COLUMN_PATTERN;
+
+    static {
+        StringBuilder pattern = new StringBuilder();
+
+        COLUMN_NAMES_MAP.forEach((columnName, isOnlyText) -> {
+            pattern.append(columnName).append(COLON_REGEX);
+
+            if (!isOnlyText) {
+                pattern.append(NUMBER_REGEX).append(SEPARATOR_REGEX);
+            }
+
+            pattern.append(TEXT_REGEX).append(COLUMN_SEPARATOR_REGEX);
+        });
+
+        COLUMN_PATTERN = Pattern.compile(pattern.toString(), Pattern.MULTILINE);
+    }
 
     public ChromatographyColumnDocument readColumnDocumentFromFile(String folderPath) throws IOException {
         ChromatographyColumnDocument columnDocument = new ChromatographyColumnDocument();
 
-        File file = new File(folderPath,"acq.txt");
+        File file = new File(folderPath, "acq.txt");
         try (FileInputStream fileInputStream = new FileInputStream(file);
-        InputStreamReader inputStreamReader = new InputStreamReader(fileInputStream, UTF_16);
-        Scanner acquisitionScanner = new Scanner(inputStreamReader)){
+             InputStreamReader inputStreamReader = new InputStreamReader(fileInputStream, UTF_16);
+             Scanner acquisitionScanner = new Scanner(inputStreamReader)) {
 
             acquisitionScanner.useLocale(Locale.US); //Agilent files are US formatted.
 
             skipToColumnInformation(acquisitionScanner);
 
-            acquisitionScanner.skip(COLUMN_NAME_PATTERN);
-            columnDocument.setChromatographyColumnPartNumber(acquisitionScanner.next()); //Model
-            acquisitionScanner.nextLine();
+            MatchResult columnInformation = acquisitionScanner.findAll(COLUMN_PATTERN).findFirst().orElseThrow(() -> new NoSuchElementException("Incorrect column information"));
 
-            acquisitionScanner.skip(COLUMN_NAME_PATTERN);
-            columnDocument.setProductManufacturer(acquisitionScanner.next()); //Manufacturer
-            acquisitionScanner.nextLine();
+            int groupIndex = 1;
+
+            columnDocument.setChromatographyColumnPartNumber(columnInformation.group(groupIndex++)); //Model
+            columnDocument.setProductManufacturer(columnInformation.group(groupIndex++)); //Manufacturer
 
             ColumnInnerDiameter columnInnerDiameter = new ColumnInnerDiameter();
-            acquisitionScanner.skip(COLUMN_NAME_PATTERN);
-            double value = acquisitionScanner.nextDouble();
-            String unit = acquisitionScanner.next();
+            double value = Double.parseDouble(columnInformation.group(groupIndex++));
+            String unit = columnInformation.group(groupIndex++);
 
-            if(unit.equals("µm")){ //Allotrope format forces mm.
+            if (unit.equals("µm")) { //Allotrope format forces mm.
                 unit = "mm";
                 value = value / 1000;
             }
-
             columnInnerDiameter.setValue(value);
             columnInnerDiameter.setUnit(unit);
             columnDocument.setColumnInnerDiameter(columnInnerDiameter);
-            acquisitionScanner.nextLine();
 
             ChromatographyColumnLength chromatographyColumnLength = new ChromatographyColumnLength();
-            acquisitionScanner.skip(COLUMN_NAME_PATTERN);
-            chromatographyColumnLength.setValue(acquisitionScanner.nextDouble());
-            chromatographyColumnLength.setUnit(acquisitionScanner.next());
+            chromatographyColumnLength.setValue(Double.parseDouble(columnInformation.group(groupIndex++)));
+            chromatographyColumnLength.setUnit(columnInformation.group(groupIndex++));
             columnDocument.setChromatographyColumnLength(chromatographyColumnLength);
-            acquisitionScanner.nextLine();
 
             ChromatographyColumnFilmThickness columnFilmThickness = new ChromatographyColumnFilmThickness();
-            acquisitionScanner.skip(COLUMN_NAME_PATTERN);
-            columnFilmThickness.setValue(acquisitionScanner.nextDouble());
-            columnFilmThickness.setUnit(acquisitionScanner.next());
+            columnFilmThickness.setValue(Double.parseDouble(columnInformation.group(groupIndex++)));
+            columnFilmThickness.setUnit(columnInformation.group(groupIndex++));
             columnDocument.setChromatographyColumnFilmThickness(columnFilmThickness);
 
             columnDocument.setChromatographyColumnSerialNumber("N/A");
 
             return columnDocument;
-        } catch (InputMismatchException e){
+        } catch (InputMismatchException e) {
             return new ChromatographyColumnDocument();
         }
     }
 
-    private void skipToColumnInformation(Scanner acquisitionScanner){
+    private void skipToColumnInformation(Scanner acquisitionScanner) {
                 /* Looking for pattern
         =====================================================================
                           Column(s)
@@ -81,6 +114,7 @@ public final class ColumnInformationMapper {
 
         Column Description :  HP-PONA
          */
+        boolean columnSectionFound = false;
         String line;
         while ((line = acquisitionScanner.nextLine()) != null) {
             if (line.contains("======")) {
@@ -88,10 +122,16 @@ public final class ColumnInformationMapper {
                 if (line.contains("Column(s)")) {
                     acquisitionScanner.nextLine();// === line
                     acquisitionScanner.nextLine();// empty line
+                    columnSectionFound = true;
                     break;
                 }
             }
         }
+
+        if (!columnSectionFound) {
+            throw new NoSuchElementException("No column information found");
+        }
+
         acquisitionScanner.nextLine(); //Column Description - Not in model
         acquisitionScanner.nextLine(); //Inventory # - Not in model
     }

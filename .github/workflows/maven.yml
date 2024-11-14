@@ -11,8 +11,6 @@ name: Java CI with Maven
 on:
   push:
     branches: [ "public" ]
-  pull_request:
-    branches: [ "public" ]
   pull_request_target:
     branches: [ "public" ]
 

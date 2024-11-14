@@ -1,7 +1,7 @@
 # GC2ASM
 
 [![Maven Central Version](https://img.shields.io/maven-central/v/fr.ifpen.allotropeconverters/gc2asm)][maven-central]
-[![License CeCILL 2.1](https://img.shields.io/badge/License-CeCILL_2.1?logoColor=green)][license]
+[![License CeCILL 2.1](https://img.shields.io/badge/License-CeCILL_2.1-green)][license]
 
 
 

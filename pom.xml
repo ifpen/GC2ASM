@@ -30,9 +30,13 @@
 
     <scm>
         <connection>scm:git:git://github.com/ifpen/GC2ASM.git</connection>
-        <developerConnection>scm:git:ssh://github.com:ifpen/GC2ASM.git</developerConnection>
-        <url>https://github.com/ifpen/GC2ASM/tree/main</url>
+        <developerConnection>scm:git:ssh://github.com/ifpen/GC2ASM.git</developerConnection>
+        <url>https://github.com/ifpen/GC2ASM</url>
     </scm>
+
+    <issueManagement>
+        <url>https://github.com/ifpen/GC2ASM/issues</url>
+    </issueManagement>
 
     <properties>
         <maven.compiler.source>17</maven.compiler.source>
@@ -131,17 +135,17 @@
                             <goal>prepare-agent</goal>
                         </goals>
                     </execution>
-                        <execution>
-                            <id>report</id>
-                            <goals>
-                                <goal>report</goal>
-                            </goals>
-                            <configuration>
-                                <formats>
-                                    <format>XML</format>
-                                </formats>
-                            </configuration>
-                        </execution>
+                    <execution>
+                        <id>report</id>
+                        <goals>
+                            <goal>report</goal>
+                        </goals>
+                        <configuration>
+                            <formats>
+                                <format>XML</format>
+                            </formats>
+                        </configuration>
+                    </execution>
                 </executions>
             </plugin>
             <plugin>

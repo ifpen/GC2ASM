@@ -162,7 +162,7 @@
             <properties>
                 <version.maven-release-plugin>3.0.0-M7</version.maven-release-plugin>
                 <version.maven-gpg-plugin>3.0.1</version.maven-gpg-plugin>
-                <version.nexus-staging-maven-plugin>1.6.13</version.nexus-staging-maven-plugin>
+                <version.nexus-staging-maven-plugin>1.7.0</version.nexus-staging-maven-plugin>
             </properties>
             <build>
                 <pluginManagement>

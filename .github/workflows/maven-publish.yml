@@ -10,7 +10,7 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
       - name: Setup Java
-        uses: actions/setup-java@v3 # Does also set up Maven and GPG
+        uses: actions/setup-java@v4 # Does also set up Maven and GPG
         with:
           distribution: 'temurin'
           java-package: 'jdk'

@@ -1,5 +1,9 @@
 package fr.ifpen.allotropeconverters.gc.chemstation.chfile;
 
+import javax.measure.quantity.ElectricCurrent;
+import javax.measure.quantity.Quantity;
+import javax.measure.unit.SI;
+import javax.measure.unit.Unit;
 import java.io.IOException;
 import java.io.RandomAccessFile;
 import java.util.List;
@@ -9,9 +13,12 @@ import static fr.ifpen.allotropeconverters.gc.chemstation.chfile.ReadHelpers.rea
 
 public abstract class ChFile {
 
+    protected static final Unit<ElectricCurrent> PICO_AMPERE_UNIT = SI.PICO(SI.AMPERE);
+
     protected List<Double> values;
     protected Float startTime;
     protected Float endTime;
+    protected Unit<ElectricCurrent> unit;
     protected Double yScaling;
     protected Double yOffset;
     protected String detector;
@@ -19,14 +26,16 @@ public abstract class ChFile {
     int dataStart;
     int startTimePosition;
     int endTimePosition;
+    int unitsPosition;
     int yOffsetPosition;
     int yScalingPosition;
     int detectorPosition;
 
-    protected ChFile(RandomAccessFile input, int dataStart, int startTimePosition, int endTimePosition, int yOffsetPosition, int yScalingPosition, int detectorPosition) throws IOException {
+    protected ChFile(RandomAccessFile input, int dataStart, int startTimePosition, int endTimePosition, int unitsPosition, int yOffsetPosition, int yScalingPosition, int detectorPosition) throws IOException {
         this.dataStart = dataStart;
         this.startTimePosition = startTimePosition;
         this.endTimePosition = endTimePosition;
+        this.unitsPosition = unitsPosition;
         this.yOffsetPosition = yOffsetPosition;
         this.yScalingPosition = yScalingPosition;
         this.detectorPosition = detectorPosition;
@@ -61,6 +70,24 @@ public abstract class ChFile {
         this.endTime = endTime;
     }
 
+    protected Unit<ElectricCurrent> getUnit() {
+        return unit;
+    }
+
+    public String getUnitSymbol() {
+        return unit.toString();
+    }
+
+    private void setUnit(String unit) {
+        Unit<? extends Quantity> localUnit = Unit.valueOf(unit);
+
+        if (!PICO_AMPERE_UNIT.isCompatible(localUnit)) {
+            throw new IllegalArgumentException("Unsupported unit: " + localUnit);
+        }
+
+        this.unit = localUnit.asType(ElectricCurrent.class);
+    }
+
     public String getDetector() {
         return detector;
     }
@@ -72,6 +99,7 @@ public abstract class ChFile {
     protected void readMetadata(RandomAccessFile input) throws IOException {
         setStartTime(readMetadataTime(input, startTimePosition));
         setEndTime(readMetadataTime(input, endTimePosition));
+        setUnit(readStringAtPosition(input, unitsPosition, true));
 
         input.seek(yOffsetPosition);
         yOffset = input.readDouble();

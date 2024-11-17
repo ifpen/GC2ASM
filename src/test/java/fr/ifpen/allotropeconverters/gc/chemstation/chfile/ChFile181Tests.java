@@ -24,6 +24,5 @@ class ChFile181Tests {
         Assertions.assertEquals(2.1010, values.get(0), 0.001);
 
         Assertions.assertEquals(SI.PICO(SI.AMPERE), chFile.getUnit());
-        Assertions.assertEquals("pA", chFile.getUnitSymbol());
     }
 }

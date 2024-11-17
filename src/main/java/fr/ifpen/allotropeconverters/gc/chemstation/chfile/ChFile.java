@@ -23,13 +23,13 @@ public abstract class ChFile {
     protected Double yOffset;
     protected String detector;
 
-    int dataStart;
-    int startTimePosition;
-    int endTimePosition;
-    int unitsPosition;
-    int yOffsetPosition;
-    int yScalingPosition;
-    int detectorPosition;
+    protected final int dataStart; // Has no use for now
+    protected final int startTimePosition;
+    protected final int endTimePosition;
+    protected final int unitsPosition;
+    protected final int yOffsetPosition;
+    protected final int yScalingPosition;
+    protected final int detectorPosition;
 
     protected ChFile(RandomAccessFile input, int dataStart, int startTimePosition, int endTimePosition, int unitsPosition, int yOffsetPosition, int yScalingPosition, int detectorPosition) throws IOException {
         this.dataStart = dataStart;
@@ -46,59 +46,46 @@ public abstract class ChFile {
 
     protected abstract void parseData(RandomAccessFile input) throws IOException;
 
+    /**
+     * Returns the values found in the .ch file, converted to picoampere as the standard imposes.
+     */
     public List<Double> getValues() {
         return values;
-    }
-
-    protected void setValues(List<Double> values) {
-        this.values = values;
     }
 
     public Float getStartTime() {
         return startTime;
     }
 
-    private void setStartTime(Float startTime) {
-        this.startTime = startTime;
-    }
-
     public Float getEndTime() {
         return endTime;
-    }
-
-    private void setEndTime(Float endTime) {
-        this.endTime = endTime;
-    }
-
-    protected Unit<ElectricCurrent> getUnit() {
-        return unit;
-    }
-
-    public String getUnitSymbol() {
-        return unit.toString();
-    }
-
-    private void setUnit(String unit) {
-        Unit<? extends Quantity> localUnit = Unit.valueOf(unit);
-
-        if (!PICO_AMPERE_UNIT.isCompatible(localUnit)) {
-            throw new IllegalArgumentException("Unsupported unit: " + localUnit);
-        }
-
-        this.unit = localUnit.asType(ElectricCurrent.class);
     }
 
     public String getDetector() {
         return detector;
     }
 
-    private void setDetector(String detector) {
-        this.detector = detector;
+    /**
+     * Returns the unit found in the .ch file.<br>
+     * Warning: the values stored in this class are converted to picoampere, as the standard imposes.
+     */
+    protected Unit<ElectricCurrent> getUnit() {
+        return unit;
+    }
+
+    private void setUnit(String unit) {
+        Unit<? extends Quantity> localUnit = Unit.valueOf(unit);
+
+        if (!PICO_AMPERE_UNIT.isCompatible(localUnit)) {
+            throw new IllegalArgumentException("Unsupported unit: " + unit);
+        }
+
+        this.unit = localUnit.asType(ElectricCurrent.class);
     }
 
     protected void readMetadata(RandomAccessFile input) throws IOException {
-        setStartTime(readMetadataTime(input, startTimePosition));
-        setEndTime(readMetadataTime(input, endTimePosition));
+        startTime = readMetadataTime(input, startTimePosition);
+        endTime = readMetadataTime(input, endTimePosition);
         setUnit(readStringAtPosition(input, unitsPosition, true));
 
         input.seek(yOffsetPosition);
@@ -107,6 +94,6 @@ public abstract class ChFile {
         input.seek(yScalingPosition);
         yScaling = input.readDouble();
 
-        setDetector(readStringAtPosition(input, detectorPosition, true));
+        detector = readStringAtPosition(input, detectorPosition, true);
     }
 }

@@ -4,7 +4,6 @@ import javax.measure.converter.UnitConverter;
 import java.io.IOException;
 import java.io.RandomAccessFile;
 import java.util.ArrayList;
-import java.util.List;
 
 import static fr.ifpen.allotropeconverters.gc.chemstation.chfile.ReadHelpers.readLittleEndianDouble;
 
@@ -29,15 +28,13 @@ class ChFile179 extends ChFile {
             throw new IllegalArgumentException("Input too large to parse");
         }
 
-        List<Double> values = new ArrayList<>((int) numberOfPoints);
-        UnitConverter unitConverter = getUnit().getConverterTo(PICO_AMPERE_UNIT);
+        values = new ArrayList<>((int) numberOfPoints);
+        UnitConverter unitConverter = unit.getConverterTo(PICO_AMPERE_UNIT);
 
         input.seek(DATA_START);
 
         for (int i = 0; i < numberOfPoints; i++) {
             values.add(unitConverter.convert(readLittleEndianDouble(input) * yScaling));
         }
-
-        setValues(values);
     }
 }

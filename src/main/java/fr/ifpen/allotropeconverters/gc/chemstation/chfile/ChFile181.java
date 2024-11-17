@@ -1,5 +1,6 @@
 package fr.ifpen.allotropeconverters.gc.chemstation.chfile;
 
+import javax.measure.converter.UnitConverter;
 import java.io.EOFException;
 import java.io.IOException;
 import java.io.RandomAccessFile;
@@ -26,6 +27,8 @@ class ChFile181 extends ChFile {
         values = new ArrayList<>();
         long[] buffer = new long[]{0, 0, 0};
 
+        UnitConverter unitConverter = unit.getConverterTo(PICO_AMPERE_UNIT);
+
         boolean endOfFile = false;
 
         while (!endOfFile) {
@@ -41,8 +44,7 @@ class ChFile181 extends ChFile {
                     buffer[1] = 0;
                 }
 
-                values.add(buffer[0] * yScaling + yOffset);
-
+                values.add(unitConverter.convert(buffer[0] * yScaling + yOffset));
             } catch (EOFException e) {
                 endOfFile = true;
             }

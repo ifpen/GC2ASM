@@ -55,10 +55,10 @@ public final class ColumnInformationMapper {
         COLUMN_PATTERN = Pattern.compile(pattern.toString(), Pattern.MULTILINE);
     }
 
-    public ChromatographyColumnDocument readColumnDocumentFromFile(String folderPath) throws IOException {
+    public ChromatographyColumnDocument readColumnDocumentFromFile(String folderPath, String txtFileName) throws IOException {
         ChromatographyColumnDocument columnDocument = new ChromatographyColumnDocument();
 
-        File file = new File(folderPath, "acq.txt");
+        File file = new File(folderPath, txtFileName);
         try (FileInputStream fileInputStream = new FileInputStream(file);
              InputStreamReader inputStreamReader = new InputStreamReader(fileInputStream, UTF_16);
              Scanner acquisitionScanner = new Scanner(inputStreamReader)) {

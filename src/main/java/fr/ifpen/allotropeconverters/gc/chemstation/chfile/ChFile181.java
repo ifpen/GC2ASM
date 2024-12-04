@@ -16,10 +16,14 @@ class ChFile181 extends ChFile {
     private static final int Y_OFFSET_POSITION = 4724;
     private static final int Y_SCALING_POSITION = 4732;
     private static final int DETECTOR_POSITION = 4213;
+    private static final int OPERATOR_POSITION = 1880;
+    private static final int METHOD_POSITION = 2574;
+    private static final int SAMPLE_NAME_POSITION = 858;
+    private static final int INJECTION_DATE_TIME_POSITION = 2391;
 
     ChFile181(RandomAccessFile input) throws IOException {
         super(input, DATA_START, START_TIME_POSITION, END_TIME_POSITION, UNITS_POSITION, Y_OFFSET_POSITION, Y_SCALING_POSITION,
-              DETECTOR_POSITION);
+              DETECTOR_POSITION, OPERATOR_POSITION, METHOD_POSITION, SAMPLE_NAME_POSITION, INJECTION_DATE_TIME_POSITION);
     }
 
     @Override

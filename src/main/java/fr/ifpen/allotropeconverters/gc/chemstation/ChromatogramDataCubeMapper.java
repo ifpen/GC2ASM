@@ -18,10 +18,15 @@ class ChromatogramDataCubeMapper {
         ChFileFactory chFileFactory = new ChFileFactory();
         ChFile chFile = chFileFactory.getChFile(chFilePath);
 
+        return readChromatogramDataCube(chFile);
+    }
+
+    ChromatogramDataCube readChromatogramDataCube(ChFile chFile) {
         ChromatogramDataCube chromatogramDataCube = new ChromatogramDataCube();
         chromatogramDataCube.setLabel(chFile.getDetector());
         chromatogramDataCube.setCubeStructure(getCubeStructure());
         chromatogramDataCube.setData(createAllotropeDataFromChFile(chFile));
+
         return chromatogramDataCube;
     }
 

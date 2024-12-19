@@ -19,10 +19,10 @@ import java.util.Map;
  * <ul>
  *     <li>Time-zone: <strong>UTC</strong></li>
  *     <li>Date-time formatter patterns:</li>
- *     <ul>
+ *     <li><ul>
  *         <li><strong>dd-MMM-yy, HH:mm:ss</strong></li>
  *         <li><strong>dd MMM yy  hh:mm a</strong></li>
- *     </ul>
+ *     </ul></li>
  *     <li>.ch file name: <strong>FID1A.ch</strong></li>
  *     <li>.xml file name: <strong>Result.xml</strong></li>
  *     <li>.txt file name: <strong>acq.txt</strong></li>

@@ -6,7 +6,7 @@
 
     <groupId>fr.ifpen.allotropeconverters</groupId>
     <artifactId>gc2asm</artifactId>
-    <version>2.1</version>
+    <version>3.0</version>
 
     <name>${project.groupId}:${project.artifactId}</name>
     <description>A Java converter from GC proprietary data to Allotrope's ASM data</description>

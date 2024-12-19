@@ -1,35 +1,48 @@
 package fr.ifpen.allotropeconverters.gc.chemstation;
 
+import fr.ifpen.allotropeconverters.gc.TestConstants;
 import fr.ifpen.allotropeconverters.gc.schema.ChromatographyColumnDocument;
-import org.junit.jupiter.api.Assertions;
+import fr.ifpen.allotropeconverters.gc.schema.ChromatographyColumnFilmThickness;
+import fr.ifpen.allotropeconverters.gc.schema.ChromatographyColumnLength;
+import fr.ifpen.allotropeconverters.gc.schema.ColumnInnerDiameter;
 import org.junit.jupiter.api.Test;
 
 import java.io.IOException;
 
+import static org.assertj.core.api.Assertions.assertThat;
+
 class ColumnInformationMapperTests {
 
-    private static void readAndAssertColumnInformation(String folderPath) throws IOException {
+    private static void readAndAssertColumnInformation(String folderPath, String txtFileName) throws IOException {
         ColumnInformationMapper columnInformationMapper = new ColumnInformationMapper();
 
-        ChromatographyColumnDocument chromatographyColumnDocument = columnInformationMapper.readColumnDocumentFromFile(folderPath);
+        ChromatographyColumnDocument chromatographyColumnDocument =
+                columnInformationMapper.readColumnDocumentFromFile(folderPath, txtFileName);
 
-        Assertions.assertEquals("19091S-001", chromatographyColumnDocument.getChromatographyColumnPartNumber());
-        Assertions.assertEquals("Agilent", chromatographyColumnDocument.getProductManufacturer());
-        Assertions.assertEquals(0.2, chromatographyColumnDocument.getColumnInnerDiameter().getValue());
-        Assertions.assertEquals("mm", chromatographyColumnDocument.getColumnInnerDiameter().getUnit());
-        Assertions.assertEquals(50, chromatographyColumnDocument.getChromatographyColumnLength().getValue());
-        Assertions.assertEquals("m", chromatographyColumnDocument.getChromatographyColumnLength().getUnit());
-        Assertions.assertEquals(0.50, chromatographyColumnDocument.getChromatographyColumnFilmThickness().getValue());
-        Assertions.assertEquals("µm", chromatographyColumnDocument.getChromatographyColumnFilmThickness().getUnit());
+        assertThat(chromatographyColumnDocument.getChromatographyColumnPartNumber()).isEqualTo("19091S-001");
+        assertThat(chromatographyColumnDocument.getProductManufacturer()).isEqualTo("Agilent");
+
+        ColumnInnerDiameter columnInnerDiameter = chromatographyColumnDocument.getColumnInnerDiameter();
+        assertThat(columnInnerDiameter.getValue()).isEqualTo(0.2);
+        assertThat(columnInnerDiameter.getUnit()).isEqualTo("mm");
+
+        ChromatographyColumnLength chromatographyColumnLength = chromatographyColumnDocument.getChromatographyColumnLength();
+        assertThat(chromatographyColumnLength.getValue()).isEqualTo(50);
+        assertThat(chromatographyColumnLength.getUnit()).isEqualTo("m");
+
+        ChromatographyColumnFilmThickness chromatographyColumnFilmThickness =
+                chromatographyColumnDocument.getChromatographyColumnFilmThickness();
+        assertThat(chromatographyColumnFilmThickness.getValue()).isEqualTo(0.50);
+        assertThat(chromatographyColumnFilmThickness.getUnit()).isEqualTo("µm");
     }
 
     @Test
     void mapperCI() throws IOException {
-        readAndAssertColumnInformation("src/test/resources/V179.D");
+        readAndAssertColumnInformation(TestConstants.RESOURCE_V_179_D_FOLDER, "acq.txt");
     }
 
     @Test
     void mapperCI_withMultipleColumnInformationPerLine() throws IOException {
-        readAndAssertColumnInformation("src/test/resources/V179_2.D");
+        readAndAssertColumnInformation(TestConstants.RESOURCE_V_179_D_FOLDER, "acq_multipleColumnInformation.txt");
     }
 }

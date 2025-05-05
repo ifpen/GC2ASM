@@ -127,8 +127,8 @@ public class ChemStationToAllotropeMapper {
         gasChromatographyDocument.setSampleDocument(sampleDocument);
 
         InjectionDocument injectionDocument = new InjectionDocument();
-        applyValue(injectionDocument::setInjectionTime, getInstant(chFile.getInjectionDateTime()),
-                   getInstant(((Element) chemStationResult.sampleInformation.injectionDateTime).getTextContent()));
+        applyValue(injectionDocument::setInjectionTime, getInjectionDateInstant(chFile.getInjectionDateTime()),
+                getInjectionDateInstant(((Element) chemStationResult.sampleInformation.injectionDateTime).getTextContent()));
         injectionDocument.setInjectionIdentifier(((Element) chemStationResult.sampleInformation.inj).getTextContent());
 
         InjectionVolumeSetting injectionVolumeSetting = new InjectionVolumeSetting();
@@ -210,7 +210,7 @@ public class ChemStationToAllotropeMapper {
         injectionDocument.setInjectionVolumeSetting(injectionVolumeSetting);
         injectionDocument.setInjectionIdentifier("");
 
-        injectionDocument.setInjectionTime(getInstant(chFile.getInjectionDateTime()));
+        injectionDocument.setInjectionTime(getInjectionDateInstant(chFile.getInjectionDateTime()));
         gasChromatographyDocument.setInjectionDocument(injectionDocument);
 
         MeasurementDocument measurementDocument = new MeasurementDocument();
@@ -237,7 +237,7 @@ public class ChemStationToAllotropeMapper {
         return schema;
     }
 
-    private ChemStationResult parseXmlResult(String folderPath) throws JAXBException {
+    public ChemStationResult parseXmlResult(String folderPath) throws JAXBException {
         File file = new File(folderPath, xmlFileName);
 
         JAXBContext jaxbContext = JAXBContext.newInstance(ChemStationResult.class);
@@ -252,7 +252,15 @@ public class ChemStationToAllotropeMapper {
         return chFileFactory.getChFile(new File(folderPath, chFileName).getPath());
     }
 
-    private Instant getInstant(String dateTimeString) {
+    public Instant getInjectionDateInstant(String injectionDateString) {
+        LocalDateTime injectionDate = getLocalDateTime(injectionDateString);
+        if (injectionDate == null) {
+            throw new IllegalArgumentException("Injection date has an unknown format. Original string is: '" + injectionDateString + "'");
+        }
+        return injectionDate.atZone(timeZone).toInstant();
+    }
+
+    private LocalDateTime getLocalDateTime(String dateTimeString) {
         LocalDateTime parse = null;
         for (DateTimeFormatter formatter : dateTimeFormatters) {
             try {
@@ -261,12 +269,7 @@ public class ChemStationToAllotropeMapper {
                 // Do nothing
             }
         }
-
-        if (parse == null) {
-            throw new IllegalStateException("Injection date has a unknown format. Original string is: '" + dateTimeString + "'");
-        }
-
-        return parse.atZone(timeZone).toInstant();
+        return parse;
     }
 
     private void applyValue(Consumer<Object> method, Object chFileValue, Object otherFileValue) {

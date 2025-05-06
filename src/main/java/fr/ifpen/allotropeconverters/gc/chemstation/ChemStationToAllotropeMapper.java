@@ -239,7 +239,7 @@ public class ChemStationToAllotropeMapper {
     }
 
     private ChemStationResult parseXmlResult(String folderPath) throws JAXBException {
-        return parseXmlResult(Path.of(folderPath, xmlFileName));
+        return parseXmlResult(Path.of(folderPath, resultXmlFilename));
     }
 
     /**

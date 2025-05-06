@@ -7,22 +7,24 @@ import com.networknt.schema.SpecVersion;
 import com.networknt.schema.ValidationMessage;
 import fr.ifpen.allotropeconverters.gc.chemstation.ChemStationToAllotropeMapper;
 import fr.ifpen.allotropeconverters.gc.chemstation.ChemStationToAllotropeMapperBuilder;
+import fr.ifpen.allotropeconverters.gc.schema.GasChromatographyTabularEmbedSchema;
 import jakarta.xml.bind.JAXBException;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
 
+import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.Set;
 
-class GcToAllotropeJsonConverterTests {
+class AllotropeConversionToolsTests {
 
     private static void convertAndAssertJson(String folderPath, ChemStationToAllotropeMapper mapper) throws JAXBException, IOException {
-        GcToAllotropeJsonConverter gcToAllotropeJsonConverter = new GcToAllotropeJsonConverter(mapper);
+        AllotropeConversionTools allotropeConversionTools = new AllotropeConversionTools(mapper);
 
-        ObjectNode node = gcToAllotropeJsonConverter.convertFolderToAllotrope(folderPath);
+        ObjectNode node = allotropeConversionTools.convertFolderToAllotropeTree(folderPath);
         Assertions.assertThat(node).isNotNull();
 
         JsonSchema referenceSchema = getJsonSchemaFromClasspath();
@@ -45,9 +47,21 @@ class GcToAllotropeJsonConverterTests {
     @Test
     void returnsValidJsonForV181() throws Exception {
         ChemStationToAllotropeMapper mapper = new ChemStationToAllotropeMapperBuilder().withZoneId(TestConstants.TIME_ZONE_PARIS)
-                                                                                       .withChFileName("V181.ch")
-                                                                                       .withTxtFileName("acq_columInfoFixed.txt")
+                                                                                       .withChFilename("V181.ch")
+                                                                                       .withAcqTxtFilename("acq_columInfoFixed.txt")
                                                                                        .build();
         convertAndAssertJson(TestConstants.RESOURCE_V_181_D_FOLDER, mapper);
+    }
+
+    @Test
+    void readAllotropeFromInputStream() throws Exception {
+        ChemStationToAllotropeMapper mapper = new ChemStationToAllotropeMapperBuilder().withZoneId(TestConstants.TIME_ZONE_PARIS).build();
+        AllotropeConversionTools allotropeConversionTools = new AllotropeConversionTools(mapper);
+
+        ObjectNode allotropeTree = allotropeConversionTools.convertFolderToAllotropeTree(TestConstants.RESOURCE_V_179_D_FOLDER);
+        ByteArrayInputStream byteArrayInputStream = new ByteArrayInputStream(allotropeTree.toPrettyString().getBytes());
+        GasChromatographyTabularEmbedSchema result = AllotropeConversionTools.readAllotropeFromInputStream(byteArrayInputStream);
+
+        Assertions.assertThat(result).isNotNull();
     }
 }

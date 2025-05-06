@@ -16,7 +16,7 @@ jobs:
           java-package: 'jdk'
           java-version: '17'
           check-latest: true
-          server-id: 'central'
+          server-id: central
           server-username: CENTRAL_USERNAME # Env var that holds your OSSRH user name
           server-password: CENTRAL_PASSWORD # Env var that holds your OSSRH user pw
           gpg-private-key: ${{ secrets.GPG_SECRET_KEY }} # Substituted with the value stored in the referenced secret

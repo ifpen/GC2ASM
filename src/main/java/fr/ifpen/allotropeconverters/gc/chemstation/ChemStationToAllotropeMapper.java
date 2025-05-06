@@ -49,22 +49,22 @@ public class ChemStationToAllotropeMapper {
     private final ChromatogramDataCubeMapper chromatogramDataCubeMapper;
     private final ZoneId timeZone;
     private final List<DateTimeFormatter> dateTimeFormatters;
-    private final String chFileName;
-    private final String xmlFileName;
-    private final String txtFileName;
+    private final String chFilename;
+    private final String resultXmlFilename;
+    private final String acqTxtFilename;
     private final MergeStrategy mergeStrategy;
 
-    ChemStationToAllotropeMapper(ZoneId timeZone, List<DateTimeFormatter> dateTimeFormatters, String chFileName, String xmlFileName,
-                                 String txtFileName, MergeStrategy mergeStrategy) {
+    ChemStationToAllotropeMapper(ZoneId timeZone, List<DateTimeFormatter> dateTimeFormatters, String chFilename, String resultXmlFilename,
+                                 String acqTxtFilename, MergeStrategy mergeStrategy) {
         this.peakMapper = new PeakMapper();
         this.columnInformationMapper = new ColumnInformationMapper();
         this.chromatogramDataCubeMapper = new ChromatogramDataCubeMapper();
 
         this.timeZone = timeZone;
         this.dateTimeFormatters = dateTimeFormatters;
-        this.chFileName = chFileName;
-        this.xmlFileName = xmlFileName;
-        this.txtFileName = txtFileName;
+        this.chFilename = chFilename;
+        this.resultXmlFilename = resultXmlFilename;
+        this.acqTxtFilename = acqTxtFilename;
         this.mergeStrategy = mergeStrategy;
     }
 
@@ -109,7 +109,7 @@ public class ChemStationToAllotropeMapper {
                    ((Element) chemStationResult.sampleInformation.method).getTextContent());
 
         ChromatographyColumnDocument chromatographyColumnDocument =
-                columnInformationMapper.readColumnDocumentFromFile(folderPath, txtFileName);
+                columnInformationMapper.readColumnDocumentFromFile(folderPath, acqTxtFilename);
         gasChromatographyDocument.setChromatographyColumnDocument(chromatographyColumnDocument);
 
         DetectorControlAggregateDocument detectorControlAggregateDocument = new DetectorControlAggregateDocument();
@@ -263,7 +263,7 @@ public class ChemStationToAllotropeMapper {
 
     private ChFile getChFile(String folderPath) throws IOException {
         ChFileFactory chFileFactory = new ChFileFactory();
-        return chFileFactory.getChFile(new File(folderPath, chFileName).getPath());
+        return chFileFactory.getChFile(new File(folderPath, chFilename).getPath());
     }
 
     /**

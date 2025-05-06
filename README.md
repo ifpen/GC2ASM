@@ -31,8 +31,8 @@ ObjectNode allotropeFromFile = converter.convertChFileToAllotrope(filePath);
 // ChemStation to Allotrope mapper can be customized
 ChemStationToAllotropeMapperBuilder builder = new ChemStationToAllotropeMapperBuilder();
 ChemStationToAllotropeMapper mapper = builder.withZoneId(ZoneId.of("Europe/Paris"))
-                                             .withChFileName("file.ch")
-                                             .withXmlFileName("file.xml")
+                                             .withChFilename("file.ch")
+                                             .withResultXmlFilename("file.xml")
                                              .build();
 GcToAllotropeJsonConverter customizedConverter = new GcToAllotropeJsonConverter(mapper);
 

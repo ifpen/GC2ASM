@@ -41,8 +41,8 @@ public class ChemStationToAllotropeMapperBuilder {
 
     private ZoneId zoneId = ZoneOffset.UTC;
     private String chFileName = "FID1A.ch";
-    private String xmlFileName = "Result.xml";
-    private String txtFileName = "acq.txt";
+    private String resultXmlFileName = "Result.xml";
+    private String acqTxtFileName = "acq.txt";
     private MergeStrategy mergeStrategy = MergeStrategy.ERROR;
 
     /**
@@ -74,39 +74,39 @@ public class ChemStationToAllotropeMapperBuilder {
     /**
      * Sets the file name of the ChemStation file to be used for the mapping operation.
      *
-     * @param chFileName
+     * @param chFilename
      *         the name of the ChemStation file
      *
      * @return the current instance of {@code ChemStationToAllotropeMapperBuilder} for method chaining
      */
-    public ChemStationToAllotropeMapperBuilder withChFileName(String chFileName) {
-        this.chFileName = chFileName;
+    public ChemStationToAllotropeMapperBuilder withChFilename(String chFilename) {
+        this.chFileName = chFilename;
         return this;
     }
 
     /**
      * Sets the file name of the .xml file to be used for the mapping operation.
      *
-     * @param xmlFileName
+     * @param resultXmlFilename
      *         the name of the .xml file
      *
      * @return the current instance of {@code ChemStationToAllotropeMapperBuilder} for method chaining
      */
-    public ChemStationToAllotropeMapperBuilder withXmlFileName(String xmlFileName) {
-        this.xmlFileName = xmlFileName;
+    public ChemStationToAllotropeMapperBuilder withResultXmlFilename(String resultXmlFilename) {
+        this.resultXmlFileName = resultXmlFilename;
         return this;
     }
 
     /**
      * Sets the file name of the .txt file to be used for the mapping operation.
      *
-     * @param txtFileName
+     * @param acqTxtFileName
      *         the name of the .txt file
      *
      * @return the current instance of {@code ChemStationToAllotropeMapperBuilder} for method chaining
      */
-    public ChemStationToAllotropeMapperBuilder withTxtFileName(String txtFileName) {
-        this.txtFileName = txtFileName;
+    public ChemStationToAllotropeMapperBuilder withAcqTxtFilename(String acqTxtFileName) {
+        this.acqTxtFileName = acqTxtFileName;
         return this;
     }
 
@@ -130,6 +130,6 @@ public class ChemStationToAllotropeMapperBuilder {
      * @return a new instance of {@code ChemStationToAllotropeMapper} configured
      */
     public ChemStationToAllotropeMapper build() {
-        return new ChemStationToAllotropeMapper(zoneId, dateTimeFormatters, chFileName, xmlFileName, txtFileName, mergeStrategy);
+        return new ChemStationToAllotropeMapper(zoneId, dateTimeFormatters, chFileName, resultXmlFileName, acqTxtFileName, mergeStrategy);
     }
 }

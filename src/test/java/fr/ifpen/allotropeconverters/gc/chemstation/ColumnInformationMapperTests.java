@@ -13,11 +13,11 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 class ColumnInformationMapperTests {
 
-    private static void readAndAssertColumnInformation(String folderPath, String txtFileName) throws IOException {
+    private static void readAndAssertColumnInformation(String folderPath, String acqTxtFilename) throws IOException {
         ColumnInformationMapper columnInformationMapper = new ColumnInformationMapper();
 
         ChromatographyColumnDocument chromatographyColumnDocument =
-                columnInformationMapper.readColumnDocumentFromFile(folderPath, txtFileName);
+                columnInformationMapper.readColumnDocumentFromFile(folderPath, acqTxtFilename);
 
         assertThat(chromatographyColumnDocument.getChromatographyColumnPartNumber()).isEqualTo("19091S-001");
         assertThat(chromatographyColumnDocument.getProductManufacturer()).isEqualTo("Agilent");

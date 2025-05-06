@@ -23,6 +23,7 @@ import org.w3c.dom.Element;
 
 import java.io.File;
 import java.io.IOException;
+import java.nio.file.Path;
 import java.time.Instant;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
@@ -237,14 +238,27 @@ public class ChemStationToAllotropeMapper {
         return schema;
     }
 
-    public ChemStationResult parseXmlResult(String folderPath) throws JAXBException {
-        File file = new File(folderPath, xmlFileName);
+    private ChemStationResult parseXmlResult(String folderPath) throws JAXBException {
+        return parseXmlResult(Path.of(folderPath, xmlFileName));
+    }
 
+    /**
+     * Creates an instance of ChemStationResult by reading a Result.xml file.
+     *
+     * @param xmlResultPath
+     *         the file path to the Result.xml file
+     *
+     * @return a ChemStationResult populated with the content of the Result.xml file
+     *
+     * @throws JAXBException
+     *         if there is an error during XML parsing
+     */
+    public static ChemStationResult parseXmlResult(Path xmlResultPath) throws JAXBException {
         JAXBContext jaxbContext = JAXBContext.newInstance(ChemStationResult.class);
         Unmarshaller jaxbUnmarshaller = jaxbContext.createUnmarshaller();
         jaxbUnmarshaller.setEventHandler(new jakarta.xml.bind.helpers.DefaultValidationEventHandler());
 
-        return (ChemStationResult) jaxbUnmarshaller.unmarshal(file);
+        return (ChemStationResult) jaxbUnmarshaller.unmarshal(xmlResultPath.toFile());
     }
 
     private ChFile getChFile(String folderPath) throws IOException {
@@ -252,6 +266,14 @@ public class ChemStationToAllotropeMapper {
         return chFileFactory.getChFile(new File(folderPath, chFileName).getPath());
     }
 
+    /**
+     * Creates an Instant based on the injection date string provided in the Result.xml file.
+     *
+     * @param injectionDateString
+     *         the injection date string provided in the Result.xml file
+     *
+     * @return an Instant representing the injection date
+     */
     public Instant getInjectionDateInstant(String injectionDateString) {
         LocalDateTime injectionDate = getLocalDateTime(injectionDateString);
         if (injectionDate == null) {

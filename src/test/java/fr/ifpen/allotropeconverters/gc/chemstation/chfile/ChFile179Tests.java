@@ -4,7 +4,6 @@ import fr.ifpen.allotropeconverters.gc.TestConstants;
 import org.junit.jupiter.api.Test;
 
 import javax.measure.unit.SI;
-import java.io.File;
 import java.io.IOException;
 import java.io.RandomAccessFile;
 import java.net.URI;
@@ -13,7 +12,7 @@ class ChFile179Tests {
 
     @Test
     void getVersionReturnsExpected() throws IOException {
-        URI uri = new File(TestConstants.RESOURCE_V_179_D_CH_FILE).toURI();
+        URI uri = TestConstants.RESOURCE_V_179_D_CH_FILE.toUri();
         RandomAccessFile file = new RandomAccessFile(uri.getPath(), "r");
         ChFile chFile = new ChFile179(file);
 

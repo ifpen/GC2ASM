@@ -21,7 +21,7 @@ import java.util.Set;
 
 class AllotropeConversionToolsTests {
 
-    private static void convertAndAssertJson(String folderPath, ChemStationToAllotropeMapper mapper) throws JAXBException, IOException {
+    private static void convertAndAssertJson(Path folderPath, ChemStationToAllotropeMapper mapper) throws JAXBException, IOException {
         AllotropeConversionTools allotropeConversionTools = new AllotropeConversionTools(mapper);
 
         ObjectNode node = allotropeConversionTools.convertFolderToAllotropeTree(folderPath);
@@ -34,7 +34,7 @@ class AllotropeConversionToolsTests {
 
     private static JsonSchema getJsonSchemaFromClasspath() throws IOException {
         JsonSchemaFactory factory = JsonSchemaFactory.getInstance(SpecVersion.VersionFlag.V201909);
-        InputStream schemaStream = Files.newInputStream(Path.of(TestConstants.RESOURCE_MAIN_SCHEMA_FILE));
+        InputStream schemaStream = Files.newInputStream(TestConstants.RESOURCE_MAIN_SCHEMA_FILE);
         return factory.getSchema(schemaStream);
     }
 

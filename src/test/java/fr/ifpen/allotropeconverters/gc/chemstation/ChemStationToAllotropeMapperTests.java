@@ -99,7 +99,7 @@ class ChemStationToAllotropeMapperTests {
     void returnsCorrectInfoForV179File() throws IOException {
         ChemStationToAllotropeMapper mapper = new ChemStationToAllotropeMapperBuilder().withZoneId(TestConstants.TIME_ZONE_PARIS).build();
 
-        GasChromatographyTabularEmbedSchema embedSchema = mapper.fromChFile(TestConstants.RESOURCE_V_179_D_FOLDER);
+        GasChromatographyTabularEmbedSchema embedSchema = mapper.fromChFile(TestConstants.RESOURCE_V_179_D_CH_FILE);
         assertV179Schema(embedSchema, false);
     }
 }

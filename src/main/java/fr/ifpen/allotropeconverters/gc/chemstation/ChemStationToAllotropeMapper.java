@@ -21,7 +21,6 @@ import jakarta.xml.bind.JAXBException;
 import jakarta.xml.bind.Unmarshaller;
 import org.w3c.dom.Element;
 
-import java.io.File;
 import java.io.IOException;
 import java.nio.file.Path;
 import java.time.Instant;
@@ -90,9 +89,9 @@ public class ChemStationToAllotropeMapper {
      * @throws IOException
      *         if there is an error accessing or reading the required files
      */
-    public GasChromatographyTabularEmbedSchema fromFolder(String folderPath) throws JAXBException, IOException {
-        ChemStationResult chemStationResult = parseXmlResult(folderPath);
-        ChFile chFile = getChFile(folderPath);
+    public GasChromatographyTabularEmbedSchema fromFolder(Path folderPath) throws JAXBException, IOException {
+        ChemStationResult chemStationResult = parseXmlResultFromFolder(folderPath);
+        ChFile chFile = getChFileFromFolder(folderPath);
 
         GasChromatographyTabularEmbedSchema schema = new GasChromatographyTabularEmbedSchema();
         GasChromatographyAggregateDocument document = new GasChromatographyAggregateDocument();
@@ -173,16 +172,16 @@ public class ChemStationToAllotropeMapper {
      *     <li>Sample description</li>
      * </ul>
      *
-     * @param folderPath
-     *         the file path to the folder containing the .ch file
+     * @param chFilePath
+     *         the file path to the .ch file
      *
      * @return a GasChromatographyTabularEmbedSchema populated with the gas chromatography data from the specified .ch file
      *
      * @throws IOException
      *         if there is an error accessing or reading the required file
      */
-    public GasChromatographyTabularEmbedSchema fromChFile(String folderPath) throws IOException {
-        ChFile chFile = getChFile(folderPath);
+    public GasChromatographyTabularEmbedSchema fromChFile(Path chFilePath) throws IOException {
+        ChFile chFile = getChFile(chFilePath);
 
         GasChromatographyDocument gasChromatographyDocument = new GasChromatographyDocument();
         gasChromatographyDocument.setAnalyst(chFile.getOperator());
@@ -238,8 +237,8 @@ public class ChemStationToAllotropeMapper {
         return schema;
     }
 
-    private ChemStationResult parseXmlResult(String folderPath) throws JAXBException {
-        return parseXmlResult(Path.of(folderPath, resultXmlFilename));
+    private ChemStationResult parseXmlResultFromFolder(Path folderPath) throws JAXBException {
+        return parseXmlResult(folderPath.resolve(resultXmlFilename));
     }
 
     /**
@@ -261,9 +260,12 @@ public class ChemStationToAllotropeMapper {
         return (ChemStationResult) jaxbUnmarshaller.unmarshal(xmlResultPath.toFile());
     }
 
-    private ChFile getChFile(String folderPath) throws IOException {
-        ChFileFactory chFileFactory = new ChFileFactory();
-        return chFileFactory.getChFile(new File(folderPath, chFilename).getPath());
+    private ChFile getChFileFromFolder(Path folderPath) throws IOException {
+        return getChFile(folderPath.resolve(chFilename));
+    }
+
+    private ChFile getChFile(Path chFilePath) throws IOException {
+        return new ChFileFactory().getChFile(chFilePath);
     }
 
     /**

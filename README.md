@@ -15,17 +15,17 @@ import fr.ifpen.allotropeconverters.gc.GcToAllotropeJsonConverter;
 import fr.ifpen.allotropeconverters.gc.chemstation.ChemStationToAllotropeMapper;
 import fr.ifpen.allotropeconverters.gc.chemstation.ChemStationToAllotropeMapperBuilder;
 
-String folderPath = "path to folder containing .ch, .xml and .txt files";
-String filePath = "path to .ch file";
+Path folderPath = "path to folder containing .ch, .xml and .txt files";
+Path filePath = "path to .ch file";
 
 // Using default mapper
 GcToAllotropeJsonConverter converter = new GcToAllotropeJsonConverter();
 
 // Conversion from folder to Allotrope JSON
-ObjectNode allotropeFromFolder = converter.convertFolderToAllotrope(folderPath);
+GasChromatographyTabularEmbedSchema allotropeFromFolder = converter.convertFolderToAllotrope(folderPath);
 
 // Conversion from .ch file to Allotrope JSON
-ObjectNode allotropeFromFile = converter.convertChFileToAllotrope(filePath);
+GasChromatographyTabularEmbedSchema allotropeFromFile = converter.convertChFileToAllotrope(filePath);
 
 
 // ChemStation to Allotrope mapper can be customized

@@ -6,7 +6,7 @@
 
     <groupId>fr.ifpen.allotropeconverters</groupId>
     <artifactId>gc2asm</artifactId>
-    <version>3.2</version>
+    <version>3.3</version>
 
     <name>${project.groupId}:${project.artifactId}</name>
     <description>A Java converter from GC proprietary data to Allotrope's ASM data</description>
@@ -25,6 +25,12 @@
             <email>maxime.visconte@ifpen.fr</email>
             <organization>IFPEN</organization>
             <organizationUrl>https://www.ifpenergiesnouvelles.com/</organizationUrl>
+        </developer>
+        <developer>
+            <name>Florent Edmont</name>
+            <email>florent.edmont@tech-advantage.com</email>
+            <organization>TECH'advantage</organization>
+            <organizationUrl>https://www.tech-advantage.com/</organizationUrl>
         </developer>
     </developers>
 

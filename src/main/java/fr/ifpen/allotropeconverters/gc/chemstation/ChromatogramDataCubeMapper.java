@@ -9,12 +9,13 @@ import fr.ifpen.allotropeconverters.gc.schema.Dimension;
 import fr.ifpen.allotropeconverters.gc.schema.Measure;
 
 import java.io.IOException;
+import java.nio.file.Path;
 import java.util.Arrays;
 import java.util.List;
 
 class ChromatogramDataCubeMapper {
 
-    ChromatogramDataCube readChromatogramDataCube(String chFilePath) throws IOException {
+    ChromatogramDataCube readChromatogramDataCube(Path chFilePath) throws IOException {
         ChFileFactory chFileFactory = new ChFileFactory();
         ChFile chFile = chFileFactory.getChFile(chFilePath);
 

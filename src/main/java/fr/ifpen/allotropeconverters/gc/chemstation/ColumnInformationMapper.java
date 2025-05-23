@@ -5,10 +5,9 @@ import fr.ifpen.allotropeconverters.gc.schema.ChromatographyColumnFilmThickness;
 import fr.ifpen.allotropeconverters.gc.schema.ChromatographyColumnLength;
 import fr.ifpen.allotropeconverters.gc.schema.ColumnInnerDiameter;
 
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.IOException;
-import java.io.InputStreamReader;
+import java.io.*;
+import java.nio.file.Files;
+import java.nio.file.Path;
 import java.util.InputMismatchException;
 import java.util.LinkedHashMap;
 import java.util.Locale;
@@ -55,12 +54,12 @@ public final class ColumnInformationMapper {
         COLUMN_PATTERN = Pattern.compile(pattern.toString(), Pattern.MULTILINE);
     }
 
-    public ChromatographyColumnDocument readColumnDocumentFromFile(String folderPath, String acqTxtFilename) throws IOException {
+    public ChromatographyColumnDocument readColumnDocumentFromFile(Path folderPath, String acqTxtFilename) throws IOException {
         ChromatographyColumnDocument columnDocument = new ChromatographyColumnDocument();
 
-        File file = new File(folderPath, acqTxtFilename);
-        try (FileInputStream fileInputStream = new FileInputStream(file);
-             InputStreamReader inputStreamReader = new InputStreamReader(fileInputStream, UTF_16);
+        Path acqTxtPath = folderPath.resolve(acqTxtFilename);
+        try (InputStream acqInputStream = Files.newInputStream(acqTxtPath);
+             InputStreamReader inputStreamReader = new InputStreamReader(acqInputStream, UTF_16);
              Scanner acquisitionScanner = new Scanner(inputStreamReader)) {
 
             acquisitionScanner.useLocale(Locale.US); //Agilent files are US formatted.

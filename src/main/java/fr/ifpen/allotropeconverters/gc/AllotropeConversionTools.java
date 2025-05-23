@@ -12,6 +12,7 @@ import jakarta.xml.bind.JAXBException;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.nio.file.Path;
 
 /**
  * AllotropeConversionTools is responsible for converting gas chromatography data
@@ -63,7 +64,7 @@ public class AllotropeConversionTools {
      * @throws IOException
      *         if there is an I/O error while reading the folder or its contents
      */
-    public ObjectNode convertFolderToAllotropeTree(String folderPath) throws JAXBException, IOException {
+    public ObjectNode convertFolderToAllotropeTree(Path folderPath) throws JAXBException, IOException {
         return schema(convertFolderToAllotrope(folderPath));
     }
 
@@ -78,7 +79,7 @@ public class AllotropeConversionTools {
      * @throws IOException
      *         if there is an error accessing or reading the required .ch file
      */
-    public ObjectNode convertChFileToAllotropeTree(String chFilePath) throws IOException {
+    public ObjectNode convertChFileToAllotropeTree(Path chFilePath) throws IOException {
         return schema(convertChFileToAllotrope(chFilePath));
     }
 
@@ -95,7 +96,7 @@ public class AllotropeConversionTools {
      * @throws IOException
      *         if there is an I/O error while reading the folder or its contents
      */
-    public GasChromatographyTabularEmbedSchema convertFolderToAllotrope(String folderPath) throws JAXBException, IOException {
+    public GasChromatographyTabularEmbedSchema convertFolderToAllotrope(Path folderPath) throws JAXBException, IOException {
         return chemstationMapper.fromFolder(folderPath);
     }
 
@@ -110,7 +111,7 @@ public class AllotropeConversionTools {
      * @throws IOException
      *         if there is an I/O error while reading the folder or its contents
      */
-    public GasChromatographyTabularEmbedSchema convertChFileToAllotrope(String chFilePath) throws IOException {
+    public GasChromatographyTabularEmbedSchema convertChFileToAllotrope(Path chFilePath) throws IOException {
         return chemstationMapper.fromChFile(chFilePath);
     }
 

@@ -1,8 +1,8 @@
 package fr.ifpen.allotropeconverters.gc.chemstation.chfile;
 
-import java.io.File;
 import java.io.IOException;
 import java.io.RandomAccessFile;
+import java.nio.file.Path;
 
 import static fr.ifpen.allotropeconverters.gc.chemstation.chfile.ReadHelpers.readString;
 
@@ -21,7 +21,7 @@ public class ChFileFactory {
     /**
      * Parses a .ch file at the specified file path and returns an instance of the appropriate subclass of ChFile.
      *
-     * @param filePath
+     * @param chFilePath
      *         the path to the .ch file to be parsed
      *
      * @return a ChFile instance representing the parsed file, either ChFile179 or ChFile181 depending on the version
@@ -29,9 +29,8 @@ public class ChFileFactory {
      * @throws IOException
      *         if an I/O error occurs while reading the file or if the version is not supported
      */
-    public ChFile getChFile(String filePath) throws IOException {
-        File file = new File(filePath);
-        try (RandomAccessFile input = new RandomAccessFile(file, "r")) {
+    public ChFile getChFile(Path chFilePath) throws IOException {
+        try (RandomAccessFile input = new RandomAccessFile(chFilePath.toFile(), "r")) {
             String version = readString(input, false);
 
             return switch (version) {

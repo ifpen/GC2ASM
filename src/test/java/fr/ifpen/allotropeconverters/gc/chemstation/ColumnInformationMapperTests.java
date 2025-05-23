@@ -8,12 +8,13 @@ import fr.ifpen.allotropeconverters.gc.schema.ColumnInnerDiameter;
 import org.junit.jupiter.api.Test;
 
 import java.io.IOException;
+import java.nio.file.Path;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
 class ColumnInformationMapperTests {
 
-    private static void readAndAssertColumnInformation(String folderPath, String acqTxtFilename) throws IOException {
+    private static void readAndAssertColumnInformation(Path folderPath, String acqTxtFilename) throws IOException {
         ColumnInformationMapper columnInformationMapper = new ColumnInformationMapper();
 
         ChromatographyColumnDocument chromatographyColumnDocument =
@@ -36,13 +37,17 @@ class ColumnInformationMapperTests {
         assertThat(chromatographyColumnFilmThickness.getUnit()).isEqualTo("µm");
     }
 
+    private static void read179(String acqTxtFilename) throws IOException {
+        readAndAssertColumnInformation(TestConstants.RESOURCE_V_179_D_FOLDER, acqTxtFilename);
+    }
+
     @Test
     void mapperCI() throws IOException {
-        readAndAssertColumnInformation(TestConstants.RESOURCE_V_179_D_FOLDER, "acq.txt");
+        read179("acq.txt");
     }
 
     @Test
     void mapperCI_withMultipleColumnInformationPerLine() throws IOException {
-        readAndAssertColumnInformation(TestConstants.RESOURCE_V_179_D_FOLDER, "acq_multipleColumnInformation.txt");
+        read179("acq_multipleColumnInformation.txt");
     }
 }

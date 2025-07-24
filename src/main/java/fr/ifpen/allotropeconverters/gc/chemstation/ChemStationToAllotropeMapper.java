@@ -97,15 +97,12 @@ public class ChemStationToAllotropeMapper {
         GasChromatographyAggregateDocument document = new GasChromatographyAggregateDocument();
 
         DeviceSystemDocument deviceSystemDocument = new DeviceSystemDocument();
-        deviceSystemDocument.setAssetManagementIdentifier(((Element) chemStationResult.acquisition.instrumentName).getTextContent());
+        deviceSystemDocument.setAssetManagementIdentifier(chemStationResult.getAcquisition().getInstrumentName());
 
         GasChromatographyDocument gasChromatographyDocument = new GasChromatographyDocument();
-        applyValue(gasChromatographyDocument::setAnalyst, chFile.getOperator(),
-                   ((Element) chemStationResult.sampleInformation.operator).getTextContent());
-        applyValue(gasChromatographyDocument::setSubmitter, chFile.getOperator(),
-                   ((Element) chemStationResult.sampleInformation.operator).getTextContent());
-        applyValue(gasChromatographyDocument::setDeviceMethodIdentifier, chFile.getMethod(),
-                   ((Element) chemStationResult.sampleInformation.method).getTextContent());
+        applyValue(gasChromatographyDocument::setAnalyst, chFile.getOperator(), ((Element) chemStationResult.sampleInformation.operator).getTextContent());
+        gasChromatographyDocument.setSubmitter(gasChromatographyDocument.getAnalyst());
+        applyValue(gasChromatographyDocument::setDeviceMethodIdentifier, chFile.getMethod(), chemStationResult.getSampleInformation().getMethod());
 
         ChromatographyColumnDocument chromatographyColumnDocument =
                 columnInformationMapper.readColumnDocumentFromFile(folderPath, acqTxtFilename);
@@ -119,16 +116,14 @@ public class ChemStationToAllotropeMapper {
         gasChromatographyDocument.setDetectorControlAggregateDocument(detectorControlAggregateDocument);
 
         SampleDocument sampleDocument = new SampleDocument();
-        applyValue(sampleDocument::setSampleIdentifier, chFile.getSampleName(),
-                   ((Element) chemStationResult.sampleInformation.sampleName).getTextContent());
-        applyValue(sampleDocument::setWrittenName, chFile.getSampleName(),
-                   ((Element) chemStationResult.sampleInformation.sampleName).getTextContent());
+        applyValue(sampleDocument::setSampleIdentifier, chFile.getSampleName(), chemStationResult.getSampleInformation().getSampleName());
+        sampleDocument.setWrittenName(sampleDocument.getSampleIdentifier());
         sampleDocument.setDescription(((Element) chemStationResult.sampleInformation.sampleInfo).getTextContent());
         gasChromatographyDocument.setSampleDocument(sampleDocument);
 
         InjectionDocument injectionDocument = new InjectionDocument();
         applyValue(injectionDocument::setInjectionTime, getInjectionDateInstant(chFile.getInjectionDateTime()),
-                getInjectionDateInstant(((Element) chemStationResult.sampleInformation.injectionDateTime).getTextContent()));
+                getInjectionDateInstant(chemStationResult.getSampleInformation().getInjectionDateTime()));
         injectionDocument.setInjectionIdentifier(((Element) chemStationResult.sampleInformation.inj).getTextContent());
 
         InjectionVolumeSetting injectionVolumeSetting = new InjectionVolumeSetting();

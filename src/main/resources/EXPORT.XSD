@@ -74,7 +74,7 @@
 	<xs:complexType name="AcquisitionType">
 		<xs:sequence>
 			<xs:element name="Version"/>
-			<xs:element name="InstrumentName"/>
+			<xs:element name="InstrumentName" type="xs:string"/>
 			<xs:element name="MethodPath"/>
 			<xs:element name="InjectionTime"/>
 			<xs:element name="MethodLastModifiedTime"/>
@@ -115,17 +115,17 @@
 			<xs:element name="SeqLine"/>
 			<xs:element name="Location"/>
 			<xs:element name="Inj"/>
-			<xs:element name="Method"/>
+			<xs:element name="Method" type="xs:string"/>
 			<xs:element name="Operator"/>
-			<xs:element name="InjectionDateTime"/>
-			<xs:element name="SampleName"/>
+			<xs:element name="InjectionDateTime" type="xs:string"/>
+			<xs:element name="SampleName" type="xs:string"/>
 			<xs:element name="SampleInfo"/>
 			<xs:element name="IstdNum"/>
 			<xs:element name="InternalStandardAmount"/>
 			<xs:element name="SampleAmount"/>
 			<xs:element name="Multiplier"/>
 			<xs:element name="MethodInfo"/>
-			<xs:element name="CalMethod"/>
+			<xs:element name="CalMethod" type="xs:string"/>
 			<xs:element name="ResModDateTime"/>
 			<xs:element name="LimsID" minOccurs="0"/>
 			<xs:element name="LimsKField2" minOccurs="0"/>
@@ -147,17 +147,17 @@
 	<xs:complexType name="SignalType">
 		<xs:sequence>
 			<xs:element name="Title"/>
-			<xs:element name="Description"/>
+			<xs:element name="Description" type="xs:string"/>
 			<xs:element name="Detector"/>
-			<xs:element name="SignalId"/>
+			<xs:element name="SignalId" type="xs:string"/>
 			<xs:element name="Operator"/>
 			<xs:element name="DateTime"/>
 			<xs:element name="DerivOrder"/>
-			<xs:element name="RawdataFile"/>
+			<xs:element name="RawdataFile" type="xs:string"/>
 			<xs:element name="Start"/>
 			<xs:element name="End"/>
-			<xs:element name="XUnits"/>
-			<xs:element name="YUnits"/>
+			<xs:element name="XUnits" type="xs:string"/>
+			<xs:element name="YUnits" type="xs:string"/>
 			<xs:element name="Noise" minOccurs="0">
 				<xs:complexType>
 					<xs:sequence maxOccurs="unbounded">
@@ -183,7 +183,7 @@
 	<xs:complexType name="CompoundType">
 		<xs:sequence>
 			<xs:element name="CompoundID" type="xs:integer" minOccurs="0"/>
-			<xs:element name="SignalDesc"/>
+			<xs:element name="SignalDesc" type="xs:string"/>
 			<xs:element name="PeakType" type="xs:anySimpleType"/>
 			<xs:element name="ExpRetTime" type="Value"/>
 			<xs:element name="MeasRetTime" type="Value"/>
@@ -191,7 +191,7 @@
 			<xs:element name="Height" type="Value"/>
 			<xs:element name="Width" type="Value"/>
 			<xs:element name="Symmetry" type="Value"/>
-			<xs:element name="Name"/>
+			<xs:element name="Name" type="xs:string"/>
 			<xs:element name="Amount" type="Value"/>
 			<xs:sequence minOccurs="0">
 				<xs:element name="kPrime" type="Value" nillable="1"/>

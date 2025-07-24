@@ -15,7 +15,7 @@ public class PeakMapper {
     public Peak mapPeakFromCompound(CompoundType compoundType) {
         Peak peak = new Peak();
         peak.setIdentifier(compoundType.getCompoundID().toString());
-        peak.setWrittenName(compoundType.getName() instanceof Node node ? node.getTextContent() : compoundType.getName().toString());
+        peak.setWrittenName(compoundType.getName());
 
         PeakHeight peakHeight = new PeakHeight();
         peakHeight.setValue(Double.parseDouble(compoundType.getHeight().getContent()));

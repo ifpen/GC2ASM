@@ -102,4 +102,11 @@ class ChemStationToAllotropeMapperTests {
         GasChromatographyTabularEmbedSchema embedSchema = mapper.fromChFile(TestConstants.RESOURCE_V_179_D_CH_FILE);
         assertV179Schema(embedSchema, false);
     }
+
+    @Test
+    void testParseXmlResult() throws JAXBException {
+        ChemStationResult chemStationResult = ChemStationToAllotropeMapper.parseXmlResult(TestConstants.RESOURCE_V_179_D_XML_RESULT);
+        Assertions.assertThat(chemStationResult.getSampleInformation().getSampleName()).isEqualTo("22-00465-1");
+        Assertions.assertThat(chemStationResult.getSampleInformation().getInjectionDateTime()).isEqualTo("12-May-22, 11:24:28");
+    }
 }

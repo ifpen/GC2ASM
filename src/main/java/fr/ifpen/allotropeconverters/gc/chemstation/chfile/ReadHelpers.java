@@ -44,9 +44,20 @@ class ReadHelpers {
         return byteBuffer.getDouble(0);
     }
 
+    /**
+     * Reads the metadata time at a specific position in a binary file.
+     * This method seeks to the given position in the file, reads a 4-byte floating-point value,
+     * and converts it from milliseconds to seconds by dividing it by 1000.
+     *
+     * @param input    the RandomAccessFile from which the metadata time is read
+     * @param position the position in the file at which the metadata time is stored
+     * @return the metadata time in seconds as a Float
+     * @throws IOException if an I/O error occurs while accessing the file
+     */
     static Float readMetadataTime(RandomAccessFile input, long position) throws IOException {
         input.seek(position);
         float rawMetadataTime = input.readFloat();
-        return rawMetadataTime / 60000;
+        if (rawMetadataTime < 0 && rawMetadataTime > -1000) {rawMetadataTime = 0;} // Correct for barely negative times
+        return rawMetadataTime / 1000;
     }
 }

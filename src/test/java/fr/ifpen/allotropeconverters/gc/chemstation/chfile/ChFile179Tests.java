@@ -1,6 +1,7 @@
 package fr.ifpen.allotropeconverters.gc.chemstation.chfile;
 
 import fr.ifpen.allotropeconverters.gc.TestConstants;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
 import javax.measure.unit.SI;
@@ -16,7 +17,9 @@ class ChFile179Tests {
         RandomAccessFile file = new RandomAccessFile(uri.getPath(), "r");
         ChFile chFile = new ChFile179(file);
 
-        ChFileTestUtil.makeAssertions(chFile, 0.0f, 239.463_33f, SI.PICO(SI.AMPERE), 1.302_083_33E-4, 0.0, "FID1A, Front Signal", "SYSTEM",
+        Assertions.assertNotNull(chFile);
+
+        ChFileTestUtil.makeAssertions(chFile, 0.0f, 14367.8f, SI.PICO(SI.AMPERE), 1.302_083_33E-4, 0.0, "FID1A, Front Signal", "SYSTEM",
                                       "DET401.M", "22-00465-1", "12-May-22, 11:24:28", 71_840, 2.165_234);
     }
 }

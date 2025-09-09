@@ -1,10 +1,10 @@
 package fr.ifpen.allotropeconverters.gc.chemstation;
 
+import fr.ifpen.allotropeconverters.allotrope_models.ChromatographyColumnDocument;
+import fr.ifpen.allotropeconverters.allotrope_models.ChromatographyColumnDocumentChromatographyColumnLength;
+import fr.ifpen.allotropeconverters.allotrope_models.ChromatographyColumnDocumentColumnInnerDiameter;
 import fr.ifpen.allotropeconverters.gc.TestConstants;
-import fr.ifpen.allotropeconverters.gc.schema.ChromatographyColumnDocument;
-import fr.ifpen.allotropeconverters.gc.schema.ChromatographyColumnFilmThickness;
-import fr.ifpen.allotropeconverters.gc.schema.ChromatographyColumnLength;
-import fr.ifpen.allotropeconverters.gc.schema.ColumnInnerDiameter;
+
 import org.junit.jupiter.api.Test;
 
 import java.io.IOException;
@@ -23,18 +23,14 @@ class ColumnInformationMapperTests {
         assertThat(chromatographyColumnDocument.getChromatographyColumnPartNumber()).isEqualTo("19091S-001");
         assertThat(chromatographyColumnDocument.getProductManufacturer()).isEqualTo("Agilent");
 
-        ColumnInnerDiameter columnInnerDiameter = chromatographyColumnDocument.getColumnInnerDiameter();
+        ChromatographyColumnDocumentColumnInnerDiameter columnInnerDiameter =
+                chromatographyColumnDocument.getColumnInnerDiameter();
         assertThat(columnInnerDiameter.getValue()).isEqualTo(0.2);
-        assertThat(columnInnerDiameter.getUnit()).isEqualTo("mm");
+        assertThat(columnInnerDiameter.getUnit().toString()).hasToString("mm");
 
-        ChromatographyColumnLength chromatographyColumnLength = chromatographyColumnDocument.getChromatographyColumnLength();
+        ChromatographyColumnDocumentChromatographyColumnLength chromatographyColumnLength = chromatographyColumnDocument.getChromatographyColumnLength();
         assertThat(chromatographyColumnLength.getValue()).isEqualTo(50);
-        assertThat(chromatographyColumnLength.getUnit()).isEqualTo("m");
-
-        ChromatographyColumnFilmThickness chromatographyColumnFilmThickness =
-                chromatographyColumnDocument.getChromatographyColumnFilmThickness();
-        assertThat(chromatographyColumnFilmThickness.getValue()).isEqualTo(0.50);
-        assertThat(chromatographyColumnFilmThickness.getUnit()).isEqualTo("µm");
+        assertThat(chromatographyColumnLength.getUnit().toString()).hasToString("m");
     }
 
     private static void read179(String acqTxtFilename) throws IOException {

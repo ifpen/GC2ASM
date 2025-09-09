@@ -1,7 +1,7 @@
 package fr.ifpen.allotropeconverters.gc.chemstation;
 
+import fr.ifpen.allotropeconverters.allotrope_models.ChromatogramDataCube;
 import fr.ifpen.allotropeconverters.gc.TestConstants;
-import fr.ifpen.allotropeconverters.gc.schema.ChromatogramDataCube;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 

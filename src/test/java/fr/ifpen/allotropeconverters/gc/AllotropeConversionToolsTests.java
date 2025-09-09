@@ -5,9 +5,9 @@ import com.networknt.schema.JsonSchema;
 import com.networknt.schema.JsonSchemaFactory;
 import com.networknt.schema.SpecVersion;
 import com.networknt.schema.ValidationMessage;
+import fr.ifpen.allotropeconverters.allotrope_models.GasChromatographySimpleModel;
 import fr.ifpen.allotropeconverters.gc.chemstation.ChemStationToAllotropeMapper;
 import fr.ifpen.allotropeconverters.gc.chemstation.ChemStationToAllotropeMapperBuilder;
-import fr.ifpen.allotropeconverters.gc.schema.GasChromatographyTabularEmbedSchema;
 import jakarta.xml.bind.JAXBException;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
@@ -15,6 +15,7 @@ import org.junit.jupiter.api.Test;
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.Set;
@@ -34,7 +35,7 @@ class AllotropeConversionToolsTests {
 
     private static JsonSchema getJsonSchemaFromClasspath() throws IOException {
         JsonSchemaFactory factory = JsonSchemaFactory.getInstance(SpecVersion.VersionFlag.V201909);
-        InputStream schemaStream = Files.newInputStream(TestConstants.RESOURCE_MAIN_SCHEMA_FILE);
+        InputStream schemaStream = Files.newInputStream(TestConstants.RESOURCE_SCHEMA_FILE);
         return factory.getSchema(schemaStream);
     }
 
@@ -59,8 +60,8 @@ class AllotropeConversionToolsTests {
         AllotropeConversionTools allotropeConversionTools = new AllotropeConversionTools(mapper);
 
         ObjectNode allotropeTree = allotropeConversionTools.convertFolderToAllotropeTree(TestConstants.RESOURCE_V_179_D_FOLDER);
-        ByteArrayInputStream byteArrayInputStream = new ByteArrayInputStream(allotropeTree.toPrettyString().getBytes());
-        GasChromatographyTabularEmbedSchema result = AllotropeConversionTools.readAllotropeFromInputStream(byteArrayInputStream);
+        ByteArrayInputStream byteArrayInputStream = new ByteArrayInputStream(allotropeTree.toPrettyString().getBytes(StandardCharsets.UTF_8));
+        GasChromatographySimpleModel result = AllotropeConversionTools.readAllotropeFromInputStream(byteArrayInputStream);
 
         Assertions.assertThat(result).isNotNull();
     }

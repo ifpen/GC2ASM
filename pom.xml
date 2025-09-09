@@ -6,7 +6,7 @@
 
     <groupId>fr.ifpen.allotropeconverters</groupId>
     <artifactId>gc2asm</artifactId>
-    <version>3.3</version>
+    <version>4.0</version>
 
     <name>${project.groupId}:${project.artifactId}</name>
     <description>A Java converter from GC proprietary data to Allotrope's ASM data</description>
@@ -83,16 +83,15 @@
             <version>4.0.5</version>
         </dependency>
         <dependency>
-            <groupId>fr.ifpen.allotropeconverters</groupId>
-            <artifactId>ASMUtils</artifactId>
-            <version>1.0</version>
-        </dependency>
-        <dependency>
             <groupId>org.jscience</groupId>
             <artifactId>jscience</artifactId>
             <version>4.3.1</version>
         </dependency>
-
+        <dependency>
+            <groupId>fr.ifpen.allotropeconverters</groupId>
+            <artifactId>allotrope-models</artifactId>
+            <version>2025-06.02</version>
+        </dependency>
         <dependency>
             <groupId>org.assertj</groupId>
             <artifactId>assertj-core</artifactId>
@@ -109,25 +108,6 @@
 
     <build>
         <plugins>
-            <plugin>
-                <groupId>org.jsonschema2pojo</groupId>
-                <artifactId>jsonschema2pojo-maven-plugin</artifactId>
-                <version>1.2.2</version>
-                <configuration>
-                    <sourcePaths>
-                        <sourcePath>src/main/resources/gas-chromatography.tabular.embed.schema.json</sourcePath>
-                    </sourcePaths>
-                    <targetPackage>fr.ifpen.allotropeconverters.gc.schema</targetPackage>
-                    <refFragmentPathDelimiters>#/</refFragmentPathDelimiters>
-                </configuration>
-                <executions>
-                    <execution>
-                        <goals>
-                            <goal>generate</goal>
-                        </goals>
-                    </execution>
-                </executions>
-            </plugin>
             <plugin>
                 <groupId>org.codehaus.mojo</groupId>
                 <artifactId>jaxb2-maven-plugin</artifactId>

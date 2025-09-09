@@ -1,9 +1,8 @@
 package fr.ifpen.allotropeconverters.gc.chemstation;
 
-import fr.ifpen.allotropeconverters.gc.schema.ChromatographyColumnDocument;
-import fr.ifpen.allotropeconverters.gc.schema.ChromatographyColumnFilmThickness;
-import fr.ifpen.allotropeconverters.gc.schema.ChromatographyColumnLength;
-import fr.ifpen.allotropeconverters.gc.schema.ColumnInnerDiameter;
+import fr.ifpen.allotropeconverters.allotrope_models.ChromatographyColumnDocument;
+import fr.ifpen.allotropeconverters.allotrope_models.ChromatographyColumnDocumentChromatographyColumnLength;
+import fr.ifpen.allotropeconverters.allotrope_models.ChromatographyColumnDocumentColumnInnerDiameter;
 
 import java.io.*;
 import java.nio.file.Files;
@@ -35,7 +34,6 @@ public final class ColumnInformationMapper {
         COLUMN_NAMES_MAP.put("Manufacturer", true);
         COLUMN_NAMES_MAP.put("Diameter", false);
         COLUMN_NAMES_MAP.put("Length", false);
-        COLUMN_NAMES_MAP.put("Film thickness", false);
     }
 
     static {
@@ -76,27 +74,32 @@ public final class ColumnInformationMapper {
             columnDocument.setChromatographyColumnPartNumber(columnInformation.group(groupIndex++)); //Model
             columnDocument.setProductManufacturer(columnInformation.group(groupIndex++)); //Manufacturer
 
-            ColumnInnerDiameter columnInnerDiameter = new ColumnInnerDiameter();
+            ChromatographyColumnDocumentColumnInnerDiameter columnInnerDiameter =
+                    new ChromatographyColumnDocumentColumnInnerDiameter();
             double value = Double.parseDouble(columnInformation.group(groupIndex++));
-            String unit = columnInformation.group(groupIndex++);
+            String rawUnit = columnInformation.group(groupIndex++);
+            ChromatographyColumnDocumentColumnInnerDiameter.UnitEnum unit =
+                    ChromatographyColumnDocumentColumnInnerDiameter.UnitEnum.MM;
 
-            if (unit.equals("µm")) { //Allotrope format forces mm.
-                unit = "mm";
+            if (rawUnit.equals("µm")) { //Allotrope format forces mm.
                 value = value / 1000;
             }
+
             columnInnerDiameter.setValue(value);
             columnInnerDiameter.setUnit(unit);
             columnDocument.setColumnInnerDiameter(columnInnerDiameter);
 
-            ChromatographyColumnLength chromatographyColumnLength = new ChromatographyColumnLength();
+            ChromatographyColumnDocumentChromatographyColumnLength chromatographyColumnLength =
+                    new ChromatographyColumnDocumentChromatographyColumnLength();
             chromatographyColumnLength.setValue(Double.parseDouble(columnInformation.group(groupIndex++)));
-            chromatographyColumnLength.setUnit(columnInformation.group(groupIndex++));
-            columnDocument.setChromatographyColumnLength(chromatographyColumnLength);
 
-            ChromatographyColumnFilmThickness columnFilmThickness = new ChromatographyColumnFilmThickness();
-            columnFilmThickness.setValue(Double.parseDouble(columnInformation.group(groupIndex++)));
-            columnFilmThickness.setUnit(columnInformation.group(groupIndex++));
-            columnDocument.setChromatographyColumnFilmThickness(columnFilmThickness);
+            rawUnit = columnInformation.group(groupIndex++);
+            if (!rawUnit.equals("m")){
+                throw new IOException("Unexpected unit for column length: " + rawUnit);
+            }
+
+            chromatographyColumnLength.setUnit(ChromatographyColumnDocumentChromatographyColumnLength.UnitEnum.M);
+            columnDocument.setChromatographyColumnLength(chromatographyColumnLength);
 
             columnDocument.setChromatographyColumnSerialNumber("N/A");
 

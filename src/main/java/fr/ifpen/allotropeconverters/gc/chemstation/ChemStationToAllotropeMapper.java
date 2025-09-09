@@ -1,21 +1,8 @@
 package fr.ifpen.allotropeconverters.gc.chemstation;
 
+import fr.ifpen.allotropeconverters.allotrope_models.*;
 import fr.ifpen.allotropeconverters.gc.chemstation.chfile.ChFile;
 import fr.ifpen.allotropeconverters.gc.chemstation.chfile.ChFileFactory;
-import fr.ifpen.allotropeconverters.gc.schema.ChromatographyColumnDocument;
-import fr.ifpen.allotropeconverters.gc.schema.DetectorControlAggregateDocument;
-import fr.ifpen.allotropeconverters.gc.schema.DetectorControlDocument;
-import fr.ifpen.allotropeconverters.gc.schema.DeviceSystemDocument;
-import fr.ifpen.allotropeconverters.gc.schema.GasChromatographyAggregateDocument;
-import fr.ifpen.allotropeconverters.gc.schema.GasChromatographyDocument;
-import fr.ifpen.allotropeconverters.gc.schema.GasChromatographyTabularEmbedSchema;
-import fr.ifpen.allotropeconverters.gc.schema.InjectionDocument;
-import fr.ifpen.allotropeconverters.gc.schema.InjectionVolumeSetting;
-import fr.ifpen.allotropeconverters.gc.schema.MeasurementAggregateDocument;
-import fr.ifpen.allotropeconverters.gc.schema.MeasurementDocument;
-import fr.ifpen.allotropeconverters.gc.schema.Peak;
-import fr.ifpen.allotropeconverters.gc.schema.PeakList;
-import fr.ifpen.allotropeconverters.gc.schema.SampleDocument;
 import jakarta.xml.bind.JAXBContext;
 import jakarta.xml.bind.JAXBException;
 import jakarta.xml.bind.Unmarshaller;
@@ -23,8 +10,8 @@ import org.w3c.dom.Element;
 
 import java.io.IOException;
 import java.nio.file.Path;
-import java.time.Instant;
 import java.time.LocalDateTime;
+import java.time.OffsetDateTime;
 import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
@@ -75,6 +62,71 @@ public class ChemStationToAllotropeMapper {
         }
     }
 
+    private SampleDocument buildSampleDocument(ChFile chFile, ChemStationResult chemStationResult){
+        SampleDocument sampleDocument = new SampleDocument();
+        applyValue(sampleDocument::setSampleIdentifier, chFile.getSampleName(), chemStationResult.getSampleInformation().getSampleName());
+        sampleDocument.setWrittenName(sampleDocument.getSampleIdentifier());
+        sampleDocument.setDescription(((Element) chemStationResult.sampleInformation.sampleInfo).getTextContent());
+
+        return sampleDocument;
+    }
+
+    private InjectionDocument buildInjectionDocument(ChFile chFile, ChemStationResult chemStationResult){
+        InjectionDocument injectionDocument = new InjectionDocument();
+        applyValue(injectionDocument::setInjectionTime, getInjectionDateInstant(chFile.getInjectionDateTime()),
+                getInjectionDateInstant(chemStationResult.getSampleInformation().getInjectionDateTime()));
+        injectionDocument.setInjectionIdentifier(((Element) chemStationResult.sampleInformation.inj).getTextContent());
+
+        InjectionDocumentInjectionVolumeSetting injectionVolumeSetting =
+                new InjectionDocumentInjectionVolumeSetting();
+        injectionVolumeSetting.setValue(Double.parseDouble(((Element) chemStationResult.sampleInformation.inj).getTextContent()));
+        injectionVolumeSetting.setUnit(InjectionDocumentInjectionVolumeSetting.UnitEnum.Micro_L);
+        injectionDocument.setInjectionVolumeSetting(injectionVolumeSetting);
+
+        return injectionDocument;
+    }
+
+    private DeviceSystemDocument buildDeviceSystemDocument(ChemStationResult chemStationResult){
+        DeviceSystemDocument deviceSystemDocument = new DeviceSystemDocument();
+        deviceSystemDocument.setAssetManagementIdentifier(chemStationResult.getAcquisition().getInstrumentName());
+
+        DeviceDocument deviceDocument = new DeviceDocument();
+        deviceDocument.setDeviceType(
+                getDetectorType(((Element) chemStationResult.chromatograms.signal.get(0).detector).getTextContent()));
+
+        deviceSystemDocument.setDeviceDocument(List.of(deviceDocument));
+        return deviceSystemDocument;
+    }
+
+    private ProcessedDataAggregateDocument buildProcessedDataAggregateDocument(ChemStationResult chemStationResult){
+        ProcessedDataAggregateDocument processedDataAggregateDocument = new ProcessedDataAggregateDocument();
+        ProcessedDataDocument processedDataDocument = new ProcessedDataDocument();
+
+        List<Peak> peaks = new ArrayList<>();
+        for (CompoundType compoundType : chemStationResult.results.resultsGroup.get(0).peak) {
+            peaks.add(peakMapper.mapPeakFromCompound(compoundType));
+        }
+        PeakList peakList = new PeakList();
+        peakList.setPeak(peaks);
+        processedDataDocument.setPeakList(peakList);
+
+        processedDataAggregateDocument.setProcessedDataDocument(List.of(processedDataDocument));
+
+        return processedDataAggregateDocument;
+    }
+
+    private DeviceControlAggregateDocument buildDeviceControlAggregateDocument(ChemStationResult chemStationResult){
+        DeviceControlDocument deviceControlDocument = new DeviceControlDocument();
+
+        deviceControlDocument.setDeviceType(
+                getDetectorType(((Element) chemStationResult.chromatograms.signal.get(0).detector).getTextContent()));
+
+        DeviceControlAggregateDocument deviceControlAggregateDocument = new DeviceControlAggregateDocument();
+        deviceControlAggregateDocument.setDeviceControlDocument(List.of(deviceControlDocument));
+
+        return deviceControlAggregateDocument;
+    }
+
     /**
      * Creates an instance of GasChromatographyTabularEmbedSchema by reading data from the specified folder.
      * Parses .ch, .xml and .txt files, maps the necessary fields, and constructs a schema to represent gas chromatography data.
@@ -89,67 +141,44 @@ public class ChemStationToAllotropeMapper {
      * @throws IOException
      *         if there is an error accessing or reading the required files
      */
-    public GasChromatographyTabularEmbedSchema fromFolder(Path folderPath) throws JAXBException, IOException {
+    public GasChromatographySimpleModel fromFolder(Path folderPath) throws JAXBException, IOException {
         ChemStationResult chemStationResult = parseXmlResultFromFolder(folderPath);
         ChFile chFile = getChFileFromFolder(folderPath);
 
-        GasChromatographyTabularEmbedSchema schema = new GasChromatographyTabularEmbedSchema();
+        GasChromatographySimpleModel schema = new GasChromatographySimpleModel();
         GasChromatographyAggregateDocument document = new GasChromatographyAggregateDocument();
 
-        DeviceSystemDocument deviceSystemDocument = new DeviceSystemDocument();
-        deviceSystemDocument.setAssetManagementIdentifier(chemStationResult.getAcquisition().getInstrumentName());
 
         GasChromatographyDocument gasChromatographyDocument = new GasChromatographyDocument();
+        gasChromatographyDocument.setAnalyst(chFile.getOperator());
         applyValue(gasChromatographyDocument::setAnalyst, chFile.getOperator(), ((Element) chemStationResult.sampleInformation.operator).getTextContent());
         gasChromatographyDocument.setSubmitter(gasChromatographyDocument.getAnalyst());
         applyValue(gasChromatographyDocument::setDeviceMethodIdentifier, chFile.getMethod(), chemStationResult.getSampleInformation().getMethod());
-
-        ChromatographyColumnDocument chromatographyColumnDocument =
-                columnInformationMapper.readColumnDocumentFromFile(folderPath, acqTxtFilename);
-        gasChromatographyDocument.setChromatographyColumnDocument(chromatographyColumnDocument);
-
-        DetectorControlAggregateDocument detectorControlAggregateDocument = new DetectorControlAggregateDocument();
-        DetectorControlDocument detectorControlDocument = new DetectorControlDocument();
-        detectorControlDocument.setDetectionType(
-                getDetectorType(((Element) chemStationResult.chromatograms.signal.get(0).detector).getTextContent()));
-        detectorControlAggregateDocument.setDetectorControlDocument(List.of(detectorControlDocument));
-        gasChromatographyDocument.setDetectorControlAggregateDocument(detectorControlAggregateDocument);
-
-        SampleDocument sampleDocument = new SampleDocument();
-        applyValue(sampleDocument::setSampleIdentifier, chFile.getSampleName(), chemStationResult.getSampleInformation().getSampleName());
-        sampleDocument.setWrittenName(sampleDocument.getSampleIdentifier());
-        sampleDocument.setDescription(((Element) chemStationResult.sampleInformation.sampleInfo).getTextContent());
-        gasChromatographyDocument.setSampleDocument(sampleDocument);
-
-        InjectionDocument injectionDocument = new InjectionDocument();
-        applyValue(injectionDocument::setInjectionTime, getInjectionDateInstant(chFile.getInjectionDateTime()),
-                getInjectionDateInstant(chemStationResult.getSampleInformation().getInjectionDateTime()));
-        injectionDocument.setInjectionIdentifier(((Element) chemStationResult.sampleInformation.inj).getTextContent());
-
-        InjectionVolumeSetting injectionVolumeSetting = new InjectionVolumeSetting();
-        injectionVolumeSetting.setValue(Double.parseDouble(((Element) chemStationResult.sampleInformation.inj).getTextContent()));
-        injectionVolumeSetting.setUnit("μL");
-        injectionDocument.setInjectionVolumeSetting(injectionVolumeSetting);
-
-        gasChromatographyDocument.setInjectionDocument(injectionDocument);
 
         MeasurementAggregateDocument measurementAggregateDocument = new MeasurementAggregateDocument();
         MeasurementDocument measurementDocument = new MeasurementDocument();
         measurementDocument.setDetectionType(((Element) chemStationResult.chromatograms.signal.get(0).detector).getTextContent());
         measurementDocument.setChromatogramDataCube(chromatogramDataCubeMapper.readChromatogramDataCube(chFile));
+        measurementDocument.setMeasurementIdentifier("");
 
-        List<Peak> peaks = new ArrayList<>();
-        for (CompoundType compoundType : chemStationResult.results.resultsGroup.get(0).peak) {
-            peaks.add(peakMapper.mapPeakFromCompound(compoundType));
-        }
-        PeakList peakList = new PeakList();
-        peakList.setPeak(peaks);
-        measurementDocument.setPeakList(peakList);
+        ChromatographyColumnDocument chromatographyColumnDocument =
+                columnInformationMapper.readColumnDocumentFromFile(folderPath, acqTxtFilename);
+        measurementDocument.setChromatographyColumnDocument(chromatographyColumnDocument);
+
+
+        measurementDocument.setSampleDocument(buildSampleDocument(chFile, chemStationResult));
+
+        measurementDocument.setInjectionDocument(buildInjectionDocument(chFile, chemStationResult));
+
+        measurementDocument.setProcessedDataAggregateDocument(buildProcessedDataAggregateDocument(chemStationResult));
+
+        measurementDocument.setDeviceControlAggregateDocument(buildDeviceControlAggregateDocument(chemStationResult));
 
         measurementAggregateDocument.setMeasurementDocument(List.of(measurementDocument));
+
         gasChromatographyDocument.setMeasurementAggregateDocument(measurementAggregateDocument);
 
-        document.setDeviceSystemDocument(deviceSystemDocument);
+        document.setDeviceSystemDocument(buildDeviceSystemDocument(chemStationResult));
         document.setGasChromatographyDocument(List.of(gasChromatographyDocument));
 
         schema.setGasChromatographyAggregateDocument(document);
@@ -175,7 +204,7 @@ public class ChemStationToAllotropeMapper {
      * @throws IOException
      *         if there is an error accessing or reading the required file
      */
-    public GasChromatographyTabularEmbedSchema fromChFile(Path chFilePath) throws IOException {
+    public GasChromatographySimpleModel fromChFile(Path chFilePath) throws IOException {
         ChFile chFile = getChFile(chFilePath);
 
         GasChromatographyDocument gasChromatographyDocument = new GasChromatographyDocument();
@@ -183,38 +212,42 @@ public class ChemStationToAllotropeMapper {
         gasChromatographyDocument.setSubmitter(chFile.getOperator());
         gasChromatographyDocument.setDeviceMethodIdentifier(chFile.getMethod());
 
+        InjectionDocument injectionDocument = new InjectionDocument();
+        InjectionDocumentInjectionVolumeSetting injectionVolumeSetting = new InjectionDocumentInjectionVolumeSetting();
+        injectionVolumeSetting.setValue(Double.NaN);
+        injectionVolumeSetting.setUnit(InjectionDocumentInjectionVolumeSetting.UnitEnum.Micro_L);
+        injectionDocument.setInjectionVolumeSetting(injectionVolumeSetting);
+        injectionDocument.setInjectionIdentifier("");
+
+
+        MeasurementDocument measurementDocument = new MeasurementDocument();
+        measurementDocument.setDetectionType("");
+
+        injectionDocument.setInjectionTime(getInjectionDateInstant(chFile.getInjectionDateTime()));
+        measurementDocument.setInjectionDocument(injectionDocument);
+
+
         ChromatographyColumnDocument chromatographyColumnDocument = new ChromatographyColumnDocument();
         chromatographyColumnDocument.setChromatographyColumnSerialNumber("");
-        gasChromatographyDocument.setChromatographyColumnDocument(chromatographyColumnDocument);
-
-        DetectorControlAggregateDocument detectorControlAggregateDocument = new DetectorControlAggregateDocument();
-        DetectorControlDocument detectorControlDocument = new DetectorControlDocument();
-        detectorControlDocument.setDetectionType("");
-        detectorControlAggregateDocument.setDetectorControlDocument(List.of(detectorControlDocument));
-        gasChromatographyDocument.setDetectorControlAggregateDocument(detectorControlAggregateDocument);
+        measurementDocument.setChromatographyColumnDocument(chromatographyColumnDocument);
 
         SampleDocument sampleDocument = new SampleDocument();
         sampleDocument.setSampleIdentifier(chFile.getSampleName());
         sampleDocument.setWrittenName(chFile.getSampleName());
-        gasChromatographyDocument.setSampleDocument(sampleDocument);
+        measurementDocument.setSampleDocument(sampleDocument);
 
-        InjectionDocument injectionDocument = new InjectionDocument();
-        InjectionVolumeSetting injectionVolumeSetting = new InjectionVolumeSetting();
-        injectionVolumeSetting.setValue(Double.NaN);
-        injectionVolumeSetting.setUnit("μL");
-        injectionDocument.setInjectionVolumeSetting(injectionVolumeSetting);
-        injectionDocument.setInjectionIdentifier("");
-
-        injectionDocument.setInjectionTime(getInjectionDateInstant(chFile.getInjectionDateTime()));
-        gasChromatographyDocument.setInjectionDocument(injectionDocument);
-
-        MeasurementDocument measurementDocument = new MeasurementDocument();
-        measurementDocument.setDetectionType("");
         measurementDocument.setChromatogramDataCube(chromatogramDataCubeMapper.readChromatogramDataCube(chFile));
 
         PeakList peakList = new PeakList();
         peakList.setPeak(Collections.emptyList());
-        measurementDocument.setPeakList(peakList);
+
+        ProcessedDataDocument processedDataDocument = new ProcessedDataDocument();
+        processedDataDocument.setPeakList(peakList);
+
+        ProcessedDataAggregateDocument processedDataAggregateDocument = new ProcessedDataAggregateDocument();
+        processedDataAggregateDocument.setProcessedDataDocument(List.of(processedDataDocument));
+
+        measurementDocument.setProcessedDataAggregateDocument(processedDataAggregateDocument);
 
         MeasurementAggregateDocument measurementAggregateDocument = new MeasurementAggregateDocument();
         measurementAggregateDocument.setMeasurementDocument(List.of(measurementDocument));
@@ -226,7 +259,7 @@ public class ChemStationToAllotropeMapper {
         document.setDeviceSystemDocument(deviceSystemDocument);
         document.setGasChromatographyDocument(List.of(gasChromatographyDocument));
 
-        GasChromatographyTabularEmbedSchema schema = new GasChromatographyTabularEmbedSchema();
+        GasChromatographySimpleModel schema = new GasChromatographySimpleModel();
         schema.setGasChromatographyAggregateDocument(document);
 
         return schema;
@@ -271,12 +304,12 @@ public class ChemStationToAllotropeMapper {
      *
      * @return an Instant representing the injection date
      */
-    public Instant getInjectionDateInstant(String injectionDateString) {
+    public OffsetDateTime getInjectionDateInstant(String injectionDateString) {
         LocalDateTime injectionDate = getLocalDateTime(injectionDateString);
         if (injectionDate == null) {
             throw new IllegalArgumentException("Injection date has an unknown format. Original string is: '" + injectionDateString + "'");
         }
-        return injectionDate.atZone(timeZone).toInstant();
+        return injectionDate.atZone(timeZone).toOffsetDateTime();
     }
 
     private LocalDateTime getLocalDateTime(String dateTimeString) {
@@ -291,7 +324,7 @@ public class ChemStationToAllotropeMapper {
         return parse;
     }
 
-    private void applyValue(Consumer<Object> method, Object chFileValue, Object otherFileValue) {
+    private <T> void applyValue(Consumer<T> method, T chFileValue, T otherFileValue) {
         if (Objects.equals(chFileValue, otherFileValue)) {
             method.accept(chFileValue);
             return;

@@ -1,13 +1,14 @@
 package fr.ifpen.allotropeconverters.gc;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
 import com.fasterxml.jackson.databind.json.JsonMapper;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
+import fr.ifpen.allotropeconverters.allotrope_models.GasChromatographySimpleModel;
 import fr.ifpen.allotropeconverters.gc.chemstation.ChemStationToAllotropeMapper;
 import fr.ifpen.allotropeconverters.gc.chemstation.ChemStationToAllotropeMapperBuilder;
-import fr.ifpen.allotropeconverters.gc.schema.GasChromatographyTabularEmbedSchema;
 import jakarta.xml.bind.JAXBException;
 
 import java.io.IOException;
@@ -42,9 +43,10 @@ public class AllotropeConversionTools {
         this.chemstationMapper = chemstationMapper;
     }
 
-    public static ObjectNode schema(GasChromatographyTabularEmbedSchema embedSchema) {
+    public static ObjectNode schema(GasChromatographySimpleModel embedSchema) {
         ObjectMapper objectMapper = JsonMapper.builder().addModule(new JavaTimeModule()).build();
 
+        objectMapper.setSerializationInclusion(JsonInclude.Include.NON_NULL);
         objectMapper.disable(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS);
         objectMapper.enable(SerializationFeature.INDENT_OUTPUT);
 
@@ -96,7 +98,7 @@ public class AllotropeConversionTools {
      * @throws IOException
      *         if there is an I/O error while reading the folder or its contents
      */
-    public GasChromatographyTabularEmbedSchema convertFolderToAllotrope(Path folderPath) throws JAXBException, IOException {
+    public GasChromatographySimpleModel convertFolderToAllotrope(Path folderPath) throws JAXBException, IOException {
         return chemstationMapper.fromFolder(folderPath);
     }
 
@@ -111,7 +113,7 @@ public class AllotropeConversionTools {
      * @throws IOException
      *         if there is an I/O error while reading the folder or its contents
      */
-    public GasChromatographyTabularEmbedSchema convertChFileToAllotrope(Path chFilePath) throws IOException {
+    public GasChromatographySimpleModel convertChFileToAllotrope(Path chFilePath) throws IOException {
         return chemstationMapper.fromChFile(chFilePath);
     }
 
@@ -126,12 +128,12 @@ public class AllotropeConversionTools {
      * @throws IOException
      *         if there is an I/O error while reading the folder or its contents
      */
-    public static GasChromatographyTabularEmbedSchema readAllotropeFromInputStream(InputStream inputStream) throws IOException {
+    public static GasChromatographySimpleModel readAllotropeFromInputStream(InputStream inputStream) throws IOException {
         ObjectMapper objectMapper = JsonMapper.builder().addModule(new JavaTimeModule()).build();
         objectMapper.disable(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS);
         return objectMapper.readValue(
                 inputStream,
-                GasChromatographyTabularEmbedSchema.class
+                GasChromatographySimpleModel.class
         );
     }
 }

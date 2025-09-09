@@ -1,6 +1,6 @@
 package fr.ifpen.allotropeconverters.gc;
 
-public class MathUtils {
+public final class MathUtils {
 
     private MathUtils() {
         throw new IllegalStateException("Utility class");

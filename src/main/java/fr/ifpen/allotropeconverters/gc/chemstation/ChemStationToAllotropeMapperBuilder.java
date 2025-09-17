@@ -1,6 +1,11 @@
 package fr.ifpen.allotropeconverters.gc.chemstation;
 
-import fr.ifpen.allotropeconverters.gc.chemstation.ChemStationToAllotropeMapper.MergeStrategy;
+import fr.ifpen.allotropeconverters.gc.chemstation.domain.MergeStrategy;
+import fr.ifpen.allotropeconverters.gc.chemstation.infra.ChFileResolver;
+import fr.ifpen.allotropeconverters.gc.chemstation.infra.DomResultXmlReader;
+import fr.ifpen.allotropeconverters.gc.chemstation.infra.ResultXmlReader;
+import fr.ifpen.allotropeconverters.gc.chemstation.mapping.*;
+import fr.ifpen.allotropeconverters.gc.chemstation.service.PeakAssociationService;
 
 import java.time.ZoneId;
 import java.time.ZoneOffset;
@@ -40,7 +45,6 @@ public class ChemStationToAllotropeMapperBuilder {
     private final List<DateTimeFormatter> dateTimeFormatters = new ArrayList<>(DEFAULT_DATE_TIME_FORMATTERS);
 
     private ZoneId zoneId = ZoneOffset.UTC;
-    private String chFileName = "FID1A.ch";
     private String resultXmlFileName = "Result.xml";
     private String acqTxtFileName = "acq.txt";
     private MergeStrategy mergeStrategy = MergeStrategy.ERROR;
@@ -130,6 +134,27 @@ public class ChemStationToAllotropeMapperBuilder {
      * @return a new instance of {@code ChemStationToAllotropeMapper} configured
      */
     public ChemStationToAllotropeMapper build() {
-        return new ChemStationToAllotropeMapper(zoneId, dateTimeFormatters, chFileName, resultXmlFileName, acqTxtFileName, mergeStrategy);
+
+        ResultXmlReader resultXmlReader = new DomResultXmlReader(zoneId, dateTimeFormatters);
+        ChFileResolver chFileResolver = new ChFileResolver();
+        DeviceSystemDocumentMapper deviceSystemDocumentMapper = new DeviceSystemDocumentMapper();
+        DeviceControlAggregateDocumentMapper deviceControlAggregateDocumentMapper = new DeviceControlAggregateDocumentMapper();
+        SampleDocumentMapper sampleDocumentMapper = new SampleDocumentMapper();
+        InjectionDocumentMapper injectionDocumentMapper = new InjectionDocumentMapper();
+        PeakAssociationService peakAssociationService = new PeakAssociationService();
+        MeasurementDocumentMapper measurementDocumentMapper = new MeasurementDocumentMapper(peakAssociationService);
+
+
+        return new ChemStationToAllotropeMapper(
+                resultXmlReader,
+                chFileResolver,
+                deviceSystemDocumentMapper,
+                deviceControlAggregateDocumentMapper,
+                sampleDocumentMapper,
+                injectionDocumentMapper,
+                measurementDocumentMapper,
+                peakAssociationService,
+                acqTxtFileName,
+                resultXmlFileName);
     }
 }

@@ -1,4 +1,4 @@
-package fr.ifpen.allotropeconverters.gc.chemstation;
+package fr.ifpen.allotropeconverters.gc.chemstation.mapping;
 
 import fr.ifpen.allotropeconverters.allotrope_models.ChromatographyColumnDocument;
 import fr.ifpen.allotropeconverters.allotrope_models.ChromatographyColumnDocumentChromatographyColumnLength;
@@ -56,6 +56,11 @@ public final class ColumnInformationMapper {
         ChromatographyColumnDocument columnDocument = new ChromatographyColumnDocument();
 
         Path acqTxtPath = folderPath.resolve(acqTxtFilename);
+
+        if (!Files.exists(acqTxtPath)) {
+            return getDefaultColumnInformation();
+        }
+
         try (InputStream acqInputStream = Files.newInputStream(acqTxtPath);
              InputStreamReader inputStreamReader = new InputStreamReader(acqInputStream, UTF_16);
              Scanner acquisitionScanner = new Scanner(inputStreamReader)) {
@@ -137,5 +142,11 @@ public final class ColumnInformationMapper {
 
         acquisitionScanner.nextLine(); //Column Description - Not in model
         acquisitionScanner.nextLine(); //Inventory # - Not in model
+    }
+
+    private ChromatographyColumnDocument getDefaultColumnInformation() {
+        ChromatographyColumnDocument columnDocument = new ChromatographyColumnDocument();
+        columnDocument.setChromatographyColumnSerialNumber("N/A");
+        return columnDocument;
     }
 }

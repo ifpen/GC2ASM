@@ -1,6 +1,7 @@
-package fr.ifpen.allotropeconverters.gc.chemstation;
+package fr.ifpen.allotropeconverters.gc.chemstation.mapping;
 
 import fr.ifpen.allotropeconverters.allotrope_models.*;
+import fr.ifpen.allotropeconverters.gc.chemstation.infra.CompoundType;
 
 public class PeakMapper {
 

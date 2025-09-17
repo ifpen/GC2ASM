@@ -1,4 +1,4 @@
-package fr.ifpen.allotropeconverters.gc.chemstation;
+package fr.ifpen.allotropeconverters.gc.chemstation.mapping;
 
 import fr.ifpen.allotropeconverters.allotrope_models.*;
 import fr.ifpen.allotropeconverters.gc.MathUtils;
@@ -22,13 +22,13 @@ class ChromatogramDataCubeMapper {
     ChromatogramDataCube readChromatogramDataCube(ChFile chFile) {
         ChromatogramDataCube chromatogramDataCube = new ChromatogramDataCube();
         chromatogramDataCube.setLabel(chFile.getDetector());
-        chromatogramDataCube.setDatacubeStructure(getCubeStructure());
+        chromatogramDataCube.setDatacubeStructure(getCubeStructure(chFile.getDetector()));
         chromatogramDataCube.setDatacubeData(createAllotropeDataFromChFile(chFile));
 
         return chromatogramDataCube;
     }
 
-    private ChromatogramDatacubeStructure getCubeStructure() {
+    private ChromatogramDatacubeStructure getCubeStructure(String detector) {
         ChromatogramDatacubeStructure cubeStructure = new ChromatogramDatacubeStructure();
 
         ChromatogramDimension firstDimension = new ChromatogramDimension();
@@ -36,8 +36,14 @@ class ChromatogramDataCubeMapper {
         firstDimension.setUnit(ChromatogramDimension.UnitEnum.S);
 
         ChromatogramMeasure firstMeasure = new ChromatogramMeasure();
-        firstMeasure.setConcept("electric current");
-        firstMeasure.setUnit("pA");
+        if (detector.startsWith("FID")) {
+            firstMeasure.setConcept("electric current");
+            firstMeasure.setUnit("pA");
+
+        } else if (detector.startsWith("TCD")) {
+            firstMeasure.setConcept("electric potential");
+            firstMeasure.setUnit("mV");
+        }
 
         List<ChromatogramDimension> dimensionList = List.of(firstDimension);
         List<ChromatogramMeasure> measureList = List.of(firstMeasure);

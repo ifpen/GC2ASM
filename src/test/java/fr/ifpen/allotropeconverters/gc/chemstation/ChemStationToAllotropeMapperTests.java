@@ -3,8 +3,6 @@ package fr.ifpen.allotropeconverters.gc.chemstation;
 import fr.ifpen.allotropeconverters.allotrope_models.*;
 import fr.ifpen.allotropeconverters.gc.TestConstants;
 
-import fr.ifpen.allotropeconverters.gc.chemstation.infra.ChemStationResult;
-import jakarta.xml.bind.JAXBException;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
 
@@ -86,7 +84,7 @@ class ChemStationToAllotropeMapperTests {
     }
 
     @Test
-    void returnsCorrectInfoForV179Folder() throws JAXBException, IOException {
+    void returnsCorrectInfoForV179Folder() throws IOException {
         ChemStationToAllotropeMapper mapper = new ChemStationToAllotropeMapperBuilder().withZoneId(TestConstants.TIME_ZONE_PARIS).build();
 
         GasChromatographySimpleModel embedSchema = mapper.fromFolder(TestConstants.RESOURCE_V_179_D_FOLDER);
@@ -97,12 +95,12 @@ class ChemStationToAllotropeMapperTests {
     void returnsCorrectInfoForV179File() throws IOException {
         ChemStationToAllotropeMapper mapper = new ChemStationToAllotropeMapperBuilder().withZoneId(TestConstants.TIME_ZONE_PARIS).build();
 
-        //GasChromatographySimpleModel embedSchema = mapper.fromChFile(TestConstants.RESOURCE_V_179_D_CH_FILE);
-        //assertV179Schema(embedSchema, false);
+        GasChromatographySimpleModel embedSchema = mapper.fromChFile(TestConstants.RESOURCE_V_179_D_CH_FILE);
+        assertV179Schema(embedSchema, false);
     }
 
     @Test
-    void returnsCorrectInfoForThreeChannelsFile() throws JAXBException, IOException {
+    void returnsCorrectInfoForThreeChannelsFile() throws IOException {
         ChemStationToAllotropeMapper mapper = new ChemStationToAllotropeMapperBuilder().withZoneId(TestConstants.TIME_ZONE_PARIS).build();
 
         GasChromatographySimpleModel embedSchema = mapper.fromFolder(TestConstants.RESOURCE_THREE_CHANNELS_D_FOLDER);

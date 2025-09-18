@@ -18,7 +18,7 @@ import java.util.regex.Pattern;
 
 import static java.nio.charset.StandardCharsets.UTF_16;
 
-public final class ColumnInformationMapper {
+final class ColumnInformationMapper {
 
     private static final String COLON_REGEX = "\\s*:\\s*";
     private static final String SEPARATOR_REGEX = "\\s*";
@@ -52,7 +52,7 @@ public final class ColumnInformationMapper {
         COLUMN_PATTERN = Pattern.compile(pattern.toString(), Pattern.MULTILINE);
     }
 
-    public ChromatographyColumnDocument readColumnDocumentFromFile(Path folderPath, String acqTxtFilename) throws IOException {
+    ChromatographyColumnDocument readColumnDocumentFromFile(Path folderPath, String acqTxtFilename) throws IOException {
         ChromatographyColumnDocument columnDocument = new ChromatographyColumnDocument();
 
         Path acqTxtPath = folderPath.resolve(acqTxtFilename);
@@ -144,7 +144,7 @@ public final class ColumnInformationMapper {
         acquisitionScanner.nextLine(); //Inventory # - Not in model
     }
 
-    private ChromatographyColumnDocument getDefaultColumnInformation() {
+    ChromatographyColumnDocument getDefaultColumnInformation() {
         ChromatographyColumnDocument columnDocument = new ChromatographyColumnDocument();
         columnDocument.setChromatographyColumnSerialNumber("N/A");
         return columnDocument;

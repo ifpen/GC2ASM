@@ -19,9 +19,6 @@ public class ChemStationToAllotropeMapper {
     private final ResultXmlReader resultXmlReader;
     private final ChFileResolver chFileResolver;
     private final DeviceSystemDocumentMapper deviceSystemDocumentMapper;
-    private final DeviceControlAggregateDocumentMapper deviceControlAggregateDocumentMapper;
-    private final SampleDocumentMapper sampleDocumentMapper;
-    private final InjectionDocumentMapper injectionDocumentMapper;
     private final MeasurementDocumentMapper measurementDocumentMapper;
     private final PeakAssociationService peakAssociationService;
     private final String acqTxtFilename;
@@ -30,9 +27,6 @@ public class ChemStationToAllotropeMapper {
     public ChemStationToAllotropeMapper(ResultXmlReader resultXmlReader,
                                                 ChFileResolver chFileResolver,
                                                 DeviceSystemDocumentMapper deviceSystemDocumentMapper,
-                                                DeviceControlAggregateDocumentMapper deviceControlAggregateDocumentMapper,
-                                                SampleDocumentMapper sampleDocumentMapper,
-                                                InjectionDocumentMapper injectionDocumentMapper,
                                                 MeasurementDocumentMapper measurementDocumentMapper,
                                                 PeakAssociationService peakAssociationService,
                                                 String acqTxtFilename,
@@ -40,9 +34,6 @@ public class ChemStationToAllotropeMapper {
         this.resultXmlReader = resultXmlReader;
         this.chFileResolver = chFileResolver;
         this.deviceSystemDocumentMapper = deviceSystemDocumentMapper;
-        this.deviceControlAggregateDocumentMapper = deviceControlAggregateDocumentMapper;
-        this.sampleDocumentMapper = sampleDocumentMapper;
-        this.injectionDocumentMapper = injectionDocumentMapper;
         this.measurementDocumentMapper = measurementDocumentMapper;
         this.peakAssociationService = peakAssociationService;
         this.acqTxtFilename = acqTxtFilename;
@@ -76,19 +67,7 @@ public class ChemStationToAllotropeMapper {
             if (chFile == null) continue;
 
             MeasurementDocument measurement = measurementDocumentMapper.toMeasurementDocumentForSignal(
-                    signal, resultData, chFile, compoundIndex, acqTxtFilename, folderPath);
-
-
-            SampleDocument sample = sampleDocumentMapper.toSampleDocument(resultData, chFile.getSampleName());
-            measurement.setSampleDocument(sample);
-
-
-            InjectionDocument injection = injectionDocumentMapper.toInjectionDocument(resultData);
-            measurement.setInjectionDocument(injection);
-
-
-            measurement.setDeviceControlAggregateDocument(
-                    deviceControlAggregateDocumentMapper.toDeviceControlAggregateDocument(signal));
+                    signal, resultData ,chFile, compoundIndex, acqTxtFilename, folderPath);
 
             measurementDocuments.add(measurement);
         }
@@ -104,6 +83,34 @@ public class ChemStationToAllotropeMapper {
         GasChromatographySimpleModel model = new GasChromatographySimpleModel();
         model.setGasChromatographyAggregateDocument(aggregate);
         return model;
+    }
+
+    public GasChromatographySimpleModel fromChFile(Path chFilePath) throws IOException {
+        ChFile chFile = chFileResolver.resolve(chFilePath);
+
+        GasChromatographyDocument gasChromatographyDocument = new GasChromatographyDocument();
+        gasChromatographyDocument.setAnalyst(chFile.getOperator());
+        gasChromatographyDocument.setSubmitter(chFile.getOperator());
+        gasChromatographyDocument.setDeviceMethodIdentifier(chFile.getMethod());
+
+        MeasurementDocument measurementDocument = measurementDocumentMapper.createMeasurementDocument(chFile);
+
+        MeasurementAggregateDocument measurementAggregateDocument = new MeasurementAggregateDocument();
+        measurementAggregateDocument.setMeasurementDocument(List.of(measurementDocument));
+
+        gasChromatographyDocument.setMeasurementAggregateDocument(measurementAggregateDocument);
+
+        DeviceSystemDocument deviceSystemDocument =
+                deviceSystemDocumentMapper.getDefaultDeviceSystemDocument();
+
+        GasChromatographyAggregateDocument gasChromatographyAggregateDocument = new GasChromatographyAggregateDocument();
+        gasChromatographyAggregateDocument.setGasChromatographyDocument(List.of(gasChromatographyDocument));
+        gasChromatographyAggregateDocument.setDeviceSystemDocument(deviceSystemDocument);
+
+        GasChromatographySimpleModel gasChromatographySimpleModel = new GasChromatographySimpleModel();
+        gasChromatographySimpleModel.setGasChromatographyAggregateDocument(gasChromatographyAggregateDocument);
+
+        return  gasChromatographySimpleModel;
     }
 
     private static String nonBlank(String s) { return (s == null || s.isBlank()) ? "" : s; }

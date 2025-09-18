@@ -1,6 +1,7 @@
 package fr.ifpen.allotropeconverters.gc.chemstation.mapping;
 
 import fr.ifpen.allotropeconverters.allotrope_models.SampleDocument;
+import fr.ifpen.allotropeconverters.gc.chemstation.chfile.ChFile;
 import fr.ifpen.allotropeconverters.gc.chemstation.infra.ResultXmlReader;
 
 
@@ -22,5 +23,13 @@ public class SampleDocumentMapper {
         sample.setDescription(resultData.sampleDescription());
 
         return sample;
+    }
+
+    public SampleDocument toSampleDocument(ChFile chFile){
+        SampleDocument sampleDocument = new SampleDocument();
+        sampleDocument.setSampleIdentifier(chFile.getSampleName());
+        sampleDocument.setWrittenName(chFile.getSampleName());
+
+        return sampleDocument;
     }
 }

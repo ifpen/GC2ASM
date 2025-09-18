@@ -22,4 +22,8 @@ public class ChFileResolver {
         }
         return out;
     }
+
+    public ChFile resolve(Path chFilePath) throws IOException {
+        return factory.getChFile(chFilePath);
+    }
 }

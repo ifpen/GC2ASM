@@ -1,11 +1,10 @@
-package fr.ifpen.allotropeconverters.gc.chemstation;
+package fr.ifpen.allotropeconverters.gc.chemstation.mapping;
 
 import fr.ifpen.allotropeconverters.allotrope_models.ChromatographyColumnDocument;
 import fr.ifpen.allotropeconverters.allotrope_models.ChromatographyColumnDocumentChromatographyColumnLength;
 import fr.ifpen.allotropeconverters.allotrope_models.ChromatographyColumnDocumentColumnInnerDiameter;
 import fr.ifpen.allotropeconverters.gc.TestConstants;
 
-import fr.ifpen.allotropeconverters.gc.chemstation.mapping.ColumnInformationMapper;
 import org.junit.jupiter.api.Test;
 
 import java.io.IOException;

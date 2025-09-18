@@ -114,7 +114,7 @@ public class AllotropeConversionTools {
      *         if there is an I/O error while reading the folder or its contents
      */
     public GasChromatographySimpleModel convertChFileToAllotrope(Path chFilePath) throws IOException {
-        return null;//chemstationMapper.fromChFile(chFilePath);
+        return chemstationMapper.fromChFile(chFilePath);
     }
 
     /**

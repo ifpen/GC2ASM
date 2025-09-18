@@ -11,6 +11,7 @@ import fr.ifpen.allotropeconverters.gc.chemstation.service.PeakAssociationServic
 import java.io.IOException;
 import java.nio.file.Path;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 
@@ -25,10 +26,16 @@ public class MeasurementDocumentMapper {
 
     private final PeakMapper peakMapper = new PeakMapper();
     private final ColumnInformationMapper columnInformationMapper = new ColumnInformationMapper();
+    private final SampleDocumentMapper sampleDocumentMapper;
+    private final InjectionDocumentMapper injectionDocumentMapper;
+    private final DeviceControlAggregateDocumentMapper deviceControlAggregateDocumentMapper;
     private final ChromatogramDataCubeMapper dataCubeMapper = new ChromatogramDataCubeMapper();
     private final PeakAssociationService peakAssociationService;
 
-    public MeasurementDocumentMapper(PeakAssociationService peakAssociationService) {
+    public MeasurementDocumentMapper(SampleDocumentMapper sampleDocumentMapper, InjectionDocumentMapper injectionDocumentMapper, DeviceControlAggregateDocumentMapper deviceControlAggregateDocumentMapper, PeakAssociationService peakAssociationService) {
+        this.sampleDocumentMapper = sampleDocumentMapper;
+        this.injectionDocumentMapper = injectionDocumentMapper;
+        this.deviceControlAggregateDocumentMapper = deviceControlAggregateDocumentMapper;
         this.peakAssociationService = peakAssociationService;
     }
 
@@ -38,7 +45,8 @@ public class MeasurementDocumentMapper {
                                                               Map<String, Map<String, CompoundPeak>> compoundIndex,
                                                               String acqTxtFilename,
                                                               Path folderPath) throws IOException {
-        MeasurementDocument measurement = new MeasurementDocument();
+
+        MeasurementDocument measurement = createMeasurementDocument(chFile);
 
         measurement.setDetectionType(signal.detectorRaw());
 
@@ -47,6 +55,17 @@ public class MeasurementDocumentMapper {
 
         ChromatographyColumnDocument column = columnInformationMapper.readColumnDocumentFromFile(folderPath, acqTxtFilename);
         measurement.setChromatographyColumnDocument(column);
+
+        SampleDocument sample = sampleDocumentMapper.toSampleDocument(resultData, chFile.getSampleName());
+        measurement.setSampleDocument(sample);
+
+
+        InjectionDocument injection = injectionDocumentMapper.toInjectionDocument(resultData);
+        measurement.setInjectionDocument(injection);
+
+
+        measurement.setDeviceControlAggregateDocument(
+                deviceControlAggregateDocumentMapper.toDeviceControlAggregateDocument(signal));
 
         List<Peak> peaks = new ArrayList<>();
         String signalDescUpper = signal.signalDescription().trim().toUpperCase();
@@ -135,5 +154,35 @@ public class MeasurementDocumentMapper {
         measurement.setProcessedDataAggregateDocument(processedAggregate);
 
         return measurement;
+    }
+
+    public MeasurementDocument createMeasurementDocument(ChFile chFile){
+        MeasurementDocument measurementDocument = new MeasurementDocument();
+
+        measurementDocument.setChromatogramDataCube(dataCubeMapper.readChromatogramDataCube(chFile));
+        measurementDocument.setMeasurementIdentifier("");
+
+        ChromatographyColumnDocument column = columnInformationMapper.getDefaultColumnInformation();
+        measurementDocument.setChromatographyColumnDocument(column);
+
+        InjectionDocument injectionDocument = injectionDocumentMapper.toInjectionDocument(chFile);
+        measurementDocument.setInjectionDocument(injectionDocument);
+
+        SampleDocument sampleDocument = sampleDocumentMapper.toSampleDocument(chFile);
+        measurementDocument.setSampleDocument(sampleDocument);
+
+        PeakList peakList = new PeakList();
+        peakList.setPeak(Collections.emptyList());
+
+        ProcessedDataDocument processedDataDocument = new ProcessedDataDocument();
+        processedDataDocument.setPeakList(peakList);
+
+        ProcessedDataAggregateDocument processedDataAggregateDocument = new ProcessedDataAggregateDocument();
+        processedDataAggregateDocument.setProcessedDataDocument(List.of(processedDataDocument));
+
+        measurementDocument.setProcessedDataAggregateDocument(processedDataAggregateDocument);
+
+        return measurementDocument;
+
     }
 }

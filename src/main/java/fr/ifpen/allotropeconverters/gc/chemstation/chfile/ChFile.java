@@ -47,7 +47,7 @@ public abstract class ChFile {
     protected List<Double> values;
     protected Float startTime;
     protected Float endTime;
-    protected Unit<?> unit;
+    protected Unit<? extends Quantity> unit;
     protected Double yScaling;
     protected Double yOffset;
     protected String detector;
@@ -112,8 +112,8 @@ public abstract class ChFile {
         return injectionDateTime;
     }
 
-    protected Unit<?> getUnit() {
-        return unit;
+    protected Unit<Quantity> getUnit() {
+        return (Unit<Quantity>) unit;
     }
 
     private void setUnit(String unit) {

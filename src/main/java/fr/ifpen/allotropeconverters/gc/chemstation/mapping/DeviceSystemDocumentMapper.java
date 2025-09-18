@@ -24,4 +24,10 @@ public class DeviceSystemDocumentMapper {
         system.setDeviceDocument(devices);
         return system;
     }
+
+    public DeviceSystemDocument getDefaultDeviceSystemDocument(){
+        DeviceSystemDocument deviceSystemDocument = new DeviceSystemDocument();
+        deviceSystemDocument.setAssetManagementIdentifier("");
+        return deviceSystemDocument;
+    }
 }

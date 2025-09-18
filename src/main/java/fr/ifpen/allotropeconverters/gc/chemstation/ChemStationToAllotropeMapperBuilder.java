@@ -47,7 +47,6 @@ public class ChemStationToAllotropeMapperBuilder {
     private ZoneId zoneId = ZoneOffset.UTC;
     private String resultXmlFileName = "Result.xml";
     private String acqTxtFileName = "acq.txt";
-    private MergeStrategy mergeStrategy = MergeStrategy.ERROR;
 
     /**
      * Sets the time zone to use for the ChemStation to Allotrope mapping operation.
@@ -72,19 +71,6 @@ public class ChemStationToAllotropeMapperBuilder {
      */
     public ChemStationToAllotropeMapperBuilder withAdditionalDateTimeFormatters(DateTimeFormatter... formatter) {
         dateTimeFormatters.addAll(List.of(formatter));
-        return this;
-    }
-
-    /**
-     * Sets the file name of the ChemStation file to be used for the mapping operation.
-     *
-     * @param chFilename
-     *         the name of the ChemStation file
-     *
-     * @return the current instance of {@code ChemStationToAllotropeMapperBuilder} for method chaining
-     */
-    public ChemStationToAllotropeMapperBuilder withChFilename(String chFilename) {
-        this.chFileName = chFilename;
         return this;
     }
 
@@ -115,20 +101,6 @@ public class ChemStationToAllotropeMapperBuilder {
     }
 
     /**
-     * Sets the merge strategy to be used for handling conflicts when different values
-     * are read for the same field during the ChemStation to Allotrope mapping process.
-     *
-     * @param mergeStrategy
-     *         the {@code MergeStrategy} to apply for resolving conflicting values
-     *
-     * @return the current instance of {@code ChemStationToAllotropeMapperBuilder} for method chaining
-     */
-    public ChemStationToAllotropeMapperBuilder withMergeStrategy(MergeStrategy mergeStrategy) {
-        this.mergeStrategy = mergeStrategy;
-        return this;
-    }
-
-    /**
      * Builds and returns a configured instance of {@code ChemStationToAllotropeMapper}.
      *
      * @return a new instance of {@code ChemStationToAllotropeMapper} configured
@@ -140,18 +112,20 @@ public class ChemStationToAllotropeMapperBuilder {
         DeviceSystemDocumentMapper deviceSystemDocumentMapper = new DeviceSystemDocumentMapper();
         DeviceControlAggregateDocumentMapper deviceControlAggregateDocumentMapper = new DeviceControlAggregateDocumentMapper();
         SampleDocumentMapper sampleDocumentMapper = new SampleDocumentMapper();
-        InjectionDocumentMapper injectionDocumentMapper = new InjectionDocumentMapper();
+        InjectionDocumentMapper injectionDocumentMapper = new InjectionDocumentMapper(zoneId, dateTimeFormatters);
         PeakAssociationService peakAssociationService = new PeakAssociationService();
-        MeasurementDocumentMapper measurementDocumentMapper = new MeasurementDocumentMapper(peakAssociationService);
+        MeasurementDocumentMapper measurementDocumentMapper =
+                new MeasurementDocumentMapper(
+                        sampleDocumentMapper,
+                        injectionDocumentMapper,
+                        deviceControlAggregateDocumentMapper,
+                        peakAssociationService);
 
 
         return new ChemStationToAllotropeMapper(
                 resultXmlReader,
                 chFileResolver,
                 deviceSystemDocumentMapper,
-                deviceControlAggregateDocumentMapper,
-                sampleDocumentMapper,
-                injectionDocumentMapper,
                 measurementDocumentMapper,
                 peakAssociationService,
                 acqTxtFileName,

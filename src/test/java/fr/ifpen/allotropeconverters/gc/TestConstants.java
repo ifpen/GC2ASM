@@ -26,7 +26,7 @@ public class TestConstants {
     public static final Path RESOURCE_V_179_D_XML_RESULT = RESOURCE_V_179_D_FOLDER.resolve("Result.xml");
 
     public static final Path RESOURCE_V_181_D_FOLDER = Path.of("src/test/resources/V181.D");
-    public static final Path RESOURCE_V_181_D_CH_FILE = RESOURCE_V_181_D_FOLDER.resolve("V181.ch");
+    public static final Path RESOURCE_V_181_D_CH_FILE = RESOURCE_V_181_D_FOLDER.resolve("FID1A.ch");
 
     public static final Path RESOURCE_THREE_CHANNELS_D_FOLDER = Path.of("src/test/resources/THREE-CHANNELS.D");
 

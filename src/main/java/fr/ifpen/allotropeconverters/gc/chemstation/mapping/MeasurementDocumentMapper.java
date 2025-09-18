@@ -74,7 +74,7 @@ public class MeasurementDocumentMapper {
             var matched = peakAssociationService.findCompoundFor(compoundIndex, signalDescUpper, row.retentionTimeCanonical());
             Peak peak;
             if (matched.isPresent()) {
-                peak = peakMapper.mapPeakFromCompound((CompoundType) matched.get().jaxbCompound());
+                peak = peakMapper.mapPeakFromCompound((CompoundType) matched.orElseThrow().jaxbCompound());
             } else {
                 peak = new Peak();
 

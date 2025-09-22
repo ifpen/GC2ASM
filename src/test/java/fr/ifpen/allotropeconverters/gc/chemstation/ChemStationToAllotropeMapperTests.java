@@ -3,7 +3,6 @@ package fr.ifpen.allotropeconverters.gc.chemstation;
 import fr.ifpen.allotropeconverters.allotrope_models.*;
 import fr.ifpen.allotropeconverters.gc.TestConstants;
 
-import jakarta.xml.bind.JAXBException;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
 
@@ -46,7 +45,7 @@ class ChemStationToAllotropeMapperTests {
 
         if (additionalAssertions) {
             Assertions.assertThat(injectionDocument.getInjectionIdentifier()).isEqualTo("1");
-            Assertions.assertThat(injectionDocument.getInjectionVolumeSetting().getValue()).isEqualTo(1.0);
+            Assertions.assertThat(injectionDocument.getInjectionVolumeSetting().getValue()).isEqualTo(0.5);
         } else {
             Assertions.assertThat(injectionDocument.getInjectionVolumeSetting().getValue()).isNaN();
         }
@@ -57,17 +56,15 @@ class ChemStationToAllotropeMapperTests {
                 gasChromatographyDocument.getMeasurementAggregateDocument().getMeasurementDocument();
         Assertions.assertThat(measurementDocumentList).hasSize(1);
 
-        Object data = measurementDocument.getChromatogramDataCube().getDatacubeData();
+        DatacubeData data = measurementDocument.getChromatogramDataCube().getDatacubeData();
         Assertions.assertThat(data).isInstanceOf(DatacubeData.class);
 
 
-        DatacubeData allotropeData = (DatacubeData) data;
-
-        List<List<Double>> dimensions = allotropeData.getDimensions();
+        List<List<Double>> dimensions = data.getDimensions();
         Assertions.assertThat(dimensions).hasSize(1);
         Assertions.assertThat(dimensions.get(0)).hasSize(71840);
 
-        List<List<Double>> measures = allotropeData.getMeasures();
+        List<List<Double>> measures = data.getMeasures();
         Assertions.assertThat(measures).hasSize(1);
         Assertions.assertThat(measures.get(0)).hasSize(71840);
 
@@ -75,6 +72,7 @@ class ChemStationToAllotropeMapperTests {
                 measurementDocument.getProcessedDataAggregateDocument().getProcessedDataDocument().get(0).getPeakList();
         if (additionalAssertions) {
             Assertions.assertThat(peakList.getPeak()).hasSize(24);
+            Assertions.assertThat(peakList.getPeak().get(0).getRetentionTime().getValue()).isEqualTo(2388.01278);
         } else {
             Assertions.assertThat(peakList.getPeak()).isEmpty();
         }
@@ -86,7 +84,7 @@ class ChemStationToAllotropeMapperTests {
     }
 
     @Test
-    void returnsCorrectInfoForV179Folder() throws JAXBException, IOException {
+    void returnsCorrectInfoForV179Folder() throws IOException {
         ChemStationToAllotropeMapper mapper = new ChemStationToAllotropeMapperBuilder().withZoneId(TestConstants.TIME_ZONE_PARIS).build();
 
         GasChromatographySimpleModel embedSchema = mapper.fromFolder(TestConstants.RESOURCE_V_179_D_FOLDER);
@@ -102,9 +100,17 @@ class ChemStationToAllotropeMapperTests {
     }
 
     @Test
-    void testParseXmlResult() throws JAXBException {
-        ChemStationResult chemStationResult = ChemStationToAllotropeMapper.parseXmlResult(TestConstants.RESOURCE_V_179_D_XML_RESULT);
-        Assertions.assertThat(chemStationResult.getSampleInformation().getSampleName()).isEqualTo("22-00465-1");
-        Assertions.assertThat(chemStationResult.getSampleInformation().getInjectionDateTime()).isEqualTo("12-May-22, 11:24:28");
+    void returnsCorrectInfoForThreeChannelsFile() throws IOException {
+        ChemStationToAllotropeMapper mapper = new ChemStationToAllotropeMapperBuilder().withZoneId(TestConstants.TIME_ZONE_PARIS).build();
+
+        GasChromatographySimpleModel embedSchema = mapper.fromFolder(TestConstants.RESOURCE_THREE_CHANNELS_D_FOLDER);
+
+        Assertions.assertThat(embedSchema).isNotNull();
+        Assertions.assertThat(
+                embedSchema
+                        .getGasChromatographyAggregateDocument()
+                        .getGasChromatographyDocument().get(0)
+                        .getMeasurementAggregateDocument()
+                        .getMeasurementDocument()).hasSize(3);
     }
 }

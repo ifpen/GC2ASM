@@ -48,7 +48,6 @@ class AllotropeConversionToolsTests {
     @Test
     void returnsValidJsonForV181() throws Exception {
         ChemStationToAllotropeMapper mapper = new ChemStationToAllotropeMapperBuilder().withZoneId(TestConstants.TIME_ZONE_PARIS)
-                                                                                       .withChFilename("V181.ch")
                                                                                        .withAcqTxtFilename("acq_columInfoFixed.txt")
                                                                                        .build();
         convertAndAssertJson(TestConstants.RESOURCE_V_181_D_FOLDER, mapper);

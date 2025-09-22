@@ -1,12 +1,14 @@
 package fr.ifpen.allotropeconverters.gc.chemstation.chfile;
 
 import javax.measure.quantity.ElectricCurrent;
+import javax.measure.quantity.ElectricPotential;
 import javax.measure.quantity.Quantity;
 import javax.measure.unit.SI;
 import javax.measure.unit.Unit;
 import java.io.IOException;
 import java.io.RandomAccessFile;
 import java.util.List;
+import java.util.regex.Pattern;
 
 import static fr.ifpen.allotropeconverters.gc.chemstation.chfile.ReadHelpers.readMetadataTime;
 import static fr.ifpen.allotropeconverters.gc.chemstation.chfile.ReadHelpers.readStringAtPosition;
@@ -28,6 +30,7 @@ import static fr.ifpen.allotropeconverters.gc.chemstation.chfile.ReadHelpers.rea
 public abstract class ChFile {
 
     protected static final Unit<ElectricCurrent> PICO_AMPERE_UNIT = SI.PICO(SI.AMPERE);
+    protected static final Unit<ElectricPotential> MILLI_VOLT_UNIT = SI.MILLI(SI.VOLT);
 
     protected final int dataStart; // Has no use for now
     protected final int startTimePosition;
@@ -44,7 +47,7 @@ public abstract class ChFile {
     protected List<Double> values;
     protected Float startTime;
     protected Float endTime;
-    protected Unit<ElectricCurrent> unit;
+    protected Unit<? extends Quantity> unit;
     protected Double yScaling;
     protected Double yOffset;
     protected String detector;
@@ -109,28 +112,36 @@ public abstract class ChFile {
         return injectionDateTime;
     }
 
-    /**
-     * Returns the unit found in the .ch file.<br>
-     * Warning: the values stored in this class are converted to picoampere, as the standard imposes.
-     */
-    protected Unit<ElectricCurrent> getUnit() {
-        return unit;
+    protected Unit<Quantity> getUnit() {
+        return (Unit<Quantity>) unit;
     }
 
     private void setUnit(String unit) {
-        Unit<? extends Quantity> localUnit = Unit.valueOf(unit);
 
-        if (!PICO_AMPERE_UNIT.isCompatible(localUnit)) {
-            throw new IllegalArgumentException("Unsupported unit: " + unit);
+        Pattern unitParsePattern = Pattern.compile("^(\\d*)\\s*(\\S*)$");
+        java.util.regex.Matcher unitParseMatcher = unitParsePattern.matcher(unit);
+
+        if(unitParseMatcher.matches()){
+            if (!unitParseMatcher.group(1).isEmpty()) {
+                yScaling = yScaling * Integer.parseInt(unitParseMatcher.group(1));
+            }
+            Unit<? extends Quantity> localUnit = Unit.valueOf(unitParseMatcher.group(2));
+
+            if(PICO_AMPERE_UNIT.isCompatible(localUnit)){
+                this.unit = localUnit.asType(ElectricCurrent.class);
+            } else if (MILLI_VOLT_UNIT.isCompatible(localUnit)) {
+                this.unit = localUnit.asType(ElectricPotential.class);
+                yOffset = yOffset * 1000; //µV to mV
+            } else {
+                throw new IllegalArgumentException("Unsupported unit: " + unit);
+            }
         }
-
-        this.unit = localUnit.asType(ElectricCurrent.class);
     }
 
     private void readMetadata(RandomAccessFile input) throws IOException {
         startTime = readMetadataTime(input, startTimePosition);
         endTime = readMetadataTime(input, endTimePosition);
-        setUnit(readStringAtPosition(input, unitsPosition, true));
+
 
         input.seek(yOffsetPosition);
         yOffset = input.readDouble();
@@ -138,11 +149,26 @@ public abstract class ChFile {
         input.seek(yScalingPosition);
         yScaling = input.readDouble();
 
+        setUnit(tryReadUnit(input, 10));
+
         detector = readStringAtPosition(input, detectorPosition, true);
 
         operator = readStringAtPosition(input, operatorPosition, true);
         method = readStringAtPosition(input, methodPosition, true);
         sampleName = readStringAtPosition(input, sampleNamePosition, true);
         injectionDateTime = readStringAtPosition(input, injectionDateTimePosition, true);
+    }
+
+    private String tryReadUnit(RandomAccessFile input, int maxRetries){
+        String readUnit = "";
+        long retries = 0;
+        while (readUnit.isEmpty() && retries < maxRetries){
+            try {
+                readUnit = readStringAtPosition(input, unitsPosition + (retries * 16), true);
+            } catch (IOException e) {
+                retries++;
+            }
+        }
+        return readUnit;
     }
 }

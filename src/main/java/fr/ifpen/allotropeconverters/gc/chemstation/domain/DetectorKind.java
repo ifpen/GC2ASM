@@ -4,10 +4,7 @@ public enum DetectorKind {
     FLAME_IONIZATION, UNKNOWN;
 
     public static DetectorKind fromRaw(String detectorRaw) {
-        if (detectorRaw == null) return UNKNOWN;
-        String d = detectorRaw.toLowerCase();
-        if (d.contains("fid")) return FLAME_IONIZATION;
-        return UNKNOWN;
+        return (detectorRaw != null && detectorRaw.toLowerCase().contains("fid")) ? FLAME_IONIZATION : UNKNOWN;
     }
 
     public String toAllotropeName() {

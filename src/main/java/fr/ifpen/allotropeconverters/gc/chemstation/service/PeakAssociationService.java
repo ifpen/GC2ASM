@@ -20,7 +20,6 @@ public class PeakAssociationService {
                                                   String signalDescriptionUpper,
                                                   String rtCanonical) {
         Map<String, CompoundPeak> byRt = index.get(signalDescriptionUpper);
-        if (byRt == null) return Optional.empty();
-        return Optional.ofNullable(byRt.get(rtCanonical));
+        return Optional.ofNullable(byRt).map(mapByRt -> mapByRt.get(rtCanonical));
     }
 }

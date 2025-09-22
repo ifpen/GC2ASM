@@ -87,7 +87,7 @@ public class MeasurementDocumentMapper {
                 if (row.area() != null){
                     PeakPeakArea peakPeakArea = new PeakPeakArea();
                     peakPeakArea.setUnit("pA.S");
-                    peakPeakArea.setValue(row.area()*60);
+                    peakPeakArea.setValue(row.area() * 60);
                     peak.setPeakArea(peakPeakArea);
                 }
                 if (row.height() != null) {

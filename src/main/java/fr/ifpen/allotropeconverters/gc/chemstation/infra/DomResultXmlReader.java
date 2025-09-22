@@ -22,7 +22,7 @@ import java.util.*;
  * Lecteur typé de Result.xml (SRP : parsing uniquement).
  * - Injection: identifiant (inj), volume (InjVolume), date (convertie en OffsetDateTime avec timeZone).
  * - Signals: description, détecteur, lignes d’intégration (liste d’IntegrationResultsType).
- * - Compounds: projection légère des <Peak> (SignalDesc upper + MeasRetTime canonisé + pointeur JAXB).
+ * - Compounds: projection légère des pics (SignalDesc upper + MeasRetTime canonisé + pointeur JAXB).
  */
 public class DomResultXmlReader implements ResultXmlReader {
 

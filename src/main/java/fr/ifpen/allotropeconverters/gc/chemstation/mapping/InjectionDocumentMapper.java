@@ -5,18 +5,31 @@ import fr.ifpen.allotropeconverters.allotrope_models.InjectionDocumentInjectionV
 import fr.ifpen.allotropeconverters.gc.chemstation.chfile.ChFile;
 import fr.ifpen.allotropeconverters.gc.chemstation.domain.Volume;
 import fr.ifpen.allotropeconverters.gc.chemstation.infra.ResultXmlReader;
+import fr.ifpen.allotropeconverters.gc.chemstation.utils.ChemstationDateResolver;
 
 import java.time.LocalDateTime;
 import java.time.OffsetDateTime;
 import java.time.ZoneId;
+import java.time.ZoneOffset;
 import java.time.format.DateTimeFormatter;
-import java.time.format.DateTimeParseException;
 import java.util.List;
+
+import static fr.ifpen.allotropeconverters.gc.chemstation.utils.ChemstationDateResolver.DEFAULT_DATE_TIME_FORMATTERS;
 
 public class InjectionDocumentMapper {
 
+    private static final ZoneId DEFAULT_ZONE_ID = ZoneOffset.UTC;
+
     private final ZoneId timeZone;
     private final List<DateTimeFormatter> dateTimeFormatters;
+
+    public InjectionDocumentMapper() {
+        this(DEFAULT_ZONE_ID);
+    }
+
+    public InjectionDocumentMapper(ZoneId timeZone) {
+        this(timeZone, DEFAULT_DATE_TIME_FORMATTERS);
+    }
 
     public InjectionDocumentMapper(ZoneId timeZone, List<DateTimeFormatter> defaultDateTimeFormatters) {
         this.timeZone = timeZone;
@@ -51,22 +64,10 @@ public class InjectionDocumentMapper {
     }
 
     private OffsetDateTime getInjectionDateInstant(String injectionDateString) {
-        LocalDateTime injectionDate = getLocalDateTime(injectionDateString);
+        LocalDateTime injectionDate = new ChemstationDateResolver(this.dateTimeFormatters).getLocalDateTime(injectionDateString);
         if (injectionDate == null) {
             throw new IllegalArgumentException("Injection date has an unknown format. Original string is: '" + injectionDateString + "'");
         }
         return injectionDate.atZone(timeZone).toOffsetDateTime();
-    }
-
-    private LocalDateTime getLocalDateTime(String dateTimeString) {
-        LocalDateTime parse = null;
-        for (DateTimeFormatter formatter : dateTimeFormatters) {
-            try {
-                parse = LocalDateTime.parse(dateTimeString, formatter);
-            } catch (DateTimeParseException e) {
-                // Do nothing
-            }
-        }
-        return parse;
     }
 }

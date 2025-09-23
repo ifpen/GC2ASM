@@ -3,7 +3,7 @@ package fr.ifpen.allotropeconverters.gc.chemstation.infra;
 import fr.ifpen.allotropeconverters.gc.chemstation.domain.ChannelKey;
 import fr.ifpen.allotropeconverters.gc.chemstation.domain.CompoundPeak;
 import fr.ifpen.allotropeconverters.gc.chemstation.domain.IntegrationRow;
-
+import fr.ifpen.allotropeconverters.gc.chemstation.utils.ChemstationDateResolver;
 import jakarta.xml.bind.JAXBContext;
 import jakarta.xml.bind.JAXBException;
 import jakarta.xml.bind.Unmarshaller;
@@ -14,9 +14,14 @@ import java.nio.file.Path;
 import java.time.LocalDateTime;
 import java.time.OffsetDateTime;
 import java.time.ZoneId;
+import java.time.ZoneOffset;
 import java.time.format.DateTimeFormatter;
-import java.time.format.DateTimeParseException;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Objects;
+import java.util.Optional;
+
+import static fr.ifpen.allotropeconverters.gc.chemstation.utils.ChemstationDateResolver.DEFAULT_DATE_TIME_FORMATTERS;
 
 /**
  * Lecteur typé de Result.xml (SRP : parsing uniquement).
@@ -26,8 +31,18 @@ import java.util.*;
  */
 public class DomResultXmlReader implements ResultXmlReader {
 
+    private static final ZoneId DEFAULT_ZONE_ID = ZoneOffset.UTC;
+
     private final ZoneId timeZone;
     private final List<DateTimeFormatter> dateTimeFormatters;
+
+    public DomResultXmlReader() {
+        this(DEFAULT_ZONE_ID);
+    }
+
+    public DomResultXmlReader(ZoneId timeZone) {
+        this(timeZone, DEFAULT_DATE_TIME_FORMATTERS);
+    }
 
     public DomResultXmlReader(ZoneId timeZone, List<DateTimeFormatter> dateTimeFormatters) {
         this.timeZone = Objects.requireNonNull(timeZone, "timeZone must not be null");
@@ -272,14 +287,7 @@ public class DomResultXmlReader implements ResultXmlReader {
 
     private OffsetDateTime parseInjectionDateTime(String dateTimeText) {
         if (dateTimeText == null || dateTimeText.isBlank()) return null;
-        for (DateTimeFormatter formatter : dateTimeFormatters) {
-            try {
-                LocalDateTime localDateTime = LocalDateTime.parse(dateTimeText, formatter);
-                return localDateTime.atZone(timeZone).toOffsetDateTime();
-            } catch (DateTimeParseException ignored) {
-                // on essaie le formatter suivant
-            }
-        }
-        return null;
+        LocalDateTime injectionDate = new ChemstationDateResolver(this.dateTimeFormatters).getLocalDateTime(dateTimeText);
+        return Optional.ofNullable(injectionDate).map(lcd -> lcd.atZone(timeZone).toOffsetDateTime()).orElse(null);
     }
 }

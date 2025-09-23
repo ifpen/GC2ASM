@@ -52,10 +52,8 @@ final class ColumnInformationMapper {
         COLUMN_PATTERN = Pattern.compile(pattern.toString(), Pattern.MULTILINE);
     }
 
-    ChromatographyColumnDocument readColumnDocumentFromFile(Path folderPath, String acqTxtFilename) throws IOException {
+    ChromatographyColumnDocument readColumnDocumentFromFile(Path acqTxtPath) throws IOException {
         ChromatographyColumnDocument columnDocument = new ChromatographyColumnDocument();
-
-        Path acqTxtPath = folderPath.resolve(acqTxtFilename);
 
         if (!Files.exists(acqTxtPath)) {
             return getDefaultColumnInformation();

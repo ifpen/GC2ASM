@@ -43,8 +43,7 @@ public class MeasurementDocumentMapper {
                                                               ResultXmlReader.ResultData resultData,
                                                               ChFile chFile,
                                                               Map<String, Map<String, CompoundPeak>> compoundIndex,
-                                                              String acqTxtFilename,
-                                                              Path folderPath) throws IOException {
+                                                              Path acqTxtPath) throws IOException {
 
         MeasurementDocument measurement = createMeasurementDocument(chFile);
 
@@ -53,7 +52,7 @@ public class MeasurementDocumentMapper {
         measurement.setChromatogramDataCube(dataCubeMapper.readChromatogramDataCube(chFile));
         measurement.setMeasurementIdentifier("");
 
-        ChromatographyColumnDocument column = columnInformationMapper.readColumnDocumentFromFile(folderPath, acqTxtFilename);
+        ChromatographyColumnDocument column = columnInformationMapper.readColumnDocumentFromFile(acqTxtPath);
         measurement.setChromatographyColumnDocument(column);
 
         SampleDocument sample = sampleDocumentMapper.toSampleDocument(resultData, chFile.getSampleName());

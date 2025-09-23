@@ -16,6 +16,7 @@ class ChemStationToAllotropeMapperTests {
         Assertions.assertThat(embedSchema).isNotNull();
 
         GasChromatographyAggregateDocument gasChromatographyAggregateDocument = embedSchema.getGasChromatographyAggregateDocument();
+        Assertions.assertThat(gasChromatographyAggregateDocument).isNotNull();
 
         List<GasChromatographyDocument> gasChromatographyDocumentList = gasChromatographyAggregateDocument.getGasChromatographyDocument();
         Assertions.assertThat(gasChromatographyDocumentList).hasSize(1);
@@ -57,8 +58,7 @@ class ChemStationToAllotropeMapperTests {
         Assertions.assertThat(measurementDocumentList).hasSize(1);
 
         DatacubeData data = measurementDocument.getChromatogramDataCube().getDatacubeData();
-        Assertions.assertThat(data).isInstanceOf(DatacubeData.class);
-
+        Assertions.assertThat(data).isNotNull();
 
         List<List<Double>> dimensions = data.getDimensions();
         Assertions.assertThat(dimensions).hasSize(1);
@@ -68,8 +68,12 @@ class ChemStationToAllotropeMapperTests {
         Assertions.assertThat(measures).hasSize(1);
         Assertions.assertThat(measures.get(0)).hasSize(71840);
 
-        PeakList peakList =
-                measurementDocument.getProcessedDataAggregateDocument().getProcessedDataDocument().get(0).getPeakList();
+        ProcessedDataAggregateDocument processedDataAggregateDocument = measurementDocument.getProcessedDataAggregateDocument();
+        Assertions.assertThat(processedDataAggregateDocument).isNotNull();
+        List<ProcessedDataDocument> processedDataDocumentList = processedDataAggregateDocument.getProcessedDataDocument();
+        Assertions.assertThat(processedDataDocumentList).isNotEmpty();
+        PeakList peakList = processedDataDocumentList.get(0).getPeakList();
+
         if (additionalAssertions) {
             Assertions.assertThat(peakList.getPeak()).hasSize(24);
             Assertions.assertThat(peakList.getPeak().get(0).getRetentionTime().getValue()).isEqualTo(2388.01278);
@@ -106,11 +110,13 @@ class ChemStationToAllotropeMapperTests {
         GasChromatographySimpleModel embedSchema = mapper.fromFolder(TestConstants.RESOURCE_THREE_CHANNELS_D_FOLDER);
 
         Assertions.assertThat(embedSchema).isNotNull();
-        Assertions.assertThat(
-                embedSchema
-                        .getGasChromatographyAggregateDocument()
-                        .getGasChromatographyDocument().get(0)
-                        .getMeasurementAggregateDocument()
-                        .getMeasurementDocument()).hasSize(3);
+        GasChromatographyAggregateDocument gasChromatographyAggregateDocument = embedSchema.getGasChromatographyAggregateDocument();
+        Assertions.assertThat(gasChromatographyAggregateDocument).isNotNull();
+        List<GasChromatographyDocument> gasChromatographyDocumentList = gasChromatographyAggregateDocument.getGasChromatographyDocument();
+        Assertions.assertThat(gasChromatographyDocumentList).isNotEmpty();
+        Assertions.assertThat(gasChromatographyDocumentList
+                .get(0)
+                .getMeasurementAggregateDocument()
+                .getMeasurementDocument()).hasSize(3);
     }
 }

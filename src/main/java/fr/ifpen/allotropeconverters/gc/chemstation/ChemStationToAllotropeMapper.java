@@ -63,7 +63,7 @@ public class ChemStationToAllotropeMapper {
             if (chFile == null) continue;
 
             MeasurementDocument measurement = measurementDocumentMapper.toMeasurementDocumentForSignal(
-                    signal, resultData ,chFile, compoundIndex, acqTxtFilename, folderPath);
+                    signal, resultData ,chFile, compoundIndex, folderPath.resolve(acqTxtFilename));
 
             measurementDocuments.add(measurement);
         }

@@ -14,27 +14,29 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 class ColumnInformationMapperTests {
 
-    private static void readAndAssertColumnInformation(Path folderPath, String acqTxtFilename) throws IOException {
+    private static void readAndAssertColumnInformation(Path acqTxtFile) throws IOException {
         ColumnInformationMapper columnInformationMapper = new ColumnInformationMapper();
 
         ChromatographyColumnDocument chromatographyColumnDocument =
-                columnInformationMapper.readColumnDocumentFromFile(folderPath, acqTxtFilename);
+                columnInformationMapper.readColumnDocumentFromFile(acqTxtFile);
 
         assertThat(chromatographyColumnDocument.getChromatographyColumnPartNumber()).isEqualTo("19091S-001");
         assertThat(chromatographyColumnDocument.getProductManufacturer()).isEqualTo("Agilent");
 
         ChromatographyColumnDocumentColumnInnerDiameter columnInnerDiameter =
                 chromatographyColumnDocument.getColumnInnerDiameter();
+        assertThat(columnInnerDiameter).isNotNull();
         assertThat(columnInnerDiameter.getValue()).isEqualTo(0.2);
         assertThat(columnInnerDiameter.getUnit().toString()).hasToString("mm");
 
         ChromatographyColumnDocumentChromatographyColumnLength chromatographyColumnLength = chromatographyColumnDocument.getChromatographyColumnLength();
+        assertThat(chromatographyColumnLength).isNotNull();
         assertThat(chromatographyColumnLength.getValue()).isEqualTo(50);
         assertThat(chromatographyColumnLength.getUnit().toString()).hasToString("m");
     }
 
     private static void read179(String acqTxtFilename) throws IOException {
-        readAndAssertColumnInformation(TestConstants.RESOURCE_V_179_D_FOLDER, acqTxtFilename);
+        readAndAssertColumnInformation(TestConstants.RESOURCE_V_179_D_FOLDER.resolve(acqTxtFilename));
     }
 
     @Test

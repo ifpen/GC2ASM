@@ -10,12 +10,10 @@ import fr.ifpen.allotropeconverters.gc.chemstation.service.PeakAssociationServic
 import java.time.ZoneId;
 import java.time.ZoneOffset;
 import java.time.format.DateTimeFormatter;
-import java.time.format.DateTimeFormatterBuilder;
-import java.time.temporal.ChronoField;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Locale;
-import java.util.Map;
+
+import static fr.ifpen.allotropeconverters.gc.chemstation.utils.ChemstationDateResolver.DEFAULT_DATE_TIME_FORMATTERS;
 
 /**
  * Builder for {@link ChemStationToAllotropeMapper}.
@@ -36,14 +34,7 @@ import java.util.Map;
  */
 public class ChemStationToAllotropeMapperBuilder {
 
-    private static final List<DateTimeFormatter> DEFAULT_DATE_TIME_FORMATTERS =
-            List.of(DateTimeFormatter.ofPattern("dd-MMM-yy, HH:mm:ss", Locale.US),
-                    new DateTimeFormatterBuilder().appendPattern("dd MMM yy  hh:mm ")
-                                                  .appendText(ChronoField.AMPM_OF_DAY, Map.of(0L, "am", 1L, "pm"))
-                                                  .toFormatter(Locale.US));
-
     private final List<DateTimeFormatter> dateTimeFormatters = new ArrayList<>(DEFAULT_DATE_TIME_FORMATTERS);
-
     private ZoneId zoneId = ZoneOffset.UTC;
     private String resultXmlFileName = "Result.xml";
     private String acqTxtFileName = "acq.txt";

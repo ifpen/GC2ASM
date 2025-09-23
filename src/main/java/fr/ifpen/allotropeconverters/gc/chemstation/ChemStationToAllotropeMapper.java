@@ -43,18 +43,14 @@ public class ChemStationToAllotropeMapper {
 
     public GasChromatographySimpleModel fromFolder(Path folderPath) throws IOException {
 
-        ResultXmlReader.ResultData resultData = resultXmlReader.read(folderPath, resultXmlFilename);
-
+        ResultXmlReader.ResultData resultData = resultXmlReader.read(folderPath.resolve(resultXmlFilename));
 
         Map<ChannelKey, ChFile> chFilesByChannel = chFileResolver.resolve(folderPath, resultData);
-
 
         Map<String, Map<String, CompoundPeak>> compoundIndex =
                 peakAssociationService.indexCompoundsBySignalAndRt(resultData.compounds());
 
-
         DeviceSystemDocument deviceSystem = deviceSystemDocumentMapper.toDeviceSystemDocument(resultData);
-
 
         GasChromatographyDocument gc = new GasChromatographyDocument();
         gc.setAnalyst(nonBlank(resultData.analystFromXml()));

@@ -28,5 +28,5 @@ public interface ResultXmlReader {
             List<CompoundPeak> compounds
     ) {}
 
-    ResultData read(Path folder, String resultXmlFilename);
+    ResultData read(Path resultXmlFile);
 }

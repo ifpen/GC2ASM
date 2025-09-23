@@ -50,9 +50,8 @@ public class DomResultXmlReader implements ResultXmlReader {
     }
 
     @Override
-    public ResultData read(Path folderPath, String resultXmlFilename) {
-        Path xmlPath = folderPath.resolve(resultXmlFilename);
-        ChemStationResult root = unmarshal(xmlPath);
+    public ResultData read(Path resultXmlFile) {
+        ChemStationResult root = unmarshal(resultXmlFile);
 
         // --------- Métadonnées instrument / échantillon ---------
         String instrumentName = root.getAcquisition() != null ? root.getAcquisition().getInstrumentName() : "";

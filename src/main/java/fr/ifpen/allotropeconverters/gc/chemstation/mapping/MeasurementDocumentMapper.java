@@ -42,7 +42,7 @@ public class MeasurementDocumentMapper {
     public MeasurementDocument toMeasurementDocumentForSignal(ResultXmlReader.SignalRecord signal,
                                                               ResultXmlReader.ResultData resultData,
                                                               ChFile chFile,
-                                                              Map<String, Map<String, CompoundPeak>> compoundIndex,
+                                                              Map<String, Map<Double, CompoundPeak>> compoundIndex,
                                                               Path acqTxtPath) throws IOException {
 
         MeasurementDocument measurement = createMeasurementDocument(chFile);
@@ -70,7 +70,7 @@ public class MeasurementDocumentMapper {
         String signalDescUpper = signal.signalDescription().trim().toUpperCase();
 
         for (IntegrationRow row : signal.integrationRows()) {
-            var matched = peakAssociationService.findCompoundFor(compoundIndex, signalDescUpper, row.retentionTimeCanonical());
+            var matched = peakAssociationService.findCompoundFor(compoundIndex, signalDescUpper, row.retentionTimeMinutes());
             Peak peak;
             if (matched.isPresent()) {
                 peak = peakMapper.mapPeakFromCompound((CompoundType) matched.orElseThrow().jaxbCompound());

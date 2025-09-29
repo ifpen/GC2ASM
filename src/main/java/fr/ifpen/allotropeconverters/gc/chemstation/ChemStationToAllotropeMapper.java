@@ -47,7 +47,7 @@ public class ChemStationToAllotropeMapper {
 
         Map<ChannelKey, ChFile> chFilesByChannel = chFileResolver.resolve(folderPath, resultData);
 
-        Map<String, Map<String, CompoundPeak>> compoundIndex =
+        Map<String, Map<Double, CompoundPeak>> compoundIndex =
                 peakAssociationService.indexCompoundsBySignalAndRt(resultData.compounds());
 
         DeviceSystemDocument deviceSystem = deviceSystemDocumentMapper.toDeviceSystemDocument(resultData);

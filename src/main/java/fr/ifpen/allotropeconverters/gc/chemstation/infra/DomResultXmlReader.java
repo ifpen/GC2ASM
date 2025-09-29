@@ -165,14 +165,11 @@ public class DomResultXmlReader implements ResultXmlReader {
         // Pas de temps → on ne peut pas faire la jointure (SignalDesc + RetTime)
         if (retentionTimeMinutes == null) return null;
 
-        String retentionTimeCanonical = toCanonicalNumberString(retentionTimeMinutes);
-
         // Le SignalDesc côté « intégration » n’est pas présent ici : on réutilise la description du signal
         String signalDescription = fallbackSignalDescription != null ? fallbackSignalDescription : "";
 
         return new IntegrationRow(
                signalDescription,
-               retentionTimeCanonical,
                retentionTimeMinutes,
                areaValue,
                heightValue,
@@ -238,10 +235,7 @@ public class DomResultXmlReader implements ResultXmlReader {
                     : textOf(compound.signalDesc);
             String signalDescriptionUpper = signalDescription == null ? "" : signalDescription.trim().toUpperCase();
 
-            String retentionTimeCanonical = toCanonicalNumberString(textOf(compound.measRetTime));
-            if (retentionTimeCanonical == null) continue;
-
-            compoundPeaks.add(new CompoundPeak(signalDescriptionUpper, retentionTimeCanonical, compound));
+            compoundPeaks.add(new CompoundPeak(signalDescriptionUpper, toDoubleValue(compound.measRetTime.getContent()), compound));
         }
         return compoundPeaks;
     }
@@ -265,24 +259,6 @@ public class DomResultXmlReader implements ResultXmlReader {
         }
     }
 
-    /** Canonise un nombre en texte ("1", "1.25", pas "1.2500") */
-    private static String toCanonicalNumberString(Double value) {
-        if (value == null) return null;
-        BigDecimal bd = BigDecimal.valueOf(value);
-        return bd.stripTrailingZeros().toPlainString();
-    }
-
-    /** Canonise un texte numérique. */
-    private static String toCanonicalNumberString(String raw) {
-        if (raw == null || raw.isBlank()) return null;
-        String normalized = raw.trim().replace(",", ".");
-        try {
-            BigDecimal bd = new BigDecimal(normalized);
-            return bd.stripTrailingZeros().toPlainString();
-        } catch (NumberFormatException ex) {
-            return null;
-        }
-    }
 
     private OffsetDateTime parseInjectionDateTime(String dateTimeText) {
         if (dateTimeText == null || dateTimeText.isBlank()) return null;

@@ -22,7 +22,7 @@ final class ColumnInformationMapper {
 
     private static final String COLON_REGEX = "\\s*:\\s*";
     private static final String SEPARATOR_REGEX = "\\s*";
-    private static final String TEXT_REGEX = "(\\S+)";
+    private static final String TEXT_REGEX = "(\\S*)";
     private static final String NUMBER_REGEX = "([\\d.]+)";
     private static final String COLUMN_SEPARATOR_REGEX = "(?>\\s+|\\n+)";
 

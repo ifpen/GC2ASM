@@ -87,6 +87,83 @@ class ChemStationToAllotropeMapperTests {
         }
     }
 
+    private static void assertV181Schema(GasChromatographySimpleModel embedSchema, boolean additionalAssertions) {
+        Assertions.assertThat(embedSchema).isNotNull();
+
+        GasChromatographyAggregateDocument gasChromatographyAggregateDocument = embedSchema.getGasChromatographyAggregateDocument();
+        Assertions.assertThat(gasChromatographyAggregateDocument).isNotNull();
+
+        List<GasChromatographyDocument> gasChromatographyDocumentList = gasChromatographyAggregateDocument.getGasChromatographyDocument();
+        Assertions.assertThat(gasChromatographyDocumentList).hasSize(1);
+
+        GasChromatographyDocument gasChromatographyDocument = gasChromatographyDocumentList.get(0);
+        Assertions.assertThat(gasChromatographyDocument.getSubmitter()).isEqualTo("SYSTEM");
+
+        MeasurementDocument measurementDocument =
+                gasChromatographyDocument.getMeasurementAggregateDocument().getMeasurementDocument().get(0);
+
+        if (additionalAssertions) {
+            Assertions.assertThat(measurementDocument.getChromatographyColumnDocument().getProductManufacturer())
+                    .isEqualTo("");
+        }
+
+        SampleDocument sampleDocument = measurementDocument.getSampleDocument();
+        Assertions.assertThat(sampleDocument.getSampleIdentifier()).isEqualTo("140+H");
+
+        if (additionalAssertions) {
+            Assertions.assertThat(sampleDocument.getDescription())
+                    .isEqualTo(
+                            "140+ hydrogene");
+        }
+
+        InjectionDocument injectionDocument = measurementDocument.getInjectionDocument();
+        Assertions.assertThat(injectionDocument.getInjectionTime().toInstant()).isEqualTo(Instant.parse("2022-08-23T10:48:20Z")); // 12-May-22, 11:24:28
+
+        if (additionalAssertions) {
+            Assertions.assertThat(injectionDocument.getInjectionIdentifier()).isEqualTo("1");
+            Assertions.assertThat(injectionDocument.getInjectionVolumeSetting().getValue()).isEqualTo(1);
+        } else {
+            Assertions.assertThat(injectionDocument.getInjectionVolumeSetting().getValue()).isNaN();
+        }
+
+        Assertions.assertThat(gasChromatographyDocument.getDeviceMethodIdentifier()).isEqualTo("DET3300.M");
+
+        List<MeasurementDocument> measurementDocumentList =
+                gasChromatographyDocument.getMeasurementAggregateDocument().getMeasurementDocument();
+        Assertions.assertThat(measurementDocumentList).hasSize(1);
+
+        DatacubeData data = measurementDocument.getChromatogramDataCube().getDatacubeData();
+        Assertions.assertThat(data).isNotNull();
+
+        List<List<Double>> dimensions = data.getDimensions();
+        Assertions.assertThat(dimensions).hasSize(1);
+        Assertions.assertThat(dimensions.get(0)).hasSize(5914);
+
+        List<List<Double>> measures = data.getMeasures();
+        Assertions.assertThat(measures).hasSize(1);
+        Assertions.assertThat(measures.get(0)).hasSize(5914);
+
+        ProcessedDataAggregateDocument processedDataAggregateDocument = measurementDocument.getProcessedDataAggregateDocument();
+        Assertions.assertThat(processedDataAggregateDocument).isNotNull();
+        List<ProcessedDataDocument> processedDataDocumentList = processedDataAggregateDocument.getProcessedDataDocument();
+        Assertions.assertThat(processedDataDocumentList).isNotEmpty();
+        PeakList peakList = processedDataDocumentList.get(0).getPeakList();
+
+        if (additionalAssertions) {
+            Assertions.assertThat(peakList.getPeak()).hasSize(36);
+            Peak firstPeak = peakList.getPeak().get(0);
+            Assertions.assertThat(firstPeak.getRetentionTime().getValue()).isEqualTo(10.05222);
+            Assertions.assertThat(firstPeak.getWrittenName()).isEqualTo("Compound 0");
+        } else {
+            Assertions.assertThat(peakList.getPeak()).isEmpty();
+        }
+
+        if (additionalAssertions) {
+            Assertions.assertThat(gasChromatographyAggregateDocument.getDeviceSystemDocument().getAssetManagementIdentifier())
+                    .isEqualTo("GC52");
+        }
+    }
+
     @Test
     void returnsCorrectInfoForV179Folder() throws IOException {
         ChemStationToAllotropeMapper mapper = new ChemStationToAllotropeMapperBuilder().withZoneId(TestConstants.TIME_ZONE_PARIS).build();
@@ -101,6 +178,22 @@ class ChemStationToAllotropeMapperTests {
 
         GasChromatographySimpleModel embedSchema = mapper.fromChFile(TestConstants.RESOURCE_V_179_D_CH_FILE);
         assertV179Schema(embedSchema, false);
+    }
+
+    @Test
+    void returnsCorrectInfoForV181Folder() throws IOException {
+        ChemStationToAllotropeMapper mapper = new ChemStationToAllotropeMapperBuilder().withZoneId(TestConstants.TIME_ZONE_PARIS).build();
+
+        GasChromatographySimpleModel embedSchema = mapper.fromFolder(TestConstants.RESOURCE_V_181_D_FOLDER);
+        assertV181Schema(embedSchema, true);
+    }
+
+    @Test
+    void returnsCorrectInfoForV181File() throws IOException {
+        ChemStationToAllotropeMapper mapper = new ChemStationToAllotropeMapperBuilder().withZoneId(TestConstants.TIME_ZONE_PARIS).build();
+
+        GasChromatographySimpleModel embedSchema = mapper.fromChFile(TestConstants.RESOURCE_V_181_D_CH_FILE);
+        assertV181Schema(embedSchema, false);
     }
 
     @Test

@@ -6,20 +6,20 @@ import java.util.*;
 public class PeakAssociationService {
 
 
-    public Map<String, Map<String, CompoundPeak>> indexCompoundsBySignalAndRt(List<CompoundPeak> compounds) {
-        Map<String, Map<String, CompoundPeak>> index = new HashMap<>();
+    public Map<String, Map<Double, CompoundPeak>> indexCompoundsBySignalAndRt(List<CompoundPeak> compounds) {
+        Map<String, Map<Double, CompoundPeak>> index = new HashMap<>();
         for (CompoundPeak cp : compounds) {
             index.computeIfAbsent(cp.signalDescriptionUpper(), k -> new HashMap<>())
-                    .put(cp.rtCanonical(), cp);
+                    .put(cp.rtMinutes(), cp);
         }
         return index;
     }
 
 
-    public Optional<CompoundPeak> findCompoundFor(Map<String, Map<String, CompoundPeak>> index,
+    public Optional<CompoundPeak> findCompoundFor(Map<String, Map<Double, CompoundPeak>> index,
                                                   String signalDescriptionUpper,
-                                                  String rtCanonical) {
-        Map<String, CompoundPeak> byRt = index.get(signalDescriptionUpper);
-        return Optional.ofNullable(byRt).map(mapByRt -> mapByRt.get(rtCanonical));
+                                                  Double rtMinutes) {
+        Map<Double, CompoundPeak> byRt = index.get(signalDescriptionUpper);
+        return Optional.ofNullable(byRt).map(mapByRt -> mapByRt.get(rtMinutes));
     }
 }

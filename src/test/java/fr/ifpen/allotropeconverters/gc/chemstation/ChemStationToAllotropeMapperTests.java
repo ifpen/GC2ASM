@@ -4,6 +4,7 @@ import fr.ifpen.allotropeconverters.allotrope_models.*;
 import fr.ifpen.allotropeconverters.gc.TestConstants;
 
 import org.assertj.core.api.Assertions;
+import org.assertj.core.data.Percentage;
 import org.junit.jupiter.api.Test;
 
 import java.io.IOException;
@@ -137,11 +138,15 @@ class ChemStationToAllotropeMapperTests {
 
         List<List<Double>> dimensions = data.getDimensions();
         Assertions.assertThat(dimensions).hasSize(1);
-        Assertions.assertThat(dimensions.get(0)).hasSize(5914);
+        List<Double> dimensionValues = dimensions.get(0);
+        Assertions.assertThat(dimensionValues).hasSize(5914);
+        Assertions.assertThat(dimensionValues.get(2)).isCloseTo(0.3999065964955395, Percentage.withPercentage(0.001));
 
         List<List<Double>> measures = data.getMeasures();
         Assertions.assertThat(measures).hasSize(1);
-        Assertions.assertThat(measures.get(0)).hasSize(5914);
+        List<Double> measureValues = measures.get(0);
+        Assertions.assertThat(measureValues).hasSize(5914);
+        Assertions.assertThat(measureValues.get(0)).isCloseTo(2.1010416666666667, Percentage.withPercentage(0.001));
 
         ProcessedDataAggregateDocument processedDataAggregateDocument = measurementDocument.getProcessedDataAggregateDocument();
         Assertions.assertThat(processedDataAggregateDocument).isNotNull();

@@ -56,8 +56,8 @@ class ChromatogramDataCubeMapper {
     private DatacubeData createAllotropeDataFromChFile(ChFile chFile) {
         Double[] xValues = MathUtils.interpolate(chFile.getStartTime(), chFile.getEndTime(), chFile.getValues().size());
         DatacubeData datacubeData = new DatacubeData();
-        datacubeData.setMeasures(List.of(Arrays.asList(xValues)));
-        datacubeData.setDimensions(List.of(chFile.getValues()));
+        datacubeData.setDimensions(List.of(Arrays.asList(xValues)));
+        datacubeData.setMeasures(List.of(chFile.getValues()));
         return datacubeData;
     }
 }
